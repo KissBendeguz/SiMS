@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 import org.json.JSONObject;
 import org.junit.jupiter.api.*;
 
-
-import static org.assertj.core.api.Assertions.assertThat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,19 +33,16 @@ class SimsApplicationTests {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-	@Test
-	void ContextLoads() throws Exception {
-		assertThat(mockMvc.isNotNull());
-		assertThat(userRepository.isNotNull());
-		assertThat(passwordEncoder.isNotNull());
-	}
+
 
 	@Test
 	void Register() throws Exception {
-		String email = "regTeszt@gmail.com";
-		String password = "jelszo12345";
+		RegisterRequest registerRequest = RegisterRequest.builder()
+				.email("regteszt@elek.hu")
+				.password("jelszo12345")
+				.build();
 
-		String requestBody = String.format("{\"email\":\"%s\",\"password\":\"%s\"}",email,password);
+		String requestBody = registerRequest.toString();
 
 		MvcResult result = this.mockMvc.perform(post("/api/v1/register").content(requestBody).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
@@ -58,8 +53,6 @@ class SimsApplicationTests {
 		String responseBody = result.getResponse().getContentAsString();
 		JSONObject jsonObject = new JSONObject(responseBody);
 		String token = jsonObject.getString("token");
-		
-		
 
 
 		/*this.mockMvc.perform(get("/api/v1/test").header("Authorization","Bearer "+token))
