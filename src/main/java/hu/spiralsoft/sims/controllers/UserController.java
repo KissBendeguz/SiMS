@@ -9,13 +9,15 @@ import hu.spiralsoft.sims.security.http.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -28,6 +30,22 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request){
+
+        //Minimum eight characters, at least one letter and one number:
+        Pattern passwordPattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
+        Matcher passwordMatcher = passwordPattern.matcher(request.getPassword());
+
+        //Valid email
+        Pattern emailPattern = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+        Matcher emailMatcher = emailPattern.matcher(request.getEmail());
+
+
+        if(!passwordMatcher.matches() || !emailMatcher.matches()){
+            return ResponseEntity.badRequest().build();
+        }else if(userRepository.findByEmail(request.getEmail()).isPresent()){
+            return ResponseEntity.status(409).build(); //Conflict
+        }
+
         User user = User.builder()
                 //.firstname(request.getFirstname())
                 //.lastname(request.getLastname())
@@ -39,9 +57,9 @@ public class UserController {
 
         String token = jwtService.generateToken(user);
         return ResponseEntity.ok(
-                AuthenticationResponse.builder().
-                        token(token).
-                        build()
+                AuthenticationResponse.builder()
+                        .token(token)
+                        .build()
         );
     }
     @PostMapping("/login")
@@ -52,8 +70,7 @@ public class UserController {
                             request.getPassword()
                     )
             );
-            //CHECK EXPIRED SHIT
-        System.out.println("login ");
+
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
         String token = jwtService.generateToken(user);
         return ResponseEntity.ok(
