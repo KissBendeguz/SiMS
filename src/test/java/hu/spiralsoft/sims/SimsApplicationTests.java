@@ -2,13 +2,10 @@ package hu.spiralsoft.sims;
 
 import hu.spiralsoft.sims.entities.User;
 import hu.spiralsoft.sims.repositories.UserRepository;
-import hu.spiralsoft.sims.security.http.AuthenticationRequest;
 import hu.spiralsoft.sims.security.http.RegisterRequest;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+
 import org.json.JSONObject;
 import org.junit.jupiter.api.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
