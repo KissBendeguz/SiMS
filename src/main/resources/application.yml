@@ -1,0 +1,27 @@
+server:
+  port: 3000
+
+spring:
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5332/uno
+    username: root
+    password: ascendesuperius
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: false
+  main:
+    web-application-type: servlet
+
+application:
+  security:
+    jwt:
+      secret-key: ad7205a6abfe94462841119255593a6c595e8d477d152875a4db3c4b2d1416d3
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days
