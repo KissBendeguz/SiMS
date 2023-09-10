@@ -41,7 +41,7 @@ class SimsApplicationTests {
 
 		String requestBody = registerRequest.toString();
 
-		MvcResult result = this.mockMvc.perform(post("/api/v1/register").content(requestBody).contentType(MediaType.APPLICATION_JSON))
+		MvcResult result = this.mockMvc.perform(post("/api/v1/user/register").content(requestBody).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content()
 						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -68,7 +68,7 @@ class SimsApplicationTests {
 		//JSON
 		String requestBody = String.format("{\"email\":\"%s\",\"password\":\"%s\"}",testUser.getEmail(),password);
 		this.mockMvc.perform(
-				post("/api/v1/login")
+				post("/api/v1/user/login")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(requestBody))
 				.andExpect(status().isOk());

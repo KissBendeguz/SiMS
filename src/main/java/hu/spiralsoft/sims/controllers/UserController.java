@@ -7,6 +7,7 @@ import hu.spiralsoft.sims.security.http.AuthenticationRequest;
 import hu.spiralsoft.sims.security.http.AuthenticationResponse;
 import hu.spiralsoft.sims.security.http.RegisterRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserRepository userRepository;
@@ -31,19 +32,14 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request){
 
-        //Minimum eight characters, at least one letter and one number:
-        Pattern passwordPattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
-        Matcher passwordMatcher = passwordPattern.matcher(request.getPassword());
-
-        //Valid email
-        Pattern emailPattern = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
-        Matcher emailMatcher = emailPattern.matcher(request.getEmail());
+        boolean isValidPassword = request.getPassword().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
+        boolean isValidEmail = request.getEmail().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
 
 
-        if(!passwordMatcher.matches() || !emailMatcher.matches()){
+        if(!isValidEmail || !isValidPassword){
             return ResponseEntity.badRequest().build();
         }else if(userRepository.findByEmail(request.getEmail()).isPresent()){
-            return ResponseEntity.status(409).build(); //Conflict
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
 
         User user = User.builder()

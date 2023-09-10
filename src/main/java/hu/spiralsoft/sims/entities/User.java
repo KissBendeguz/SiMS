@@ -1,7 +1,6 @@
 package hu.spiralsoft.sims.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +8,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -24,6 +26,11 @@ public class User extends BaseEntity implements UserDetails {
     private String lastname;*/
     private String email;
     private String password;
+
+    @OneToMany
+    private Set<Business> ownedBusinesses;
+
+
 
 
 
