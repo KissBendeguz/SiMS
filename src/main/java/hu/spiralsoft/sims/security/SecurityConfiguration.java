@@ -23,7 +23,7 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/v1/register","/api/v1/login")
+                    .requestMatchers("/api/v1/user/register","/api/v1/user/login","/v3/api-docs")
                     .permitAll()
                     .anyRequest()
                     .authenticated()
