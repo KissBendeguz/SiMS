@@ -6,6 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.ReadOnlyProperty;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -20,5 +24,6 @@ public class Business extends BaseEntity{
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User owner;
+
 
 }
