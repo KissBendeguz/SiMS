@@ -50,13 +50,13 @@ public class BusinessController {
         }
     }
 
-    //TODO implement getAssociatedBusinesses()
     @GetMapping("")
-    public ResponseEntity<Set<Business>> getAssociatedBusinesses(@AuthenticationPrincipal User authenticatedUser){
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+    public ResponseEntity<Business> getAssociatedBusiness(@AuthenticationPrincipal User authenticatedUser){
+        if(authenticatedUser.getAssociatedBusiness()!=null){
+            return ResponseEntity.ok(authenticatedUser.getAssociatedBusiness());
+        }
+        return ResponseEntity.notFound().build();
     }
-
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBusiness(@AuthenticationPrincipal User authenticatedUser,@PathVariable int id){
