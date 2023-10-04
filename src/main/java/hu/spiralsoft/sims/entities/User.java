@@ -2,34 +2,28 @@ package hu.spiralsoft.sims.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
-    //private String username;
-    /*private String firstname;
-    private String middlename;
-    private String lastname;*/
     private String email;
     private String password;
 
-    /*@OneToMany
-    private Set<Business> ownedBusinesses;*/
+    //private Set<Business> ownedBusinesses;
+
+    @ManyToOne
+    @JoinColumn(name = "associations")
+    @JsonIgnore
+    private Business associatedBusiness;
 
 
 

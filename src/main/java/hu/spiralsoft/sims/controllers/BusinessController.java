@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Optional;
 import java.util.Set;
 
@@ -79,6 +80,15 @@ public class BusinessController {
     }
     @PatchMapping("/{id}/join")
     public ResponseEntity<Business> joinBusiness(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer id){
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+        Optional<Business> optionalBusiness = businessRepository.findById(id);
+        if(optionalBusiness.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        Business business = optionalBusiness.get();
+        authenticatedUser.setAssociatedBusiness(business);
+        business.getAssociates().add(authenticatedUser);
+        userRepository.save(authenticatedUser);
+        businessRepository.save(business);
+        return ResponseEntity.ok(business);
     }
 }

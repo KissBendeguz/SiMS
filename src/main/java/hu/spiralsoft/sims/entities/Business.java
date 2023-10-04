@@ -2,16 +2,11 @@ package hu.spiralsoft.sims.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.ReadOnlyProperty;
+import lombok.*;
 
-import java.util.HashSet;
 import java.util.Set;
-
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
 @AllArgsConstructor
@@ -24,6 +19,9 @@ public class Business extends BaseEntity{
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User owner;
+
+    @OneToMany(mappedBy = "associatedBusiness")
+    private Set<User> associates;
 
 
 }
