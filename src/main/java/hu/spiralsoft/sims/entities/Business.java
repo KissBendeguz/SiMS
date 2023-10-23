@@ -1,12 +1,17 @@
 package hu.spiralsoft.sims.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.Accessors;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 @Getter
 @Setter
+@Accessors
 @Entity
 @Builder
 @AllArgsConstructor
@@ -20,8 +25,8 @@ public class Business extends BaseEntity{
     @JsonIgnore
     private User owner;
 
-    @OneToMany(mappedBy = "associatedBusiness")
-    private Set<User> associates;
 
+    @ManyToMany(mappedBy = "associatedBusinesses" ,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private Set<User> associates;
 
 }

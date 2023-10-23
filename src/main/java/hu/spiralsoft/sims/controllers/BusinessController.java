@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -35,8 +36,15 @@ public class BusinessController {
         Business business = Business.builder()
                 .name(body.getName())
                 .owner(authenticatedUser)
+                .associates(new HashSet<>())
                 .build();
-        return ResponseEntity.status(HttpStatus.CREATED).body(businessRepository.save(business));
+        businessRepository.save(business);
+        authenticatedUser.getAssociatedBusinesses().add(business);
+        userRepository.save(authenticatedUser);
+        business.getAssociates().add(authenticatedUser);
+        businessRepository.save(business);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(business);
     }
 
     @GetMapping("/owned")
@@ -51,16 +59,21 @@ public class BusinessController {
     }
 
     @GetMapping("")
-    public ResponseEntity<Business> getAssociatedBusiness(@AuthenticationPrincipal User authenticatedUser){
-        if(authenticatedUser.getAssociatedBusiness()!=null){
-            return ResponseEntity.ok(authenticatedUser.getAssociatedBusiness());
+    public ResponseEntity<Set<Business>> getAssociatedBusinesses(@AuthenticationPrincipal User authenticatedUser){
+        if(authenticatedUser.getAssociatedBusinesses()!=null){
+            return ResponseEntity.ok(authenticatedUser.getAssociatedBusinesses());
         }
         return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBusiness(@AuthenticationPrincipal User authenticatedUser,@PathVariable int id){
-        if (businessRepository.findById(id).orElseThrow().getOwner().equals(authenticatedUser)){
+        Optional<Business> optionalBusiness = businessRepository.findById(id);
+        if(optionalBusiness.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        Business business = optionalBusiness.get();
+        if (business.getOwner().getId().equals(authenticatedUser.getId())){
             businessRepository.deleteById(id);
             return ResponseEntity.ok().build();
         }
@@ -68,7 +81,11 @@ public class BusinessController {
     }
     @PatchMapping("/{id}")
     public ResponseEntity<Business> updateBusiness(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer id,@RequestBody Business body){
-        Business business = businessRepository.findById(id).orElseThrow();
+        Optional<Business> optionalBusiness = businessRepository.findById(id);
+        if(optionalBusiness.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        Business business = optionalBusiness.get();
         if (business.getOwner().equals(authenticatedUser)){
 
             business.setName(body.getName());
@@ -85,9 +102,9 @@ public class BusinessController {
             return ResponseEntity.notFound().build();
         }
         Business business = optionalBusiness.get();
-        authenticatedUser.setAssociatedBusiness(business);
-        business.getAssociates().add(authenticatedUser);
+        authenticatedUser.getAssociatedBusinesses().add(business);
         userRepository.save(authenticatedUser);
+        business.getAssociates().add(authenticatedUser);
         businessRepository.save(business);
         return ResponseEntity.ok(business);
     }

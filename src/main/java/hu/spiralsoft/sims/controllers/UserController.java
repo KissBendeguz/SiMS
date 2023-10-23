@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.HashSet;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -48,6 +47,7 @@ public class UserController {
                 //.middlename(request.getMiddlename())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .associatedBusinesses(new HashSet<>())
                 .build();
         userRepository.save(user);
 

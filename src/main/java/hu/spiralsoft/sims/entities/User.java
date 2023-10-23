@@ -5,8 +5,12 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.Set;
+
 @Getter
 @Setter
 @Builder
@@ -18,12 +22,16 @@ public class User extends BaseEntity implements UserDetails {
     private String email;
     private String password;
 
-    //private Set<Business> ownedBusinesses;
 
-    @ManyToOne
-    @JoinColumn(name = "associations")
     @JsonIgnore
-    private Business associatedBusiness;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "associations")
+    @JoinTable(
+            name = "associations",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private Set<Business> associatedBusinesses;
+
 
 
 
@@ -41,6 +49,7 @@ public class User extends BaseEntity implements UserDetails {
 
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
