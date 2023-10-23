@@ -23,11 +23,11 @@ public class User extends BaseEntity implements UserDetails {
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "business_associations")
+    @JoinColumn(name = "associations")
     @JoinTable(
             name = "associations",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "business_id"))
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
     private Set<Business> associatedBusinesses;
 
 
