@@ -19,6 +19,8 @@ spring:
     web-application-type: servlet
 
 application:
+  api:
+    ver: "api/v1"
   security:
     jwt:
       secret-key: ad7205a6abfe94462841119255593a6c595e8d477d152875a4db3c4b2d1416d3

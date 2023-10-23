@@ -18,7 +18,7 @@ import java.util.Set;
 
 
 @RestController
-@RequestMapping("/api/v1/businesses")
+@RequestMapping("/${application.api.ver}/businesses")
 @RequiredArgsConstructor
 public class BusinessController {
     @Autowired

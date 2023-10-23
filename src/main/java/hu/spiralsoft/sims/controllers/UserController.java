@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashSet;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/${application.api.ver}/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserRepository userRepository;
