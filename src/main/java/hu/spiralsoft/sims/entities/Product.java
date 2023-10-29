@@ -23,7 +23,7 @@ public class Product extends BaseEntity{
     @ManyToOne
     private Inventory inventory;
     @ElementCollection
-    @CollectionTable(name = "products_properties_map",
+    @CollectionTable(name = "products_properties",
             joinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id")})
     @MapKeyColumn(name = "property_name")
     @Column(name = "properties")

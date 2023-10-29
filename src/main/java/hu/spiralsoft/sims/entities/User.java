@@ -26,8 +26,8 @@ public class User extends BaseEntity implements UserDetails {
     @JoinColumn(name = "business_associations")
     @JoinTable(
             name = "business_associations",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id"))
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "business_id"))
     private Set<Business> associatedBusinesses;
 
 
