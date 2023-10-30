@@ -1,12 +1,9 @@
 package hu.spiralsoft.sims.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,7 +17,12 @@ public class Inventory extends BaseEntity{
     @ManyToOne
     private Business business;
     @OneToMany
-    private HashSet<Product> products;
+    @JoinColumn(name = "inventory_product_map")
+    @JoinTable(
+            name = "inventory_product_map",
+            joinColumns = @JoinColumn(name = "inventory_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private Set<Product> products;
 
 
 }
