@@ -7,6 +7,7 @@ import hu.spiralsoft.sims.security.http.AuthenticationRequest;
 import hu.spiralsoft.sims.security.http.AuthenticationResponse;
 import hu.spiralsoft.sims.security.http.RegisterRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,9 +24,13 @@ import java.util.HashSet;
 @RequestMapping("/${application.api.ver}/user")
 @RequiredArgsConstructor
 public class UserController {
+    @Autowired
     private final UserRepository userRepository;
+    @Autowired
     private final PasswordEncoder passwordEncoder;
+    @Autowired
     private final JwtService jwtService;
+    @Autowired
     private final AuthenticationManager authenticationManager;
 
     @PostMapping("/register")
