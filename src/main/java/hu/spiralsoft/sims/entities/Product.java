@@ -1,5 +1,6 @@
 package hu.spiralsoft.sims.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,16 +18,16 @@ public class Product extends BaseEntity{
     private String name;
     private double quantity;
     private Date addedToInventory;
-    private Date created;
     @OneToOne
-    private User creator;
+    private User addedBy;
     @ManyToOne
+    @JsonIgnore
     private Inventory inventory;
     @ElementCollection
-    @CollectionTable(name = "products_properties",
+    @CollectionTable(name = "product_property_map",
             joinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id")})
-    @MapKeyColumn(name = "property_name")
-    @Column(name = "properties")
+    @MapKeyColumn(name = "property_key")
+    @Column(name = "property")
     private Map<String,String> dynProperties;
 
 }
