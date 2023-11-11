@@ -1,5 +1,6 @@
 package hu.spiralsoft.sims.controllers;
 
+import hu.spiralsoft.sims.entities.Business;
 import hu.spiralsoft.sims.entities.Inventory;
 import hu.spiralsoft.sims.entities.Product;
 import hu.spiralsoft.sims.entities.User;
@@ -9,10 +10,12 @@ import hu.spiralsoft.sims.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -26,12 +29,29 @@ public class InventoryController {
     private BusinessRepository businessRepository;
     @Autowired
     private InventoryRepository inventoryRepository;
+    @PostMapping("/{id}")
+    public ResponseEntity<Inventory> createInventory(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id, @RequestBody Inventory body) {
+        if (body == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Optional<Business> oBusiness = businessRepository.findById(id);
+        if (oBusiness.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Inventory inventory = Inventory.builder()
+                .name(body.getName())
+                .products(new HashSet<>())
+                .business(oBusiness.get())
+                .build();
+        inventoryRepository.save(inventory);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(inventory);
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Inventory> getInventory(
-            @AuthenticationPrincipal User authenticatedUser,
-            @PathVariable int id
-    ) {
+    public ResponseEntity<Inventory> getInventory(@AuthenticationPrincipal User authenticatedUser, @PathVariable int id) {
         Optional<Inventory> inventoryOptional = inventoryRepository.findById(id);
 
         if (inventoryOptional.isPresent()) {
@@ -45,11 +65,7 @@ public class InventoryController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Inventory> modifyInventory(
-            @AuthenticationPrincipal User authenticatedUser,
-            @PathVariable int id,
-            @RequestBody Inventory body
-    ) {
+    public ResponseEntity<Inventory> modifyInventory(@AuthenticationPrincipal User authenticatedUser, @PathVariable int id, @RequestBody Inventory body) {
         Optional<Inventory> oInventory = inventoryRepository.findById(id);
 
         if (oInventory.isPresent()) {
@@ -68,10 +84,7 @@ public class InventoryController {
     }
 
     @GetMapping("/{id}/products")
-    public ResponseEntity<Set<Product>> getAllProducts(
-            @AuthenticationPrincipal User authenticatedUser,
-            @PathVariable int id
-    ) {
+    public ResponseEntity<Set<Product>> getAllProducts(@AuthenticationPrincipal User authenticatedUser, @PathVariable int id) {
         Optional<Inventory> oInventory = inventoryRepository.findById(id);
 
         if (oInventory.isPresent()) {
