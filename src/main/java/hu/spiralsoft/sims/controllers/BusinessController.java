@@ -1,8 +1,10 @@
 package hu.spiralsoft.sims.controllers;
 
 import hu.spiralsoft.sims.entities.Business;
+import hu.spiralsoft.sims.entities.Inventory;
 import hu.spiralsoft.sims.entities.User;
 import hu.spiralsoft.sims.repositories.BusinessRepository;
+import hu.spiralsoft.sims.repositories.InventoryRepository;
 import hu.spiralsoft.sims.repositories.UserRepository;
 import hu.spiralsoft.sims.security.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,8 @@ public class BusinessController {
     private UserRepository userRepository;
     @Autowired
     private BusinessRepository businessRepository;
+    @Autowired
+    private InventoryRepository inventoryRepository;
     @Autowired
     private JwtService jwtService;
 
@@ -67,7 +71,7 @@ public class BusinessController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteBusiness(@AuthenticationPrincipal User authenticatedUser,@PathVariable int id){
+    public ResponseEntity<?> deleteBusiness(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer id){
         Optional<Business> optionalBusiness = businessRepository.findById(id);
         if(optionalBusiness.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -107,5 +111,14 @@ public class BusinessController {
         business.getAssociates().add(authenticatedUser);
         businessRepository.save(business);
         return ResponseEntity.ok(business);
+    }
+
+    @GetMapping("/{id}/inventories")
+    public ResponseEntity<Set<Inventory>> getBusinessInventories(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer id){
+        Optional<Set<Inventory>> oInventories = inventoryRepository.findAllByBusinessId(id);
+        if (oInventories.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(oInventories.get());
     }
 }
