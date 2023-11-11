@@ -37,15 +37,19 @@ public class BusinessController {
         if (body == null || body.getName().length() < 3 || body.getName().length() > 26){
             return ResponseEntity.badRequest().build();
         }
+        Optional<User> savedUser = userRepository.findById(authenticatedUser.getId());
+        if (savedUser.isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
         Business business = Business.builder()
                 .name(body.getName())
-                .owner(authenticatedUser)
+                .owner(savedUser.get())
                 .associates(new HashSet<>())
                 .build();
         businessRepository.save(business);
-        authenticatedUser.getAssociatedBusinesses().add(business);
-        userRepository.save(authenticatedUser);
-        business.getAssociates().add(authenticatedUser);
+        savedUser.get().getAssociatedBusinesses().add(business);
+        userRepository.save(savedUser.get());
+        business.getAssociates().add(savedUser.get());
         businessRepository.save(business);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(business);
@@ -71,16 +75,21 @@ public class BusinessController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteBusiness(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer id){
+    public ResponseEntity<?> deleteBusiness(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id) {
         Optional<Business> optionalBusiness = businessRepository.findById(id);
-        if(optionalBusiness.isEmpty()){
+        if (optionalBusiness.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+
         Business business = optionalBusiness.get();
-        if (business.getOwner().getId().equals(authenticatedUser.getId())){
+
+        if (business.getOwner() != null && business.getOwner().getId().equals(authenticatedUser.getId())) {
+            authenticatedUser.getAssociatedBusinesses().remove(business);
+            userRepository.save(authenticatedUser);
             businessRepository.deleteById(id);
             return ResponseEntity.ok().build();
         }
+
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
     @PatchMapping("/{id}")

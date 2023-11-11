@@ -22,7 +22,7 @@ public class User extends BaseEntity implements UserDetails {
 
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "business_user_map")
     @JoinTable(
             name = "business_user_map",

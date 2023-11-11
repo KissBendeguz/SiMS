@@ -17,13 +17,13 @@ import java.util.Set;
 public class Business extends BaseEntity{
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User owner;
 
 
-    @ManyToMany(mappedBy = "associatedBusinesses" ,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "associatedBusinesses" ,fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<User> associates;
 
 }
