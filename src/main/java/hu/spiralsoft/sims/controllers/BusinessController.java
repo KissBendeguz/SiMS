@@ -34,7 +34,7 @@ public class BusinessController {
 
     @PostMapping("")
     public ResponseEntity<Business> createBusiness(@AuthenticationPrincipal User authenticatedUser,@RequestBody Business body){
-        if (body.getName().length() < 3 || body.getName().length() > 26){
+        if (body == null || body.getName().length() < 3 || body.getName().length() > 26){
             return ResponseEntity.badRequest().build();
         }
         Business business = Business.builder()
