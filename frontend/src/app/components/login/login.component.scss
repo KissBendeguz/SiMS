@@ -1,0 +1,193 @@
+.loginPanel{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    color: #13293D;
+    font-size: 1rem;
+    
+
+    .loginPanel__body{
+        width: 33.33%;
+        max-width: 576px;
+        @media only screen and (max-width: 1200px) {
+            & {
+                width: 40%;
+
+            }
+        }
+
+        @media only screen and (max-width: 992px) {
+            & {
+                width: 50%;
+            }
+        }
+
+        @media only screen and (max-width: 768px) {
+            & {
+                width: 80% !important;
+            }
+        }
+
+        @media only screen and (max-width: 576px) {
+            & {
+                width: 100% !important;
+                border-left: none;
+            }
+        }
+
+        height: 75%;
+        @media only screen and (max-height: 701px) {
+            & {
+                height: 90%;
+            }
+        }
+
+        @media only screen and (max-height: 571px) {
+            & {
+                height: 100%;
+            }
+        }
+
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+
+        
+
+        background: rgba(255,255,255,1);
+        border-left: 5px solid #13293D;
+
+        .errorBox{
+            width: 75%;
+            background: rgba(255,0,0,.2);
+            text-align: center;
+            font-size: 1rem;
+            border-bottom: 1px solid red;
+        }
+
+        form{
+            width: 100%;
+            padding: 3em;
+        }
+
+        .form-group{
+            padding-bottom: .7em;
+            width: 100%;
+        }
+
+        input {
+            border: none;
+            border-radius: 0;
+            border-bottom: 2px solid #13293D;
+            outline: none;
+            color: #13293D;
+            &.invalid-input{
+                background-color: rgba(255, 0, 0, .15);
+                border-bottom: 2px solid red;
+            }
+        }
+
+        input:focus {
+            outline: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active{
+            -webkit-box-shadow: 0 0 0 30px white inset !important;
+        }
+
+        button[type="submit"]{
+            background-color: #13293D;
+            border-radius: 50px;
+            padding-left: 2em;
+            padding-right: 2em;
+
+            outline: none;
+            border: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        
+    }
+
+    .content{
+        width: 66.66%;
+        @media only screen and (max-width: 768px) {
+            & {
+                display: none;
+            }
+        }
+
+        @media only screen and (max-width: 992px) {
+            & {
+                width: 50%;
+            }
+        }
+
+        @media only screen and (max-width: 1200px) {
+            & {
+                width: 50%;
+            }
+        }
+        @media only screen and (max-width: 1600px) {
+            & {
+                width: 50%;
+            }
+        }
+
+        height: 75%;
+        @media only screen and (max-height: 701px) {
+            & {
+                height: 90%;
+            }
+        }
+
+        @media only screen and (max-height: 571px) {
+            & {
+                height: 100%;
+            }
+        }
+        //display: flex;
+        //flex-direction: column;
+        
+        overflow: hidden;
+        background: #13293D;
+        background: radial-gradient(circle, #18344E 0%, #13293D 100%);
+        background: -moz-radial-gradient(circle, #18344E 0%, #13293D 100%);
+        background: -webkit-radial-gradient(circle, #18344E 0%, #13293D 100%);
+        color: ivory;
+
+        max-width: 50%;
+        padding: 0 3em;
+        gap: 4em;
+        //word-break: keep-all;
+
+        .content-header{
+            font-size: 2em;
+        }
+
+        .brand{
+            height: auto;
+            text-align: center;
+            margin-top: 2em;
+            .img{
+                width: 100%;
+                height: 240px;
+                background: url(/assets/logo.png) no-repeat;
+                background-size: contain;
+                background-position: center;
+  
+            }
+        }
+    }
+}

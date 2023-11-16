@@ -1,0 +1,89 @@
+@use 'src/variables' as sims;
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 3%;
+    height: 64px;
+    font-size: 1rem;
+
+    border-bottom: 2px solid sims.$lightblue;
+
+
+    .brand{
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: sims.$lightblue;
+        cursor: pointer;
+        .logo{
+            width: 48px;
+            height: 48px;
+        }
+
+    }
+
+    ul{
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        list-style-type: none;
+        gap: .5rem;
+        font-size: 1rem;
+        font-weight: 400;
+        li{
+            color: sims.$darkblue;
+            cursor: pointer;
+            i{
+                font-size: 1.2rem;
+            }
+
+            .nav-settings{
+                position: relative;
+
+                .nav-settings-content{
+                    cursor: auto;
+                    position: absolute;
+                    pointer-events: none;
+                    right: .25rem;
+                    top: calc(200% + 1px);
+                    box-shadow: 0 2px 16px 0 rgba($color: sims.$darkblue, $alpha: .7);
+                    border-left: 3px solid sims.$lightblue;
+                    border-top-right-radius: 20px;
+                    border-bottom-right-radius: .5rem;
+
+                    //animation
+                    opacity: 0;
+                    transform: translateX(-10px);
+                    transition: all 200ms ease-in-out;
+
+                    ul{
+                        font-size: .9rem;
+                        display: flex;
+                        gap: unset;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        li{
+                            width: 100%;
+                            padding: .5rem .8rem;
+                            white-space: nowrap;
+                            text-align: center;
+                            
+                            &:hover{color:sims.$lightblue;font-weight: 500;}
+                            &:not(:first-child){border-top: 1px solid sims.$darkblue;}
+                        }
+                    }
+                }
+                &.active > i + .nav-settings-content{
+                    opacity: 1;
+                    transform: translateX(0);
+                    pointer-events: all;
+                }
+            }
+        }
+    }
+}
