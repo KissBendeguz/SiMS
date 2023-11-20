@@ -24,6 +24,7 @@ interface AuthenticationResponse {
 export class AuthService {
   private apiUrl = 'your_backend_api/user';
   private tokenKey = 'yourTokenKey';
+  public loggedIn = false;
 
   constructor(
     private http: HttpClient,
