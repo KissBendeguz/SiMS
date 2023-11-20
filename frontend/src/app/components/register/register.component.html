@@ -1,1 +1,9 @@
-<p>register component</p>
+<div>
+    <form (ngSubmit)="register()">
+        <input type="text" placeholder="Email" name="email" [(ngModel)]="email">
+        <br>
+        <input type="password" placeholder="Jelszó" name="password" [(ngModel)]="password">
+        <br>
+        <input type="submit" value="elküld">
+    </form>
+</div>

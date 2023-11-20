@@ -4,17 +4,17 @@ import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 
-interface RegisterRequest {
+export interface RegisterRequest {
   email: string;
   password: string;
 }
 
-interface LoginRequest {
+export interface LoginRequest {
   email: string;
   password: string;
 }
 
-interface AuthenticationResponse {
+export interface AuthenticationResponse {
   token: string;
 }
 
@@ -22,8 +22,8 @@ interface AuthenticationResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'your_backend_api/user';
-  private tokenKey = 'yourTokenKey';
+  private apiUrl = '/user';
+  private tokenKey = '';
   public loggedIn = false;
 
   constructor(
@@ -32,8 +32,12 @@ export class AuthService {
   ) {}
 
   register(registerData: RegisterRequest): Observable<AuthenticationResponse> {
+    console.log("authservice:register")
     return this.http.post<AuthenticationResponse>(`${this.apiUrl}/register`, registerData).pipe(
-      tap(response => this.setToken(response.token)),
+      tap(response => {
+        this.setToken(response.token);
+        console.log(response)
+      }),
       catchError(error => {
         console.error('Registration error:', error);
         throw error;
@@ -53,6 +57,7 @@ export class AuthService {
 
   private setToken(token: string): void {
     const expirationTimestamp = this.parseTokenPayload(token).exp;
+    //this.tokenKey = token;
     
     this.cookieService.set(this.tokenKey, token, { expires: new Date(expirationTimestamp * 1000) });
   }
