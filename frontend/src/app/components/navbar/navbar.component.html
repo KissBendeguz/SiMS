@@ -3,7 +3,7 @@
         <img src="assets/box-logo.svg" alt="" class="logo">
         <span>SiMS</span>
     </div>
-    <nav>
+    <nav *ngIf="authService.loggedIn">
         <ul> 
             <li>Gupcsik Arnold</li>
             <li>
