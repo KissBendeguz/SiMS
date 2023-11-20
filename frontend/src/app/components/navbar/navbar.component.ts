@@ -33,4 +33,8 @@ export class NavbarComponent {
     });
   }
 
+  test(){
+    alert("teszt");
+  }
+
 }
