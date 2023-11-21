@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/${application.api.ver}/product")
 @RequiredArgsConstructor
 public class ProductController {

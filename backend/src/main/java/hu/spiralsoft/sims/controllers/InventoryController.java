@@ -20,6 +20,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/${application.api.ver}/inventory")
 @RequiredArgsConstructor
 public class InventoryController {

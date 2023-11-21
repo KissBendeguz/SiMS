@@ -20,6 +20,7 @@ import java.util.Set;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/${application.api.ver}/businesses")
 @RequiredArgsConstructor
 public class BusinessController {
