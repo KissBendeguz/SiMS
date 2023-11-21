@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 export interface RegisterRequest {
   email: string;
@@ -22,12 +23,12 @@ export interface AuthenticationResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api/v1/user';
+  private apiUrl = '/api/user';
   private tokenKey = 'sims-jwt';
-  public loggedIn = false;
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     private cookieService: CookieService
   ) {}
 
@@ -55,6 +56,11 @@ export class AuthService {
     );
   }
 
+  logout(){
+    this.removeToken();
+    this.router.navigate(['/login']);
+  }
+
   private setToken(token: string): void {
     const expirationTimestamp = this.parseTokenPayload(token).exp;
     
@@ -65,13 +71,14 @@ export class AuthService {
     return this.cookieService.get(this.tokenKey);
   }
 
-  removeToken(): void {
-    this.cookieService.delete(this.tokenKey);
-  }
-
+  
   isAuthenticated(): boolean {
     const token = this.getToken();
     return !!token && !this.isTokenExpired(token);
+  }
+  
+  private removeToken(): void {
+    this.cookieService.delete(this.tokenKey);
   }
 
   private isTokenExpired(token: string): boolean {

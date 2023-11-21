@@ -3,7 +3,7 @@
         <img src="assets/box-logo.svg" alt="" class="logo">
         <span>SiMS</span>
     </div>
-    <nav *ngIf="authService.loggedIn">
+    <nav *ngIf="authService.isAuthenticated()">
         <ul> 
             <li>Gupcsik Arnold</li>
             <li>
@@ -13,7 +13,7 @@
                         <ul>
                             <li (click)="test()">Language</li>
                             <li (click)="test()">Account settings</li>
-                            <li (click)="test()">Logout</li>
+                            <li (click)="authService.logout()">Logout</li>
                         </ul>
                     </div>
                 </div>
