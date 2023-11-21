@@ -1,9 +1,19 @@
 <div>
     <form (ngSubmit)="register()">
+        <div class="registration-container">
+            <h2 class="registration-title">Regisztráció</h2>
+        </div>
+        <div class="name-inputs">
+            <input type="text" placeholder="Vezetéknév" name="lastName" [(ngModel)]="lastName">
+            <input type="text" placeholder="Keresztnév" name="firstName" [(ngModel)]="firstName">
+        </div>
+        <br>
         <input type="text" placeholder="Email" name="email" [(ngModel)]="email">
         <br>
         <input type="password" placeholder="Jelszó" name="password" [(ngModel)]="password">
         <br>
-        <input type="submit" value="elküld">
+        <input type="password" placeholder="Jelszó ismétlése" name="confirmPassword" [(ngModel)]="confirmPassword">
+        <br>
+        <input type="submit" value="Regisztrálj most">
     </form>
 </div>

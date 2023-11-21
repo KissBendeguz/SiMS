@@ -9,6 +9,12 @@ import { AuthService,RegisterRequest } from 'src/app/services/auth.service';
 export class RegisterComponent {
   email:string="";
   password:string="";
+  lastName: string = "";
+  firstName: string = "";
+  
+  confirmEmail: string = "";
+  confirmPassword: string= "";
+  
 
   constructor(private authService:AuthService){}
 
@@ -16,11 +22,17 @@ export class RegisterComponent {
     const registerData:RegisterRequest = {
       email:this.email,
       password:this.password
+      
     }
 
     this.authService.register(registerData).subscribe();
 
 
     console.log("register")
+    if (this.password !== this.confirmPassword) {
+      
+      return;
+    }
   }
+  
 }
