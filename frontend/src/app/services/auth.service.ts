@@ -22,8 +22,8 @@ export interface AuthenticationResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = '/user';
-  private tokenKey = '';
+  private apiUrl = 'http://localhost:3000/api/v1/user';
+  private tokenKey = 'sims-jwt';
   public loggedIn = false;
 
   constructor(
@@ -57,7 +57,6 @@ export class AuthService {
 
   private setToken(token: string): void {
     const expirationTimestamp = this.parseTokenPayload(token).exp;
-    //this.tokenKey = token;
     
     this.cookieService.set(this.tokenKey, token, { expires: new Date(expirationTimestamp * 1000) });
   }
