@@ -1,7 +1,33 @@
 <div class="container">
     <div class="login">
-        <h2>Sign in to SiMS;</h2>
-        
+        <form (ngSubmit)="login()">
+            <h2>Sign in to SiMS;</h2>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input class="sims-input" type="text" id="email" name="email" placeholder="example@email.com" [(ngModel)]="email">
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input class="sims-input" type="password" id="password" name="password" placeholder="******" [(ngModel)]="password">
+            </div>
+            <div>
+                <input class="sims-button" type="submit" value="Sign in">
+            </div>
+            <div>
+                <p><a routerLink="/register">Sign up</a> if you don't have an account.</p>
+            </div>
+        </form>
+
     </div>
-    <div class="content">Lorem ipsum dolor sit.</div>
+    <div class="content">
+        <div class="illustration">
+            <img src="assets/forklift.svg" alt="">
+            <img src="assets/shelf.svg" alt="">
+        </div>
+        <div class="description">
+            <h2>Lorem, ipsum dolor.</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet dolore at velit beatae. Quia ad nostrum in error temporibus, harum quasi magnam ea.</p>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non eveniet illum nisi harum.</p>
+        </div>
+    </div>
 </div>

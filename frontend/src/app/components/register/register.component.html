@@ -1,19 +1,33 @@
-<div>
+<div class="container">
     <form (ngSubmit)="register()">
-        <div class="registration-container">
-            <h2 class="registration-title">Regisztráció</h2>
+        <h2>Get started with SiMS</h2>
+        <div class="double-input-group">
+            <div class="input-group">
+                <label for="firstName">First name</label>
+                <input class="sims-input" type="text" placeholder="John" id="firstName" name="firstName" [(ngModel)]="firstName">
+            </div>
+            <div class="input-group">
+                <label for="lastName">Last name</label>
+                <input class="sims-input" type="text" placeholder="Doe" id="lastName" name="lastName" [(ngModel)]="lastName">
+            </div>
         </div>
-        <div class="name-inputs">
-            <input type="text" placeholder="Vezetéknév" name="lastName" [(ngModel)]="lastName">
-            <input type="text" placeholder="Keresztnév" name="firstName" [(ngModel)]="firstName">
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input class="sims-input" type="text" placeholder="example@email.com" id="email" name="email" [(ngModel)]="email">
         </div>
-        <br>
-        <input type="text" placeholder="Email" name="email" [(ngModel)]="email">
-        <br>
-        <input type="password" placeholder="Jelszó" name="password" [(ngModel)]="password">
-        <br>
-        <input type="password" placeholder="Jelszó ismétlése" name="confirmPassword" [(ngModel)]="confirmPassword">
-        <br>
-        <input type="submit" value="Regisztrálj most">
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input class="sims-input" type="password" placeholder="******" id="password" name="password" [(ngModel)]="password">
+        </div>
+        <div class="input-group">
+            <label for="confirmPassword">Confirm password</label>
+            <input class="sims-input" type="password" placeholder="******" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword">
+        </div>
+        <div>
+            <input class="sims-button" type="submit" value="Sign up">
+        </div>
+        <div>
+            <p><a routerLink="/login">Sign in</a> if you already have an account.</p>
+        </div>
     </form>
 </div>

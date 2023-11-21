@@ -1,5 +1,9 @@
 @use 'src/variables' as sims;
 
+:host{
+    width: 100vw;
+}
+
 header{
     display: flex;
     justify-content: space-between;
@@ -86,4 +90,17 @@ header{
             }
         }
     }
+}
+
+.dev{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: sims.$darkblue;
+    padding: .2rem;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    pointer-events: none;
+    border-left: 3px solid sims.$darkblue;
+    background: transparent;
 }

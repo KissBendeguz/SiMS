@@ -9,7 +9,40 @@
     padding: 0;
     background-color: #fff;
 }
-body{
+body,html{
     font-family: 'Montserrat', sans-serif;
     font-family: 'Roboto', sans-serif;
+
+    height: 100%;
+}
+a{
+    color:inherit;
+    &:is(:link, :visited, :hover, :active, :focus){
+        color: sims.$lightblue;
+        outline: none;
+    }
+}
+
+.sims-input{
+    all:unset;
+    border: 2px solid sims.$darkblue;
+    border-radius: 4px;
+    height: 1.7rem;
+    padding: .3rem;
+    &:hover{
+        border-color: sims.$lightblue;
+    }
+}
+.sims-button{
+    all:unset;
+    color: sims.$white;
+    background-color: sims.$lightblue;
+    border-radius: 4px;
+    height: 1.7rem;
+    padding: .3rem 2rem;
+    cursor: pointer;
+
+    &:hover{
+        filter: brightness(.9);
+    }
 }
