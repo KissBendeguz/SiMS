@@ -32,6 +32,12 @@ a{
     &:hover{
         border-color: sims.$lightblue;
     }
+    &:is(select){
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        text-transform: capitalize;
+    }
 }
 .sims-button{
     all:unset;

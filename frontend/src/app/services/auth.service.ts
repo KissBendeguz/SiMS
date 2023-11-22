@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { Gender } from 'src/app/models/gender';
 
 export interface RegisterRequest {
   email: string;
   password: string;
+  firstname: string;
+  lastname: string;
+  gender: Gender;
 }
 
 export interface LoginRequest {
@@ -17,6 +21,13 @@ export interface LoginRequest {
 
 export interface AuthenticationResponse {
   token: string;
+}
+export const httpOptions = {
+  headers: new HttpHeaders({
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
+    'Authorization': ''
+  })
 }
 
 @Injectable({
@@ -33,7 +44,7 @@ export class AuthService {
   ) {}
 
   register(registerData: RegisterRequest): Observable<AuthenticationResponse> {
-    console.log("authservice:register")
+
     return this.http.post<AuthenticationResponse>(`${this.apiUrl}/register`, registerData).pipe(
       tap(response => {
         this.setToken(response.token);
@@ -63,8 +74,10 @@ export class AuthService {
 
   private setToken(token: string): void {
     const expirationTimestamp = this.parseTokenPayload(token).exp;
+
     
     this.cookieService.set(this.tokenKey, token, { expires: new Date(expirationTimestamp * 1000) });
+    httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${token}`);
   }
 
   getToken(): string | null {

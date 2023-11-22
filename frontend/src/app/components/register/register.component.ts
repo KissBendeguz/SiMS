@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs';
+import { Gender } from 'src/app/models/gender';
 import { AuthService, RegisterRequest } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,11 +12,13 @@ import { AuthService, RegisterRequest } from 'src/app/services/auth.service';
 export class RegisterComponent {
   email: string = "";
   password: string = "";
+  confirmPassword: string = "";
   lastName: string = "";
   firstName: string = "";
 
-  confirmEmail: string = "";
-  confirmPassword: string = "";
+  genderOptions = Object.values(Gender);
+  selectedGender: Gender = Gender.UNKNOWN;
+
 
 
   constructor(
@@ -26,7 +29,10 @@ export class RegisterComponent {
   register() {
     const registerData: RegisterRequest = {
       email: this.email,
-      password: this.password
+      password: this.password,
+      firstname: this.firstName,
+      lastname: this.lastName,
+      gender: this.selectedGender
     }
 
     const handler = {

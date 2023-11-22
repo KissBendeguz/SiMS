@@ -4,24 +4,38 @@
         <div class="double-input-group">
             <div class="input-group">
                 <label for="firstName">First name</label>
-                <input class="sims-input" type="text" placeholder="John" id="firstName" name="firstName" [(ngModel)]="firstName">
+                <input class="sims-input" type="text" placeholder="John" id="firstName" name="firstName"
+                    [(ngModel)]="firstName">
             </div>
             <div class="input-group">
                 <label for="lastName">Last name</label>
-                <input class="sims-input" type="text" placeholder="Doe" id="lastName" name="lastName" [(ngModel)]="lastName">
+                <input class="sims-input" type="text" placeholder="Doe" id="lastName" name="lastName"
+                    [(ngModel)]="lastName">
             </div>
         </div>
         <div class="input-group">
             <label for="email">Email</label>
-            <input class="sims-input" type="text" placeholder="example@email.com" id="email" name="email" [(ngModel)]="email">
+            <input class="sims-input" type="text" placeholder="example@email.com" id="email" name="email"
+                [(ngModel)]="email">
         </div>
         <div class="input-group">
             <label for="password">Password</label>
-            <input class="sims-input" type="password" placeholder="******" id="password" name="password" [(ngModel)]="password">
+            <input class="sims-input" type="password" placeholder="******" id="password" name="password"
+                [(ngModel)]="password">
         </div>
         <div class="input-group">
             <label for="confirmPassword">Confirm password</label>
-            <input class="sims-input" type="password" placeholder="******" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword">
+            <input class="sims-input" type="password" placeholder="******" id="confirmPassword" name="confirmPassword"
+                [(ngModel)]="confirmPassword">
+        </div>
+        <div class="double-input-group">
+            <div class="input-group">
+                <label for="gender">Select you gender</label>
+                <select class="sims-input" id="gender" name="gender" 
+                    [(ngModel)]="selectedGender">
+                    <option *ngFor="let gender of genderOptions" [value]="gender" [disabled]="gender==='UNKNOWN'">{{ gender }}</option>
+                </select>
+            </div>
         </div>
         <div>
             <input class="sims-button" type="submit" value="Sign up">
