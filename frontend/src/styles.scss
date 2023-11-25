@@ -36,7 +36,9 @@ a{
         cursor: pointer;
         display: flex;
         align-items: center;
-        text-transform: capitalize;
+        &,option{
+            text-transform: lowercase;
+        }
     }
 }
 .sims-button{

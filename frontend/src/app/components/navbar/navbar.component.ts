@@ -1,5 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -7,8 +9,22 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
-  constructor(public authService:AuthService){}
+export class NavbarComponent implements OnInit {
+  authenticatedUser:User = new User();
+  constructor(
+    public authService: AuthService,
+    private userService: UserService
+  ){}
+  ngOnInit(): void {
+    this.userService.getAuthenticatedUser().subscribe(
+      (user: User) => {
+        this.authenticatedUser = user;
+      },
+      (error) => {
+        console.error('Error fetching authenticated user:', error);
+      }
+    );
+  }
   @HostListener('document:click', ['$event'])
   handleDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;

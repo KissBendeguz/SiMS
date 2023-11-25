@@ -6,7 +6,7 @@
     </div>
     <nav *ngIf="authService.isAuthenticated()">
         <ul> 
-            <li>Gupcsik Arnold</li>
+            <li>{{authenticatedUser.firstname +" "+ authenticatedUser.lastname}}</li>
             <li>
                 <div class="nav-settings" data-dropdown>
                     <i class="fa-solid fa-gear" data-dropdown-button></i>
