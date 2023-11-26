@@ -109,18 +109,43 @@ public class BusinessController {
         }
         return ResponseEntity.notFound().build();
     }
+    @PatchMapping("/{businessId}/invite/{userId}")
+    public ResponseEntity<User> inviteUser(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer businessId,@PathVariable Integer userId){
+        Optional<Business> optionalBusiness = businessRepository.findById(businessId);
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalBusiness.isEmpty() || optionalUser.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        //replace with permission system check if implemented
+        if(optionalBusiness.get().getOwner().equals(authenticatedUser)){
+            Business business = optionalBusiness.get();
+            User user = optionalUser.get();
+            user.getInvitedToBusinesses().add(business);
+            userRepository.save(user);
+            business.getInvitedUsers().add(user);
+            businessRepository.save(business);
+            return ResponseEntity.ok(user);
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    }
     @PatchMapping("/{id}/join")
     public ResponseEntity<Business> joinBusiness(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer id){
         Optional<Business> optionalBusiness = businessRepository.findById(id);
         if(optionalBusiness.isEmpty()){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         Business business = optionalBusiness.get();
-        authenticatedUser.getAssociatedBusinesses().add(business);
-        userRepository.save(authenticatedUser);
-        business.getAssociates().add(authenticatedUser);
-        businessRepository.save(business);
-        return ResponseEntity.ok(business);
+        if (business.getInvitedUsers().contains(authenticatedUser)){
+            authenticatedUser.getAssociatedBusinesses().add(business);
+            authenticatedUser.getInvitedToBusinesses().remove(business);
+            userRepository.save(authenticatedUser);
+            business.getAssociates().add(authenticatedUser);
+            business.getInvitedUsers().remove(authenticatedUser);
+            businessRepository.save(business);
+            return ResponseEntity.ok(business);
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+
     }
 
     @GetMapping("/{id}/inventories")

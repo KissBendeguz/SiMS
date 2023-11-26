@@ -26,4 +26,12 @@ public class Business extends BaseEntity{
     @ManyToMany(mappedBy = "associatedBusinesses" ,fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<User> associates;
 
+    @ManyToMany
+    @JoinTable(
+            name = "invitations",
+            joinColumns = @JoinColumn(name = "business_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> invitedUsers;
+
 }

@@ -33,6 +33,9 @@ public class User extends BaseEntity implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "business_id"))
     private Set<Business> associatedBusinesses;
 
+    @ManyToMany(mappedBy = "invitedUsers")
+    private Set<Business> invitedToBusinesses;
+
 
 
 
