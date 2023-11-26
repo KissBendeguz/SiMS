@@ -1,5 +1,6 @@
 package hu.spiralsoft.sims.security.http;
 
+import hu.spiralsoft.sims.entities.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,12 +12,11 @@ import org.springframework.lang.Nullable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
-    /*private String firstname;
-    @Nullable
-    private String middlename;
-    private String lastname;*/
+    private String firstname;
+    private String lastname;
     private String email;
     private String password;
+    private Gender gender;
 
     @Override
     public String toString(){

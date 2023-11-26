@@ -17,6 +17,9 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity implements UserDetails {
+    private String firstname;
+    private String lastname;
+    private Gender gender;
     private String email;
     private String password;
 

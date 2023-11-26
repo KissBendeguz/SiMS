@@ -46,9 +46,9 @@ public class UserController {
         }
 
         User user = User.builder()
-                //.firstname(request.getFirstname())
-                //.lastname(request.getLastname())
-                //.middlename(request.getMiddlename())
+                .firstname(request.getFirstname())
+                .lastname(request.getLastname())
+                .gender(request.getGender())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .associatedBusinesses(new HashSet<>())
