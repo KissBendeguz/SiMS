@@ -1,0 +1,20 @@
+:host{
+    width: 100%;
+}
+ul{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+
+    gap: 1rem;
+    li{
+        color: white;
+        cursor: pointer;
+        transition: transform .1s ease-out;
+        &:hover{
+            filter: brightness(.95);
+            transform: translateX(.5rem);
+        }
+    }
+
+}

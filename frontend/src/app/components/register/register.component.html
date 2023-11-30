@@ -33,7 +33,7 @@
                 <label for="gender">Select you gender</label>
                 <select class="sims-input" id="gender" name="gender" 
                     [(ngModel)]="selectedGender">
-                    <option *ngFor="let gender of genderOptions" [value]="gender" [disabled]="gender==='UNKNOWN'">{{ gender }}</option>
+                    <option *ngFor="let gender of genderOptions" [value]="gender" [disabled]="gender==='UNKNOWN'" [hidden]="gender==='UNKNOWN'">{{ gender==="UNKNOWN"?"Select":gender }}</option>
                 </select>
             </div>
         </div>

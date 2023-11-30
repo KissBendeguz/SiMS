@@ -1,18 +1,50 @@
 @use 'src/variables' as *;
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  th, td {
-    border: 1px solid $offwhite;
-    text-align: left;
-    padding: 10px;
-  }
-  
-  th {
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+.dashboard-container {
+  display: flex;
+  justify-content: space-between;
+  gap: .5rem;
+  height: 100%;
+
+
+  .business-list {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: $darkblue;
-    color: white;
+    min-width: 200px;
+
+    padding: 1rem;
+    gap: 1.6rem;
+    color: $white;
+    
+
+    .add-button {
+      width: 50%;
+      text-align: center;
+      cursor: pointer;
+      background-color: $lightblue;
+      border: none;
+      &:hover{
+        filter: brightness(.95);
+      }
+    }
   }
+
+  .business-info {
+    flex: 10;
+  }
+
+  .employee-list {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+
+  }
+}

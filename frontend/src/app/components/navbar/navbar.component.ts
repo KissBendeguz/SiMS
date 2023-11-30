@@ -1,4 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -10,21 +12,29 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  authenticatedUser:User = new User();
+  authenticatedUser: User | null;
   constructor(
-    public authService: AuthService,
-    private userService: UserService
-  ){}
-  ngOnInit(): void {
-    this.userService.getAuthenticatedUser().subscribe(
-      (user: User) => {
-        this.authenticatedUser = user;
-      },
-      (error) => {
-        console.error('Error fetching authenticated user:', error);
-      }
-    );
+    private authService: AuthService,
+    private userService: UserService,
+    private router:Router
+    ) { }
+
+  loadAuthenticatedUser(){
+    console.log("loadUser")
+    this.userService.authenticatedUser$.subscribe(user => {
+      this.authenticatedUser = user;
+    });
   }
+    
+  ngOnInit(): void {
+    //this.loadAuthenticatedUser();
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.loadAuthenticatedUser();
+    });
+  }
+
   @HostListener('document:click', ['$event'])
   handleDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
@@ -51,8 +61,9 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  test(){
-    alert("teszt");
+  logout() {
+    this.authenticatedUser = null;
+    this.userService.logout();
   }
 
 }

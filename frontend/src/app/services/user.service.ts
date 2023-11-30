@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from '../models/user';
-import { Observable, catchError, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, filter, of, tap } from 'rxjs';
 import { AuthService, httpOptions } from './auth.service';
 
 @Injectable({
@@ -11,14 +11,39 @@ import { AuthService, httpOptions } from './auth.service';
 })
 export class UserService{
   private apiUrl = '/api/user';
+  private authenticatedUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  authenticatedUser$: Observable<User | null> = this.authenticatedUserSubject.asObservable();
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private authService: AuthService
-  ) {}
-
-  getAuthenticatedUser():Observable<User>{
-    return this.http.get<User>(`${this.apiUrl}`,{headers:httpOptions.headers});
+  ) {
+    //this.loadAuthenticatedUser();
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.loadAuthenticatedUser();
+    });
   }
+
+  private loadAuthenticatedUser() {
+    if (this.authService.isAuthenticated() && !this.authenticatedUserSubject.value) {
+      this.getAuthenticatedUser().subscribe(
+        user => this.authenticatedUserSubject.next(user)
+      );
+    }
+  }
+
+  public logout(){
+    this.authenticatedUserSubject.next(null);
+    httpOptions.headers = httpOptions.headers.set('Authorization', ``);
+    this.authService.removeToken();
+    this.router.navigate(['/login']);
+  }
+
+  getAuthenticatedUser(): Observable<User | null> {
+    return this.http.get<User>(`${this.apiUrl}`, { headers: httpOptions.headers });
+  }
+
 }

@@ -11,6 +11,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { ListComponent } from './components/list/list.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    DashboardComponent
+    DashboardComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,

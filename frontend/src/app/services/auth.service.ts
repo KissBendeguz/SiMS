@@ -48,7 +48,6 @@ export class AuthService {
     return this.http.post<AuthenticationResponse>(`${this.apiUrl}/register`, registerData).pipe(
       tap(response => {
         this.setToken(response.token);
-        console.log(response)
       }),
       catchError(error => {
         console.error('Registration error:', error);
@@ -67,10 +66,6 @@ export class AuthService {
     );
   }
 
-  logout(){
-    this.removeToken();
-    this.router.navigate(['/login']);
-  }
 
   private setToken(token: string): void {
     const expirationTimestamp = this.parseTokenPayload(token).exp;
@@ -90,7 +85,7 @@ export class AuthService {
     return !!token && !this.isTokenExpired(token);
   }
   
-  private removeToken(): void {
+  removeToken(): void {
     this.cookieService.delete(this.tokenKey);
   }
 

@@ -37,7 +37,7 @@ export class RegisterComponent {
 
     const handler = {
       next: res => {
-        this.router.navigate(['/'])
+        this.router.navigate(['/']);
       },
       error: err => {
         console.log(err.status);

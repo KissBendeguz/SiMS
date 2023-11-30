@@ -9,4 +9,16 @@ export class User {
     lastname:string;
     gender:Gender;
     associatedBusinesses: Set<Business>;
+
+    // No-args constructor
+    constructor() {
+        this.id = 0;
+        this.email = '';
+        this.password = '';
+        this.firstname = '';
+        this.lastname = '';
+        this.gender = Gender.UNKNOWN;
+        this.associatedBusinesses = new Set<Business>();
+    }
+
 }

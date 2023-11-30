@@ -1,18 +1,15 @@
-<p>dashboard works!</p>
-<div>
-    <h2>Current user:</h2>
-    <table>
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of authenticatedUser | keyvalue">
-            <td>{{ item.key }}</td>
-            <td>{{ item.value }}</td>
-          </tr>
-        </tbody>
-      </table>
+<div class="dashboard-container">
+  <div class="business-list">
+    <h2>Businesses</h2>
+    <button class="add-button sims-input">Add new</button>
+    <app-list [items]="associatedBusinesses"></app-list>
+  </div>
+
+  <div class="business-info">
+    Lorem ipsum dolor sit amet.
+  </div>
+
+  <div *ngIf="selectedBusiness" class="employee-list">
+    <app-list></app-list>
+  </div>
 </div>

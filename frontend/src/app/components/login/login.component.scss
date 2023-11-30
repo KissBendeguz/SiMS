@@ -1,12 +1,22 @@
 @use 'src/variables' as *;
 
-:host{
+:host {
     height: 100%;
     display: flex;
     width: 80vw;
+    @include lt-md {
+        & {
+            width: 70vw;
+        }
+    }
+    @include lt-sm {
+        & {
+            width: 90vw;
+        }
+    }
 }
 
-.container{
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,23 +24,29 @@
     margin-left: auto;
     margin-right: auto;
     width: 100%;
-    .login{
+
+
+    .login {
         flex: 1;
-        form{
+
+        form {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
-            div.input-group{
+
+            div.input-group {
                 display: flex;
                 flex-direction: column;
-                label{
+
+                label {
                     font-size: .9rem;
                 }
             }
-            
+
         }
     }
-    .content{
+
+    .content {
         flex: 2;
         display: flex;
         justify-content: center;
@@ -38,16 +54,26 @@
         align-content: center;
         flex-direction: column;
         gap: 1rem;
-        .illustration,.description{
+
+        @include lt-md {
+            & {
+                display: none;
+            }
+        }
+
+        .illustration,
+        .description {
             display: flex;
             width: 70%;
             min-width: 300px;
         }
-        .illustration{
+
+        .illustration {
             justify-content: space-between;
             border-bottom: 2px solid #777;
         }
-        .description{
+
+        .description {
             padding: 1rem;
             flex-direction: column;
             gap: 1rem;

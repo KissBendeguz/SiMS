@@ -1,10 +1,9 @@
-<div class="dev">Under development</div>
 <header>
     <div class="brand">
         <img src="assets/box-logo.svg" alt="" class="logo">
         <span>SiMS</span>
     </div>
-    <nav *ngIf="authService.isAuthenticated()">
+    <nav *ngIf="authenticatedUser">
         <ul> 
             <li>{{authenticatedUser.firstname +" "+ authenticatedUser.lastname}}</li>
             <li>
@@ -12,9 +11,9 @@
                     <i class="fa-solid fa-gear" data-dropdown-button></i>
                     <div class="nav-settings-content" data-dropdown>
                         <ul>
-                            <li (click)="test()">Language</li>
-                            <li (click)="test()">Account settings</li>
-                            <li (click)="authService.logout()">Logout</li>
+                            <li>Language</li>
+                            <li>Account settings</li>
+                            <li (click)="logout()">Logout</li>
                         </ul>
                     </div>
                 </div>

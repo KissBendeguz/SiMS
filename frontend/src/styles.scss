@@ -1,5 +1,5 @@
 
-@use './variables' as sims;
+@use './variables' as *;
 
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700&family=Roboto&display=swap');
@@ -7,7 +7,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: #fff;
+
 }
 body,html{
     font-family: 'Montserrat', sans-serif;
@@ -18,19 +18,20 @@ body,html{
 a{
     color:inherit;
     &:is(:link, :visited, :hover, :active, :focus){
-        color: sims.$lightblue;
+        color: $lightblue;
         outline: none;
     }
 }
 
 .sims-input{
     all:unset;
-    border: 2px solid sims.$darkblue;
+    border: 1px solid $darkblue;
+    background-color: $offwhite;
     border-radius: 4px;
     height: 1.7rem;
     padding: .3rem;
     &:hover{
-        border-color: sims.$lightblue;
+        border-color: $lightblue;
     }
     &:is(select){
         cursor: pointer;
@@ -43,8 +44,8 @@ a{
 }
 .sims-button{
     all:unset;
-    color: sims.$white;
-    background-color: sims.$lightblue;
+    color: $white;
+    background-color: $lightblue;
     border-radius: 4px;
     height: 1.7rem;
     padding: .3rem 2rem;
