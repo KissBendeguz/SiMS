@@ -12,10 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -78,5 +80,10 @@ public class UserController {
                     .token(token)
                     .build()
         );
+    }
+
+    @GetMapping
+    public ResponseEntity<User> getAuthenticatedUser(@AuthenticationPrincipal User authenticatedUser){
+        return ResponseEntity.ok(authenticatedUser);
     }
 }

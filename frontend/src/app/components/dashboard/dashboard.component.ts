@@ -28,7 +28,8 @@ export class DashboardComponent implements OnInit {
     });
 
     this.businessService.getAssociatedBusinesses().subscribe((businesses: Set<Business>) =>{
-      this.associatedBusinesses = businesses;
+      let sortedArray = Array.from(businesses).sort((a, b) => a.name.localeCompare(b.name));
+      this.associatedBusinesses = new Set(sortedArray);
     });
   }
 
