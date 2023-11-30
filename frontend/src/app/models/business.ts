@@ -5,4 +5,8 @@ export class Business {
     name: string;
     owner: User;
     associates: Set<User>;
+
+    constructor(){
+        this.associates = new Set<User>();
+    }
 }

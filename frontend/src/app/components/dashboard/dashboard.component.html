@@ -2,14 +2,42 @@
   <div class="business-list">
     <h2>Businesses</h2>
     <button class="add-button sims-input">Add new</button>
-    <app-list [items]="associatedBusinesses"></app-list>
+    <app-list class="hover-anim" [items]="associatedBusinesses" fieldName="name" (itemClick)="onListItemClick($event)"></app-list>
   </div>
 
   <div class="business-info">
-    Lorem ipsum dolor sit amet.
+    <div class="business">
+      <div class="title">
+        {{selectedBusiness?.name}}
+      </div>
+      <p class="motd">motd</p>
+      <div class="subtitle">
+        Cég elérhetőségek
+      </div>
+      <ul>
+        <li>Tulajdonos: {{selectedBusiness?.owner?.fullName}}</li>
+        <li>Email: -</li>
+        <li>Tel.: -</li>
+      </ul>
+      <div class="title">
+        Alkalmazott adatok
+      </div>
+      <div class="subtitle">
+        Az ön fiókja:
+      </div>
+      <ul>
+        <li>SiMS azonosító: {{authenticatedUser?.id}}</li>
+        <li>Név: {{authenticatedUser?.fullName}}</li>
+        <li>Email: {{authenticatedUser?.email}}</li>
+      </ul>
+    </div>
+    <div class="inventory">
+      inventory
+    </div>
   </div>
 
-  <div *ngIf="selectedBusiness" class="employee-list">
-    <app-list></app-list>
+  <div class="employee-list">
+    <h2>Alkalmazottak</h2>
+    <app-list [items]="selectedBusiness?.associates || null" fieldName="fullName"></app-list>
   </div>
 </div>

@@ -1,7 +1,7 @@
-@use 'src/variables' as sims;
+@use 'src/variables' as *;
 
 :host{
-    width: 100vw;
+    width: 100%;
 }
 
 header{
@@ -12,7 +12,7 @@ header{
     height: 64px;
     font-size: 1rem;
 
-    border-bottom: 2px solid sims.$lightblue;
+    border-bottom: 2px solid $lightblue;
 
 
     .brand{
@@ -21,7 +21,7 @@ header{
         gap: 14px;
         font-size: 1.3rem;
         font-weight: 700;
-        color: sims.$lightblue;
+        color: $lightblue;
         cursor: pointer;
         .logo{
             width: 48px;
@@ -39,7 +39,7 @@ header{
         font-size: 1rem;
         font-weight: 400;
         li{
-            color: sims.$darkblue;
+            color: $darkblue;
             cursor: pointer;
             i{
                 font-size: 1.2rem;
@@ -54,10 +54,11 @@ header{
                     pointer-events: none;
                     right: .25rem;
                     top: calc(200% + 1px);
-                    box-shadow: 0 2px 16px 0 rgba($color: sims.$darkblue, $alpha: .7);
-                    border-left: 3px solid sims.$lightblue;
+                    box-shadow: 0 2px 16px 0 rgba($color: $darkblue, $alpha: .7);
+                    border-left: 3px solid $lightblue;
                     border-top-right-radius: 20px;
                     border-bottom-right-radius: .5rem;
+                    background-color: $white;
 
                     //animation
                     opacity: 0;
@@ -77,8 +78,8 @@ header{
                             white-space: nowrap;
                             text-align: center;
                             
-                            &:hover{color:sims.$lightblue;font-weight: 500;}
-                            &:not(:first-child){border-top: 1px solid sims.$darkblue;}
+                            &:hover{color:$lightblue;font-weight: 500;}
+                            &:not(:first-child){border-top: 1px solid $darkblue;}
                         }
                     }
                 }
@@ -90,17 +91,4 @@ header{
             }
         }
     }
-}
-
-.dev{
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    color: sims.$darkblue;
-    padding: .2rem;
-    font-weight: 600;
-    letter-spacing: .1rem;
-    pointer-events: none;
-    border-left: 3px solid sims.$darkblue;
-    background: transparent;
 }

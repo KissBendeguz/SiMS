@@ -10,6 +10,7 @@
   justify-content: space-between;
   gap: .5rem;
   height: 100%;
+  
 
 
   .business-list {
@@ -39,12 +40,62 @@
 
   .business-info {
     flex: 10;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    color: $darkblue;
+    overflow: hidden;
+    max-height: calc(100vh - 64px);
+
+    .title{
+      border-bottom: 2px solid $lightblue;
+      text-align: center;
+      font-size: 1.5rem;
+      margin: 1rem;
+    }
+
+    .subtitle{
+      //border-bottom: 1px solid $lightblue;
+      text-decoration: underline;
+      text-decoration-color: $lightblue;
+      text-align: left;
+      font-size: 1.3rem;
+      margin: .7rem 0;
+    }
+
+
+    .business{
+      flex: 1;
+      max-height: 100%;
+      overflow-y: auto;
+      .motd{
+        text-align: center;
+      }
+      li{
+        padding: .2rem 0;
+      }
+      
+    }
+    .inventory{
+      flex: 1;
+      max-height: 100%;
+      overflow-y: auto;
+    }
   }
 
   .employee-list {
-    flex: 2;
+    flex: 1;
     display: flex;
     flex-direction: column;
+    align-items: center;
+
+    border-left: 2px solid $lightblue;
+    padding: 1rem;
+    gap: 1.6rem;
+
+    color: $darkblue;
 
   }
 }

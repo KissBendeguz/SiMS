@@ -1,49 +1,88 @@
-
 @use './variables' as *;
 
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700&family=Roboto&display=swap');
-*{
+
+/* WebKit (Safari, Chrome) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #223E5B;
+    border-radius: 6px;
+}
+
+/* Firefox */
+::-moz-scrollbar {
+    width: 8px;
+}
+
+::-moz-scrollbar-thumb {
+    background-color: #223E5B;
+    border-radius: 6px;
+}
+
+/* Microsoft Edge and IE */
+::-ms-scrollbar {
+    width: 8px;
+}
+
+::-ms-scrollbar-thumb {
+    background-color: #223E5B;
+    border-radius: 6px;
+}
+
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 
 }
-body,html{
+
+body,
+html {
     font-family: 'Montserrat', sans-serif;
     font-family: 'Roboto', sans-serif;
 
     height: 100%;
 }
-a{
-    color:inherit;
-    &:is(:link, :visited, :hover, :active, :focus){
+
+a {
+    color: inherit;
+
+    &:is(:link, :visited, :hover, :active, :focus) {
         color: $lightblue;
         outline: none;
     }
 }
 
-.sims-input{
-    all:unset;
+.sims-input {
+    all: unset;
     border: 1px solid $darkblue;
     background-color: $offwhite;
     border-radius: 4px;
     height: 1.7rem;
     padding: .3rem;
-    &:hover{
+
+    &:hover {
         border-color: $lightblue;
     }
-    &:is(select){
+
+    &:is(select) {
         cursor: pointer;
         display: flex;
         align-items: center;
-        &,option{
+
+        &,
+        option {
             text-transform: lowercase;
         }
     }
 }
-.sims-button{
-    all:unset;
+
+.sims-button {
+    all: unset;
     color: $white;
     background-color: $lightblue;
     border-radius: 4px;
@@ -51,7 +90,7 @@ a{
     padding: .3rem 2rem;
     cursor: pointer;
 
-    &:hover{
+    &:hover {
         filter: brightness(.9);
     }
 }

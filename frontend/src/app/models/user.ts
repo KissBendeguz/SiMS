@@ -7,8 +7,10 @@ export class User {
     password: string;
     firstname:string;
     lastname:string;
+    fullName:string;
     gender:Gender;
     associatedBusinesses: Set<Business>;
+
 
     // No-args constructor
     constructor() {
@@ -17,8 +19,10 @@ export class User {
         this.password = '';
         this.firstname = '';
         this.lastname = '';
+        this.fullName = '';
         this.gender = Gender.UNKNOWN;
         this.associatedBusinesses = new Set<Business>();
     }
+
 
 }

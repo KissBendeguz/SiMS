@@ -19,7 +19,6 @@ public class Business extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
     private User owner;
 
 

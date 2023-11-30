@@ -37,7 +37,9 @@ public class User extends BaseEntity implements UserDetails {
     @ManyToMany(mappedBy = "invitedUsers")
     private Set<Business> invitedToBusinesses;
 
-
+    public String getFullName(){
+        return this.firstname+" "+this.lastname;
+    }
 
 
 
