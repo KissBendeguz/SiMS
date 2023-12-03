@@ -11,8 +11,8 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  authenticatedUser: User | null = new User();
-  selectedBusiness: Business | null = new Business();
+  authenticatedUser: User | null;
+  selectedBusiness: Business | null ;
   
   associatedBusinesses:Set<Business> | null = new Set<Business>();
   

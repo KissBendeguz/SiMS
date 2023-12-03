@@ -1,24 +1,47 @@
 <div class="dashboard-container">
-  <div class="business-list">
+  <ng-template #noBusinessSelected>
+    <div class="no-business">
+      <h1>Currently, you are not affilited with any business.</h1>
+      <a routerLink="/" ><p>Get started with your <span>own</span> business.</p></a>
+      <h2>or</h2>
+      <p>Check you invitations in the menu if you are expecting any.</p>
+    </div>
+  </ng-template>
+
+  <div class="business-list" *ngIf="selectedBusiness; else noBusinessSelected">
     <h2>Businesses</h2>
     <button class="add-button sims-input">Add new</button>
     <app-list class="hover-anim" [items]="associatedBusinesses" fieldName="name" (itemClick)="onListItemClick($event)"></app-list>
   </div>
 
-  <div class="business-info">
-    <div class="business">
+
+  <div class="business-info" *ngIf="selectedBusiness">
+    <div class="business" >
       <div class="title">
-        {{selectedBusiness?.name}}
+        {{selectedBusiness.name}}
       </div>
       <p class="motd">motd</p>
-      <div class="subtitle">
-        Cég elérhetőségek
-      </div>
-      <ul>
-        <li>Tulajdonos: {{selectedBusiness?.owner?.fullName}}</li>
-        <li>Email: -</li>
-        <li>Tel.: -</li>
-      </ul>
+
+      <table>
+        <thead>
+          <tr>
+            <th colspan="3">Cégadatok</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Cégnév</th>
+            <th>Tulajdonos</th>
+            <th>Hozzáadás dátuma</th>
+          </tr>
+          <tr>
+            <td>{{selectedBusiness.name}}</td>
+            <td>{{selectedBusiness.owner.fullName}}</td>
+            <td>???</td>
+          </tr>
+        </tbody>
+      </table>
+
       <div class="title">
         Alkalmazott adatok
       </div>
@@ -31,13 +54,15 @@
         <li>Email: {{authenticatedUser?.email}}</li>
       </ul>
     </div>
+    <div class="divider"></div>
     <div class="inventory">
       inventory
     </div>
   </div>
 
-  <div class="employee-list">
+  <div class="employee-list" *ngIf="selectedBusiness">
     <h2>Alkalmazottak</h2>
-    <app-list [items]="selectedBusiness?.associates || null" fieldName="fullName"></app-list>
+    <app-list [items]="selectedBusiness.associates || null" fieldName="fullName"></app-list>
   </div>
 </div>
+
