@@ -1,5 +1,6 @@
 package hu.spiralsoft.sims.controllers;
 
+import hu.spiralsoft.sims.entities.Business;
 import hu.spiralsoft.sims.entities.User;
 import hu.spiralsoft.sims.repositories.UserRepository;
 import hu.spiralsoft.sims.security.JwtService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @CrossOrigin
@@ -85,5 +87,10 @@ public class UserController {
     @GetMapping
     public ResponseEntity<User> getAuthenticatedUser(@AuthenticationPrincipal User authenticatedUser){
         return ResponseEntity.ok(authenticatedUser);
+    }
+
+    @GetMapping("/invitations")
+    public ResponseEntity<Set<Business>> getUserInvitations(@AuthenticationPrincipal User authenticatedUser) {
+        return ResponseEntity.ok(authenticatedUser.getInvitedToBusinesses());
     }
 }
