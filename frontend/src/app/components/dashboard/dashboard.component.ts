@@ -13,8 +13,9 @@ import { UserService } from 'src/app/services/user.service';
 export class DashboardComponent implements OnInit {
   authenticatedUser: User | null;
   selectedBusiness: Business | null ;
+  selectedEmployee: User | null;
   
-  associatedBusinesses:Set<Business> | null = new Set<Business>();
+  associatedBusinesses:Set<Business> = new Set<Business>();
   
   constructor(
     private authService: AuthService,
@@ -35,7 +36,10 @@ export class DashboardComponent implements OnInit {
       });
     }
     
-    onListItemClick(business:Business) {
+    onBusinessClick(business:Business) {
       this.selectedBusiness = business;
+    }
+    onEmployeeClick(employee:User){
+      this.selectedEmployee = this.selectedEmployee === employee ? null : employee;
     }
 }

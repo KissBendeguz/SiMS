@@ -1,3 +1,3 @@
 <ul>
-    <li *ngFor="let item of itemsArray" (click)="onItemClick(item)">{{ item[fieldName] }}</li>
+    <li [class.selected]="selectedElement?.[fieldName]==item[fieldName]" *ngFor="let item of itemsArray" (click)="onItemClick(item)">{{ item[fieldName] }}</li>
 </ul>

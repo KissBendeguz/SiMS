@@ -11,7 +11,7 @@
   <div class="business-list" *ngIf="selectedBusiness; else noBusinessSelected">
     <h2>Businesses</h2>
     <button class="add-button sims-input">Add new</button>
-    <app-list class="hover-anim" [items]="associatedBusinesses" fieldName="name" (itemClick)="onListItemClick($event)"></app-list>
+    <app-list class="hover-anim" [items]="associatedBusinesses" [selectedElement]="selectedBusiness" fieldName="name" (itemClick)="onBusinessClick($event)"></app-list>
   </div>
 
 
@@ -20,50 +20,67 @@
       <div class="title">
         {{selectedBusiness.name}}
       </div>
-      <p class="motd">motd</p>
+      <p class="motd">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi fuga illum reiciendis soluta quam aut temporibus consectetur quaerat et quod sapiente ab molestiae debitis laborum, optio magni ea eius neque!</p>
 
-      <table>
-        <thead>
-          <tr>
-            <th colspan="3">Cégadatok</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>Cégnév</th>
-            <th>Tulajdonos</th>
-            <th>Hozzáadás dátuma</th>
-          </tr>
-          <tr>
-            <td>{{selectedBusiness.name}}</td>
-            <td>{{selectedBusiness.owner.fullName}}</td>
-            <td>???</td>
-          </tr>
-          <tr>
-            <th>Adat</th>
-            <th>Adat</th>
-            <th>Adat</th>
-          </tr>
-          <tr>
-            <td>???</td>
-            <td>???</td>
-            <td>???</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="details">
+        <h2>Cégadatok</h2>
+        <table>
+          <tbody>
+            <tr>
+              <th>Tulajdonos</th>
+              <th>Cégnév</th>
+              <th>Nyilvántartásba történő felvétel</th>
+            </tr>
+            <tr>
+              <td>{{selectedBusiness.owner.fullName}}</td>
+              <td>{{selectedBusiness.name}}</td>
+              <td>{{selectedBusiness.businessRegistrationDate}}</td>
+            </tr>
+            <tr>
+              <th>Adószám</th>
+              <th>Székhely</th>
+              <th>SiMS felvétel</th>
+            </tr>
+            <tr>
+              <td>{{selectedBusiness.taxNumber}}</td>
+              <td>{{selectedBusiness.headquarters}}</td>
+              <td>{{selectedBusiness.simsRegistrationDate}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="details">
+        <h2>Elérhetőségek</h2>
+        <table>
+          <tbody>
+            <tr>
+              <th>Email</th>
+              <th>Tel.</th>
+              <th>Fax</th>
+            </tr>
+            <tr>
+              <td>???</td>
+              <td>???</td>
+              <td>???</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="title">
         Alkalmazott adatok
       </div>
-      <div class="subtitle">
-        Az ön fiókja:
+      
+      <ng-template #noEmployeeSelected>
+        <p>Kérem válasszon alkalmazottat!</p>
+      </ng-template>
+      <div *ngIf="selectedEmployee!=null; else noEmployeeSelected">
+        <p>Kiválasztott alkalmazott: {{selectedEmployee.fullName}}</p>
       </div>
-      <ul>
-        <li>SiMS azonosító: {{authenticatedUser?.id}}</li>
-        <li>Név: {{authenticatedUser?.fullName}}</li>
-        <li>Email: {{authenticatedUser?.email}}</li>
-      </ul>
     </div>
+
+
+
     <div class="divider"></div>
     <div class="inventory">
       inventory
@@ -72,7 +89,7 @@
 
   <div class="employee-list" *ngIf="selectedBusiness">
     <h2>Alkalmazottak</h2>
-    <app-list [items]="selectedBusiness.associates || null" fieldName="fullName"></app-list>
+    <app-list class="hover-anim" [items]="selectedBusiness.associates || null" [selectedElement]="selectedEmployee" fieldName="fullName" (itemClick)="onEmployeeClick($event)"></app-list>
   </div>
 </div>
 

@@ -10,6 +10,7 @@ export class ListComponent<T> {
   private _items: Set<T> | null;
 
   @Output() itemClick: EventEmitter<T> = new EventEmitter<T>();
+  @Input() selectedElement: T | null;
   @Input() fieldName: string = 'id';
   @Input()
   set items(value: Set<T> | null) {

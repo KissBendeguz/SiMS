@@ -17,7 +17,10 @@ ul{
     li{
         color: inherit;
         cursor: pointer;
-        transition: transform .1s ease-out;   
+        transition: transform .1s ease-out;
+        &.selected{
+            font-weight: 500;
+        }
     }
 }
 
