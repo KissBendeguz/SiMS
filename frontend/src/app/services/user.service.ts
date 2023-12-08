@@ -13,6 +13,7 @@ export class UserService{
   private apiUrl = '/api/user';
   private authenticatedUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   authenticatedUser$: Observable<User | null> = this.authenticatedUserSubject.asObservable();
+  responseError:string|null;
 
   constructor(
     private http: HttpClient,
@@ -39,7 +40,6 @@ export class UserService{
     this.authenticatedUserSubject.next(null);
     httpOptions.headers = httpOptions.headers.set('Authorization', ``);
     this.authService.removeToken();
-    this.router.navigate(['/login']);
   }
 
   getAuthenticatedUser(): Observable<User | null> {

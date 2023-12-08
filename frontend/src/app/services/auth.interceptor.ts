@@ -4,31 +4,45 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
+import { HttpErrorService } from './http-error.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,private httpErrorService:HttpErrorService) {}
 
   intercept(
-    req: HttpRequest<any>,
+    request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log("Interceptor")
     const token = this.authService.getToken();
 
+    let clonedRequest = request;
     if (token) {
-      const authReq = req.clone({
+      clonedRequest = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      return next.handle(authReq);
     }
 
-    return next.handle(req);
+    return next.handle(clonedRequest).pipe(
+      catchError((error: HttpErrorResponse) => {
+        this.httpErrorService.addError(error);
+        if(token){
+          if(error.status===401){ //UNAUTHORIZED
+            console.warn("Invalid or expired token has been removed.");
+            this.authService.removeToken();
+          }else if(error.status >= 500 && error.status <= 504){
+            console.warn("Token has been removed due to Server error.")
+            this.authService.removeToken();
+          }
+        }
+        return throwError(() => error);
+      })
+    );
   }
 }

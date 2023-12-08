@@ -8,10 +8,11 @@ import { RegisterComponent } from './components/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { ListComponent } from './components/list/list.component';
+import { CreateBusinessComponent } from './components/create-business/create-business.component';
 
 
 @NgModule({
@@ -21,14 +22,16 @@ import { ListComponent } from './components/list/list.component';
     RegisterComponent,
     NavbarComponent,
     DashboardComponent,
-    ListComponent
+    ListComponent,
+    CreateBusinessComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {

@@ -31,7 +31,11 @@
     .double-input-group{
       display: flex;
       gap: .5rem;
+      justify-content: space-between;
     }
   }
 
+}
+.flex-start{
+  align-items: flex-start;
 }

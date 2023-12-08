@@ -5,9 +5,11 @@ import { RegisterComponent } from './components/register/register.component';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './services/auth.guard';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CreateBusinessComponent } from './components/create-business/create-business.component';
 
 const routes: Routes = [
   {path:'',component:DashboardComponent,pathMatch:'full',canActivate:[AuthGuard]},
+  {path:'create',component:CreateBusinessComponent,canActivate:[AuthGuard]},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent}
 ];

@@ -1,0 +1,21 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { CreateBusinessComponent } from './create-business.component';
+
+describe('CreateBusinessComponent', () => {
+  let component: CreateBusinessComponent;
+  let fixture: ComponentFixture<CreateBusinessComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [CreateBusinessComponent]
+    });
+    fixture = TestBed.createComponent(CreateBusinessComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, take } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -16,30 +16,32 @@ export class NavbarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private router:Router
+    private router:Router,
+    private activatedRoute:ActivatedRoute
     ) { }
 
   loadAuthenticatedUser(){
-    console.log("loadUser")
     this.userService.authenticatedUser$.subscribe(user => {
       this.authenticatedUser = user;
     });
   }
     
   ngOnInit(): void {
-    //this.loadAuthenticatedUser();
+
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.loadAuthenticatedUser();
-    });
+      ).subscribe(() => {
+        let currentRoute = this.router.routerState.snapshot.url
+        if(!(currentRoute==='/login' || currentRoute==='/register')){
+          this.loadAuthenticatedUser();
+        }
+      });
   }
 
   @HostListener('document:click', ['$event'])
   handleDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
 
-    // Check if the clicked element is a dropdown button
     const isDropdownButton = target.matches('[data-dropdown-button]');
 
     if (!isDropdownButton && target.closest('[data-dropdown]') !== null) {

@@ -1,14 +1,18 @@
 <div class="container">
     <div class="login">
-        <form (ngSubmit)="login()">
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
             <h2>Sign in to SiMS;</h2>
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input class="sims-input" type="text" id="email" name="email" placeholder="example@email.com" [(ngModel)]="email">
+            <div *ngIf="errorMessage" class="sims-error">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <p>{{errorMessage}}</p>
             </div>
             <div class="input-group">
-                <label for="password">Password</label>
-                <input class="sims-input" type="password" id="password" name="password" placeholder="******" [(ngModel)]="password">
+                <label for="email">{{email?.touched && !email?.valid ?"Email is required.":"Email"}}</label>
+                <input class="sims-input" type="text" id="email" name="email" placeholder="example@email.com" formControlName="email">
+            </div>
+            <div class="input-group">
+                <label for="password">{{password?.touched && !password?.valid ?"Password is required.":"Password"}}</label>
+                <input class="sims-input" type="password" id="password" name="password" placeholder="******" formControlName="password">
             </div>
             <div>
                 <input class="sims-button" type="submit" value="Sign in">

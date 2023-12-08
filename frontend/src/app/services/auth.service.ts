@@ -11,6 +11,7 @@ export interface RegisterRequest {
   password: string;
   firstname: string;
   lastname: string;
+  taxNumber: string;
   gender: Gender;
 }
 
@@ -87,6 +88,7 @@ export class AuthService {
   
   removeToken(): void {
     this.cookieService.delete(this.tokenKey);
+    this.router.navigate(['/login']);
   }
 
   private isTokenExpired(token: string): boolean {

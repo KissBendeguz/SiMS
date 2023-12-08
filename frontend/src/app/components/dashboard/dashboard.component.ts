@@ -32,7 +32,6 @@ export class DashboardComponent implements OnInit {
         let sortedArray = Array.from(businesses).sort((a, b) => a.name.localeCompare(b.name));
         this.associatedBusinesses = new Set(sortedArray);
         this.selectedBusiness = sortedArray[0];
-        console.log(this.selectedBusiness);
       });
     }
     

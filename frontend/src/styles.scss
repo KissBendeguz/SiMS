@@ -60,6 +60,9 @@ a {
 .sims-input {
     all: unset;
     border: 1px solid $darkblue;
+    &.ng-invalid.ng-touched{
+        border-color: $red;
+    }
     background-color: $offwhite;
     border-radius: 4px;
     height: 1.7rem;
@@ -92,5 +95,30 @@ a {
 
     &:hover {
         filter: brightness(.9);
+    }
+}
+
+.sims-error{
+    position: relative;
+    color: $red;
+    background-color: $offwhite;
+    
+    $size: 32px;
+    i{
+        
+        position: absolute;
+        top: calc($size / 2 * -1);
+        left: calc(50% - ($size / 2));
+        border-radius: 50%;
+        background-color: white;
+        font-size: $size;
+    }
+    p{
+        text-align: center;
+        border: 1px solid $red;
+        border-radius: 4px;
+        padding: calc($size / 2) 0 calc($size / 4) 0;
+        font-size: 1.1rem;
+        font-weight: 200;
     }
 }
