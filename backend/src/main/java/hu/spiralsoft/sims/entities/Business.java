@@ -1,10 +1,12 @@
 package hu.spiralsoft.sims.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
 import java.util.Set;
 @Getter
 @Setter
@@ -16,6 +18,12 @@ import java.util.Set;
 @Table(name="businesses")
 public class Business extends BaseEntity{
     private String name;
+    private String taxNumber;
+    private String headquarters;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")
+    private Date businessRegistrationDate;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")
+    private Date simsRegistrationDate;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id", nullable = false)

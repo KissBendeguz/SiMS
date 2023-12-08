@@ -52,8 +52,8 @@ class SimsApplicationTests {
 		String token = jsonObject.getString("token");
 
 
-		/*this.mockMvc.perform(get("/api/v1/test").header("Authorization","Bearer "+token))
-				.andExpect(status().isOk());*/
+		this.mockMvc.perform(get("/api/v1/test").header("Authorization","Bearer "+token))
+				.andExpect(status().isOk());
 
 	}
 

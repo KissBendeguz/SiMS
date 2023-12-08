@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -34,8 +35,10 @@ public class BusinessController {
     private JwtService jwtService;
 
     @PostMapping("")
-    public ResponseEntity<Business> createBusiness(@AuthenticationPrincipal User authenticatedUser,@RequestBody Business body){
-        if (body == null || body.getName().length() < 3 || body.getName().length() > 26){
+    public ResponseEntity<Business> createBusiness(@AuthenticationPrincipal User authenticatedUser, @RequestBody Business body){
+        if (    body == null ||
+                body.getName().length() < 3 ||
+                body.getName().length() > 26){
             return ResponseEntity.badRequest().build();
         }
         Optional<User> savedUser = userRepository.findById(authenticatedUser.getId());
@@ -44,6 +47,10 @@ public class BusinessController {
         }
         Business business = Business.builder()
                 .name(body.getName())
+                .simsRegistrationDate(new Date())
+                .businessRegistrationDate(body.getBusinessRegistrationDate())
+                .taxNumber(body.getTaxNumber())
+                .headquarters(body.getHeadquarters())
                 .owner(savedUser.get())
                 .associates(new HashSet<>())
                 .build();
