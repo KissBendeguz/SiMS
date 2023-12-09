@@ -49,7 +49,6 @@ export class LoginComponent {
   get password() { return this.loginForm.get('password') }
 
   login(){
-    console.log(this.loginForm.valid)
     if(!this.loginForm.valid){
       Object.keys(this.loginForm.controls).forEach(key => {
         this.loginForm.controls[key].markAsTouched();
