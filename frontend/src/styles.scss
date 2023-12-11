@@ -71,6 +71,9 @@ a {
     &:hover {
         border-color: $lightblue;
     }
+    &:disabled{
+        cursor: not-allowed;
+    }
 
     &:is(select) {
         cursor: pointer;
@@ -80,6 +83,36 @@ a {
         &,
         option {
             text-transform: lowercase;
+        }
+    }
+}
+
+.sims-arrow{
+    &:is(button){
+        width: 4rem;
+        aspect-ratio: 1/1;
+        font-size: 1.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $darkblue;
+        //border: 2px solid $darkblue;
+        border: none;
+        outline: none;
+        border-radius: 50%;
+
+        box-shadow: 0 0 20px $darkblue;
+        background: transparent;
+        &>i{
+            background: transparent;
+            mix-blend-mode: color-burn;
+        }
+
+        cursor: pointer;
+        &:disabled,&[disabled]{
+            cursor: not-allowed;
+            opacity: .5;
+            border-color: rgba($color: $darkblue, $alpha: .5);
         }
     }
 }

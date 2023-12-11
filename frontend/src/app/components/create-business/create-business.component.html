@@ -1,1 +1,35 @@
-<p>create-business works!</p>
+<div class="content">
+  <h1>Please answer these questions to register your business to our database.</h1>
+  <div>
+    <p>Upon registration, you will be able to do the following:</p>
+    <ul>
+      <li>Register your inventories</li>
+      <li>Manage your employees</li>
+      <li>Add & manage your products</li>
+    </ul>
+  </div>
+</div>
+<form [formGroup]="businessForm">
+  <div class="container" [style.transform]="'translateX(' + (-questionIndex * 100) + 'vw)'" [style.min-width]="(questions.length*100)+'vw'">
+    <div class="field" *ngFor="let question of questions; let i = index">
+      <div class="question" #question>
+        <label for="question-{{ i + 1 }}">{{ question.text }}</label>
+        <input type="{{question.inputType}}" class="sims-input" id="question-{{ i + 1 }}" formControlName="question-{{ i + 1 }}" (keydown.enter)="nextQuestion()" (keydown.escape)="previousQuestion()" placeholder="Please answer" />
+        <div>
+          <p>Press Return or press the <label class="highlight" for="next">Next</label> arrow button.</p>
+          <p>Press Escape or press the <label class="highlight" for="previous">Previous</label> arrow button.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="controls">
+  <button class="sims-arrow" type="button" id="previous" (click)="previousQuestion()" [disabled]="questionIndex === 0">
+    <i class="fas fa-chevron-left"></i>
+  </button>
+  <input class="sims-input" type="button" value="Submit">
+  <button class="sims-arrow" type="button" id="next" (click)="nextQuestion()" [disabled]="questionIndex === questions.length - 1">
+    <i class="fas fa-chevron-right"></i>
+  </button>
+
+</div>

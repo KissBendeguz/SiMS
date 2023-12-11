@@ -8,7 +8,6 @@ export class User {
     firstname:string;
     lastname:string;
     fullName:string;
-    taxNumber:string;
     gender:Gender;
     associatedBusinesses: Set<Business>;
 
