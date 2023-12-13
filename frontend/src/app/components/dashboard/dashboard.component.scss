@@ -29,11 +29,16 @@
     
 
     .add-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       width: 50%;
       text-align: center;
       cursor: pointer;
       background-color: $lightblue;
       border: none;
+      color: $white;
       &:hover{
         filter: brightness(.95);
       }

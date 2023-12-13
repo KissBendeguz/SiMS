@@ -3,41 +3,37 @@
 :host {
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 4rem;
 }
 
-.content{
+.goback {
+    width: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    max-width: 95%;
-    text-align: center;
-    gap: 2rem;
-    h1{
-        font-size: 1.6rem;
-        font-weight: 400;
-    }
-    div{
-        display: flex;
-        flex-direction: column;
-        gap: .5rem;
-        ul{
-            display: flex;
-            flex-direction: column;
-            gap: .2rem;
-            padding-left: 1rem;
-            font-size: .9rem;
-            font-weight: 200;
-            list-style-type: none;
-        };
-    }
+    a{
+        font-size: 1.3rem;
+        width: 40%;
+        @include xs {
+            width: 95%;
+        }
     
+        @include sm {
+            width: 70%;
+        }
+    
+        @include md {
+            width: 55%;
+        }
+        i{
+            transform: rotate(-90deg);
+        }
+    }
 }
+
 form {
     .container {
         display: flex;
@@ -58,34 +54,71 @@ form {
             gap: 2rem;
             font-size: 1.3rem;
             font-weight: 200;
+            $picture_height: 8rem;
+            margin-top: $picture_height;
+
+            position: relative;
 
             width: 40%;
-            @include xs{
+
+            @include xs {
                 width: 95%;
             }
-            @include sm{
+
+            @include sm {
                 width: 70%;
             }
-            @include md{
+
+            @include md {
                 width: 55%;
             }
+
             //border: 1px solid $lightblue;
             padding: 20px;
             border-radius: 6px;
-            box-shadow: 0 0 10px 0 $darkblue;
+            box-shadow: 0 3px 10px 0 rgba($color: $darkblue, $alpha: .6);
             background-color: $offwhite;
-            input{
+
+            input {
                 width: 70%;
             }
-            label.highlight{
+
+            label.highlight {
                 color: $lightblue;
                 cursor: pointer;
+            }
+
+            &::before {
+                position: absolute;
+                content: "";
+                width: 100%;
+                height: $picture_height;
+                top: -$picture_height;
+                right: 0;
+                bottom: 0;
+                left: 0;
+
+                background-image: url(/assets/start-a-business.jpg);
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+
+                border-bottom: 4px solid $darkblue;
             }
         }
 
     }
 }
-.controls{
+
+.instructions {
+    display: flex;
+    flex-direction: column;
+    font-size: .85rem;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.controls {
     display: flex;
     justify-content: space-around;
     align-items: center;

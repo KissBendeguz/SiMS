@@ -19,6 +19,10 @@ export class BusinessService {
     return this.http.get<Set<Business>>(`${this.apiUrl}`, { headers: httpOptions.headers });
   }
 
+  createBusiness(business: Business): Observable<Business> {
+    return this.http.post<Business>(`${this.apiUrl}`, business, { headers: httpOptions.headers });
+  }
+
   deleteBusiness(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: httpOptions.headers });
   }

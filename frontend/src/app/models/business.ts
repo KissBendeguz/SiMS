@@ -10,7 +10,4 @@ export class Business {
     owner: User;
     associates: Set<User>;
 
-    constructor(){
-        this.associates = new Set<User>();
-    }
 }

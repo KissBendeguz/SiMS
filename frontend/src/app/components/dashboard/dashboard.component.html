@@ -10,7 +10,7 @@
 
   <div class="business-list" *ngIf="selectedBusiness; else noBusinessSelected">
     <h2>Businesses</h2>
-    <button class="add-button sims-input">Add new</button>
+    <a class="add-button sims-input" routerLink="/create">Add new</a>
     <app-list class="hover-anim" [items]="associatedBusinesses" [selectedElement]="selectedBusiness" fieldName="name" (itemClick)="onBusinessClick($event)"></app-list>
   </div>
 
