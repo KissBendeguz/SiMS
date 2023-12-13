@@ -73,7 +73,7 @@ export class CreateBusinessComponent {
       next: () => this.router.navigate(['/']),
     });
 
-    console.log(JSON.stringify(business))
+    console.log(JSON.stringify(business));
 
   }
 }

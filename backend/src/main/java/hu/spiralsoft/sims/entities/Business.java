@@ -19,7 +19,7 @@ import java.util.Set;
 public class Business extends BaseEntity{
     private String name;
     private String taxNumber;
-    private String headquarters;
+    private String headQuarters;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date businessRegistrationDate;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")

@@ -4,7 +4,7 @@ export class Business {
     id: number;
     name: string;
     taxNumber: string;
-    headquarters: string;
+    headQuarters: string;
     businessRegistrationDate:Date;
     simsRegistrationDate:Date;
     owner: User;
