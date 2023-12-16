@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5332/uno
+    url: jdbc:postgresql://localhost:5432/sims
     username: root
     password: ascendesuperius
   jpa:

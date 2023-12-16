@@ -6,7 +6,7 @@
     <div class="field" *ngFor="let question of questions; let i = index">
       <div class="question" #question>
         <label for="question-{{ i + 1 }}">{{ question.text }}</label>
-        <input type="{{question.inputType}}" class="sims-input" id="{{question.field}}-{{ i + 1 }}" formControlName="{{question.field}}-{{ i + 1 }}" (keydown.enter)="nextQuestion()" (keydown.escape)="previousQuestion()" placeholder="Please answer" />
+        <input type="{{question.inputType}}" class="sims-input" id="{{question.field}}-{{ i + 1 }}" formControlName="{{question.field}}-{{ i + 1 }}" (keydown.enter)="nextQuestion()" (keydown.escape)="previousQuestion()"  placeholder="Please answer" />
         <div class="instructions">
           <p>Press Return or press the <label class="highlight" for="next">Next</label> arrow button.</p>
           <p>Press Escape or press the <label class="highlight" for="previous">Previous</label> arrow button.</p>

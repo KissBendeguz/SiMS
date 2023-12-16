@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Business } from 'src/app/models/business';
@@ -75,5 +75,10 @@ export class CreateBusinessComponent {
 
     console.log(JSON.stringify(business));
 
+  }
+  @HostListener('keydown.tab', ['$event'])
+  onTabKey(event: KeyboardEvent): void {
+    event.preventDefault();
+    this.nextQuestion();
   }
 }
