@@ -82,8 +82,32 @@
 
 
     <!--<div class="divider"></div>-->
-    <div class="inventory">
-      raktárak
+    <div class="inventoryContainer">
+      <div class="create">
+        <p>Raktár létrehozása</p>
+        <button class="sims-input inventoryCreateButton" routerLink="/inventory/create"><i class="fa-solid fa-plus"></i></button>
+      </div>
+      <ng-template #noInventoryFound>
+        <p>A vállalkozáshoz nem tartozik egy raktár sem. Hozza létre első raktárát!</p>
+      </ng-template>
+
+
+        <div class="inventories" *ngIf="inventories; else noInventoryFound">
+          <div class="inventory" *ngFor="let inventory of inventories">
+            <div class="cardTitle">
+              <p>{{inventory.name}}</p>
+              <div class="icons">
+                <a><i class="view fa-regular fa-eye" title="Villámnézet"></i></a>
+                <a><i class="delete fa-regular fa-trash-can" title="Törlés"></i></a>
+              </div>
+            </div>
+            <div class="cardContent">
+              asd
+            </div>
+          </div>
+        </div>
+      
+      
     </div>
   </div>
 

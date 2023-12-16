@@ -51,6 +51,9 @@ html {
 a {
     color: inherit;
 
+    &:hover{
+        cursor: pointer;
+    }
     &:is(:link, :visited, :hover, :active, :focus) {
         color: $lightblue;
         outline: none;
@@ -70,6 +73,9 @@ a {
 
     &:hover {
         border-color: $lightblue;
+        &:is(button){
+            cursor: pointer;
+        }
     }
     &:disabled{
         cursor: not-allowed;
