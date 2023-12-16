@@ -13,6 +13,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { ListComponent } from './components/list/list.component';
 import { CreateBusinessComponent } from './components/create-business/create-business.component';
+import { CreateInventoryComponent } from './components/create-inventory/create-inventory.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { CreateBusinessComponent } from './components/create-business/create-bus
     NavbarComponent,
     DashboardComponent,
     ListComponent,
-    CreateBusinessComponent
+    CreateBusinessComponent,
+    CreateInventoryComponent
   ],
   imports: [
     BrowserModule,

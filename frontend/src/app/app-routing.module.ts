@@ -6,13 +6,17 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './services/auth.guard';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreateBusinessComponent } from './components/create-business/create-business.component';
+import { CreateInventoryComponent } from './components/create-inventory/create-inventory.component';
 
 const routes: Routes = [
-  {path:'',component:DashboardComponent,pathMatch:'full',canActivate:[AuthGuard]},
-  {path:'create',component:CreateBusinessComponent,canActivate:[AuthGuard]},
-  {path:'login',component:LoginComponent},
-  {path:'register',component:RegisterComponent}
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'create', component: CreateBusinessComponent, canActivate: [AuthGuard] },
+  { path: 'inventory/create', component: CreateInventoryComponent, canActivate: [AuthGuard] },
+  { path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '/' },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
