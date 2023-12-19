@@ -1,0 +1,126 @@
+@use 'src/variables' as *;
+
+:host {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4rem;
+}
+
+.goback {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    a{
+        font-size: 1.3rem;
+        width: 40%;
+        @include xs {
+            width: 95%;
+        }
+    
+        @include sm {
+            width: 70%;
+        }
+    
+        @include md {
+            width: 55%;
+        }
+        i{
+            transform: rotate(-90deg);
+        }
+    }
+}
+
+form {
+    .container {
+        display: flex;
+        transition: transform .4s ease-in-out;
+
+        .field {
+            box-sizing: border-box;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .question {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            font-size: 1.3rem;
+            font-weight: 200;
+            $picture_height: 8rem;
+            margin-top: $picture_height;
+
+            position: relative;
+
+            width: 40%;
+
+            @include xs {
+                width: 95%;
+            }
+
+            @include sm {
+                width: 70%;
+            }
+
+            @include md {
+                width: 55%;
+            }
+
+            //border: 1px solid $lightblue;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px 0 rgba($color: $darkblue, $alpha: .6);
+            background-color: $offwhite;
+
+            input {
+                width: 70%;
+            }
+
+            label.highlight {
+                color: $lightblue;
+                cursor: pointer;
+            }
+
+            &::before {
+                position: absolute;
+                content: "";
+                width: 100%;
+                height: $picture_height;
+                top: -$picture_height;
+                right: 0;
+                bottom: 0;
+                left: 0;
+
+                background-image: url(/assets/start-a-business.jpg);
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+
+                border-bottom: 4px solid $darkblue;
+            }
+        }
+
+    }
+}
+
+.instructions {
+    display: flex;
+    flex-direction: column;
+    font-size: .85rem;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}

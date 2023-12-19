@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { Business } from 'src/app/models/business';
+import { Inventory } from 'src/app/models/inventory';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { BusinessService } from 'src/app/services/business.service';
@@ -14,7 +16,8 @@ export class DashboardComponent implements OnInit {
   authenticatedUser: User | null;
   selectedBusiness: Business | null ;
   selectedEmployee: User | null;
-  
+
+  inventories: Set<Inventory> = new Set<Inventory>();
   associatedBusinesses:Set<Business> = new Set<Business>();
   
   constructor(
@@ -29,9 +32,17 @@ export class DashboardComponent implements OnInit {
       });
       
       this.businessService.getAssociatedBusinesses().subscribe((businesses: Set<Business>) =>{
-        let sortedArray = Array.from(businesses).sort((a, b) => a.name.localeCompare(b.name));
-        this.associatedBusinesses = new Set(sortedArray);
-        this.selectedBusiness = sortedArray[0];
+        let sortedBusinessArray = Array.from(businesses).sort((a, b) => a.name.localeCompare(b.name));
+        this.associatedBusinesses = new Set(sortedBusinessArray);
+        this.selectedBusiness = sortedBusinessArray[0];
+
+        if(this.selectedBusiness){
+          this.businessService.getBusinessInventories(this.selectedBusiness.id).subscribe((inventories: Set<Inventory>) => {
+            this.inventories = inventories;
+            console.log(this.inventories);
+          });
+        }
+        
       });
     }
     

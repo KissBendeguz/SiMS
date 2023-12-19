@@ -33,12 +33,11 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         this.httpErrorService.addError(error);
         if(token){
+          this.authService.removeToken();
           if(error.status===401){ //UNAUTHORIZED
             console.warn("Invalid or expired token has been removed.");
-            this.authService.removeToken();
           }else if(error.status >= 500 && error.status <= 504){
             console.warn("Token has been removed due to Server error.")
-            this.authService.removeToken();
           }
         }
         return throwError(() => error);

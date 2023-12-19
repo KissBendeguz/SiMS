@@ -60,7 +60,6 @@ export class RegisterComponent {
     firstName: ['', [Validators.required, Validators.pattern(/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/)]],
     lastName: ['', [Validators.required, Validators.pattern(/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/)]],
     password: ['', [Validators.required, Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")]],
-    taxNumber: ['', [Validators.required, Validators.pattern(/^[0-9-]+$/)]],
     gender: [Gender.UNKNOWN, [Validators.required, this.enumValidator, this.genderValidator]],
     confirmPassword: ['', [Validators.required]],
     privacyPolicy: [false, Validators.requiredTrue]
@@ -70,7 +69,6 @@ export class RegisterComponent {
   get firstName() { return this.registerForm.get('firstName') }
   get lastName() { return this.registerForm.get('lastName') }
   get password() { return this.registerForm.get('password') }
-  get taxNumber() { return this.registerForm.get('taxNumber') }
   get gender() { return this.registerForm.get('gender') }
   get confirmPassword() { return this.registerForm.get('confirmPassword') }
   get privacyPolicy() { return this.registerForm.get('privacyPolicy') }
@@ -93,7 +91,6 @@ export class RegisterComponent {
       password: this.password!.value,
       firstname: this.firstName!.value,
       lastname: this.lastName!.value,
-      taxNumber: this.taxNumber!.value,
       gender: this.gender!.value
     }
 

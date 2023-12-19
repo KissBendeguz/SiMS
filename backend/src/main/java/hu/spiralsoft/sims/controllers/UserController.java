@@ -54,7 +54,6 @@ public class UserController {
                 .lastname(request.getLastname())
                 .gender(request.getGender())
                 .email(request.getEmail())
-                .taxNumber(request.getTaxNumber())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .associatedBusinesses(new HashSet<>())
                 .build();

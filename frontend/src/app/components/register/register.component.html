@@ -76,17 +76,6 @@
                     <option *ngFor="let gender of genderOptions" [value]="gender" [disabled]="gender==='UNKNOWN'" [hidden]="gender==='UNKNOWN'">{{ gender==="UNKNOWN"?"Select":gender }}</option>
                 </select>
             </div>
-            <div class="input-group">
-                <label for="taxNumber">
-                    {{
-                        taxNumber?.touched && taxNumber?.errors?.['required']
-                          ? 'Tax number is required'
-                          : (taxNumber?.valid || taxNumber?.untouched ? 'Tax Number' : 'Invalid tax number!')
-                    }}
-                </label>
-                <input class="sims-input" type="text" placeholder="12345678-1-23" id="taxNumber" name="taxNumber"
-                    formControlName="taxNumber">
-            </div>
         </div>
         <div class="input-group flex-start">
             <label for="privacyPolicy" [ngStyle]="{'color': (privacyPolicy!.touched && !privacyPolicy!.valid) ? 'red' : 'black'}" *ngIf="(privacyPolicy!.touched && !privacyPolicy!.valid)">You must accept the Privacy policy & Terms.</label>

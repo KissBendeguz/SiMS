@@ -12,7 +12,7 @@
 
   <div class="business-list" *ngIf="selectedBusiness; else noBusinessSelected">
     <h2>Businesses</h2>
-    <button class="add-button sims-input">Add new</button>
+    <a class="add-button sims-input" routerLink="/create">Add new</a>
     <app-list class="hover-anim" [items]="associatedBusinesses" [selectedElement]="selectedBusiness" fieldName="name" (itemClick)="onBusinessClick($event)"></app-list>
   </div>
 
@@ -45,7 +45,7 @@
             </tr>
             <tr>
               <td>{{selectedBusiness.taxNumber}}</td>
-              <td>{{selectedBusiness.headquarters}}</td>
+              <td>{{selectedBusiness.headQuarters}}</td>
               <td>{{selectedBusiness.simsRegistrationDate}}</td>
             </tr>
           </tbody>
@@ -83,9 +83,33 @@
 
 
 
-    <div class="divider"></div>
-    <div class="inventory">
-      inventory
+    <!--<div class="divider"></div>-->
+    <div class="inventoryContainer">
+      <div class="create">
+        <p>Raktár létrehozása</p>
+        <button class="sims-input inventoryCreateButton" routerLink="/inventory/create"><i class="fa-solid fa-plus"></i></button>
+      </div>
+      <ng-template #noInventoryFound>
+        <p>A vállalkozáshoz nem tartozik egy raktár sem. Hozza létre első raktárát!</p>
+      </ng-template>
+
+
+        <div class="inventories" *ngIf="inventories; else noInventoryFound">
+          <div class="inventory" *ngFor="let inventory of inventories">
+            <div class="cardTitle">
+              <p>{{inventory.name}}</p>
+              <div class="icons">
+                <a><i class="view fa-regular fa-eye" title="Villámnézet"></i></a>
+                <a><i class="delete fa-regular fa-trash-can" title="Törlés"></i></a>
+              </div>
+            </div>
+            <div class="cardContent">
+              asd
+            </div>
+          </div>
+        </div>
+      
+      
     </div>
   </div>
 

@@ -30,11 +30,16 @@
     
 
     .add-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       width: 50%;
       text-align: center;
       cursor: pointer;
       background-color: $lightblue;
       border: none;
+      color: $white;
       &:hover{
         filter: brightness(.95);
       }
@@ -135,11 +140,57 @@
       background-color: $lightblue;
       height: 100%;
     }
-    .inventory{
+    .inventoryContainer{
       flex: 2;
       max-height: 100%;
       overflow-y: auto;
       padding: 0 1rem;
+
+      .create{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 1rem;
+        gap: 1rem;
+        .inventoryCreateButton{
+          width: 2rem;
+          height: 2rem;
+          aspect-ratio: 1/1;
+          text-align: center;
+          padding: 0;
+
+          border: none;
+          border-radius: 50%;
+          box-shadow: 0 0 10px $darkblue;
+          &:hover{
+            color: $lightblue;
+          }
+        }
+      }
+      .inventory{
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 10px $darkblue;
+        border-radius: 4px;
+        .cardTitle{
+          display: flex;
+          justify-content: space-between;
+          padding: .4rem .6rem;
+          background-color: $darkblue;
+          color: $white;
+          .icons{
+            display: flex;
+            gap: .5rem;
+            
+            .delete:hover{
+              color: $red;
+            }
+          }
+        }
+        .cardContent{
+          padding: 1rem;
+        }
+      }
     }
   }
 

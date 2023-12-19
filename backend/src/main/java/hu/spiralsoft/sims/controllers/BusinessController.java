@@ -36,21 +36,19 @@ public class BusinessController {
 
     @PostMapping("")
     public ResponseEntity<Business> createBusiness(@AuthenticationPrincipal User authenticatedUser, @RequestBody Business body){
-        if (    body == null ||
-                body.getName().length() < 3 ||
-                body.getName().length() > 26){
+        if (body == null){
             return ResponseEntity.badRequest().build();
         }
         Optional<User> savedUser = userRepository.findById(authenticatedUser.getId());
         if (savedUser.isEmpty()){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
         Business business = Business.builder()
                 .name(body.getName())
                 .simsRegistrationDate(new Date())
                 .businessRegistrationDate(body.getBusinessRegistrationDate())
                 .taxNumber(body.getTaxNumber())
-                .headquarters(body.getHeadquarters())
+                .headQuarters(body.getHeadQuarters())
                 .owner(savedUser.get())
                 .associates(new HashSet<>())
                 .build();
