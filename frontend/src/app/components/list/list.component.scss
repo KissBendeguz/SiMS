@@ -1,3 +1,4 @@
+@use 'src/variables' as *;
 :host{
     width: 100%;
 
@@ -21,7 +22,7 @@ ul{
         &.selected{
             font-weight: 500;
         }
-
+                
     }
 }
 
