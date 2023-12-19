@@ -85,7 +85,7 @@
     <div class="inventoryContainer">
       <div class="create">
         <p>Raktár létrehozása</p>
-        <button class="sims-input inventoryCreateButton" routerLink="/inventory/create"><i class="fa-solid fa-plus"></i></button>
+        <button class="sims-input inventoryCreateButton" routerLink="{{selectedBusiness.id}}/inventory/create"><i class="fa-solid fa-plus"></i></button>
       </div>
       <ng-template #noInventoryFound>
         <p>A vállalkozáshoz nem tartozik egy raktár sem. Hozza létre első raktárát!</p>

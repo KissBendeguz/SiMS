@@ -1,1 +1,64 @@
-<p>create-inventory works!</p>
+<div class="container">
+    <form [formGroup]="createForm" (ngSubmit)="create()">
+        <h2>Creating a virtual inventory</h2>
+
+        <div class="input-group">
+            <label for="name">
+                {{
+                    name?.touched && name?.errors?.['required']
+                      ? 'Name is required'
+                      : (name?.valid || name?.untouched ? 'Warehouse name' : 'Invalid name!')
+                }}
+            </label>
+            <input class="sims-input" type="text" placeholder="Jeff" id="name" name="name"
+                formControlName="name">
+        </div>
+        <div class="input-group">
+            <label for="address">
+                {{
+                    address?.touched && address?.errors?.['required']
+                      ? 'Address is required'
+                      : (address?.valid || address?.untouched ? 'Warehouse address' : 'Invalid address!')
+                }}
+            </label>
+            <input  class="sims-input" type="text" placeholder="Address" id="address" name="address"
+                formControlName="address">
+        </div>
+        <div class="input-group">
+            <label for="managerName">
+                {{
+                    managerName?.touched && managerName?.errors?.['required']
+                      ? 'Name is required'
+                      : (managerName?.valid || managerName?.untouched ? 'Manager\'s name' : 'Invalid name!')
+                }}
+            </label>
+            <input class="sims-input" type="text" placeholder="Jeff" id="managerName" name="managerName"
+                formControlName="managerName">
+        </div>
+        <div class="input-group">
+            <label for="managerPhone">
+                {{
+                    managerPhone?.touched && managerPhone?.errors?.['required']
+                      ? 'Phone is required'
+                      : (managerPhone?.valid || managerPhone?.untouched ? 'Manager\'s phone' : 'Invalid Phone!')
+                }}
+            </label>
+            <input class="sims-input" type="text" placeholder="Phone" id="managerPhone" name="managerPhone"
+                formControlName="managerPhone">
+        </div>
+        <div class="input-group">
+            <label for="managerEmail">
+                {{
+                    managerEmail?.touched && managerEmail?.errors?.['required']
+                      ? 'Email is required'
+                      : (managerEmail?.valid || managerEmail?.untouched ? 'Manager\'s email' : 'Invalid email!')
+                }}
+            </label>
+            <input class="sims-input" type="text" placeholder="Email" id="managerEmail" name="managerEmail"
+                formControlName="managerEmail">
+        </div>
+        <div class="input-group">
+            <input class="sims-button" type="submit" value="Létrehozás">
+        </div>
+    </form>
+</div>

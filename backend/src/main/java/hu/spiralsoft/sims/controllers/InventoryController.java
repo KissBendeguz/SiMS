@@ -43,6 +43,10 @@ public class InventoryController {
 
         Inventory inventory = Inventory.builder()
                 .name(body.getName())
+                .address(body.getAddress())
+                .managerName(body.getManagerName())
+                .managerPhone(body.getManagerPhone())
+                .managerEmail(body.getManagerEmail())
                 .products(new HashSet<>())
                 .business(oBusiness.get())
                 .build();

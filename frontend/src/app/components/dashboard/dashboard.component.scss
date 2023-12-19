@@ -141,28 +141,35 @@
           }
         }
       }
-      .inventory{
+      .inventories{
         display: flex;
         flex-direction: column;
-        box-shadow: 0 0 10px $darkblue;
-        border-radius: 4px;
-        .cardTitle{
+        gap: 1rem;
+        .inventory{
           display: flex;
-          justify-content: space-between;
-          padding: .4rem .6rem;
-          background-color: $darkblue;
-          color: $white;
-          .icons{
+          flex-direction: column;
+          box-shadow: 0 0 10px $darkblue;
+          border-radius: 4px;
+          .cardTitle{
             display: flex;
-            gap: .5rem;
-            
-            .delete:hover{
-              color: $red;
+            justify-content: space-between;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            padding: .4rem .6rem;
+            background-color: $darkblue;
+            color: $white;
+            .icons{
+              display: flex;
+              gap: .5rem;
+              
+              .delete:hover{
+                color: $red;
+              }
             }
           }
-        }
-        .cardContent{
-          padding: 1rem;
+          .cardContent{
+            padding: 1rem;
+          }
         }
       }
     }

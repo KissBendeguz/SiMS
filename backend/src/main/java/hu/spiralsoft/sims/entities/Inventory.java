@@ -14,6 +14,10 @@ import java.util.Set;
 @Table(name = "inventories")
 public class Inventory extends BaseEntity{
     private String name;
+    private String address;
+    private String managerName;
+    private String managerPhone;
+    private String managerEmail;
     @ManyToOne
     private Business business;
     @OneToMany

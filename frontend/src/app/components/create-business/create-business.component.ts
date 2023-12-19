@@ -73,8 +73,6 @@ export class CreateBusinessComponent {
       next: () => this.router.navigate(['/']),
     });
 
-    console.log(JSON.stringify(business));
-
   }
   @HostListener('keydown.tab', ['$event'])
   onTabKey(event: KeyboardEvent): void {

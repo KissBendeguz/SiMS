@@ -39,7 +39,6 @@ export class DashboardComponent implements OnInit {
         if(this.selectedBusiness){
           this.businessService.getBusinessInventories(this.selectedBusiness.id).subscribe((inventories: Set<Inventory>) => {
             this.inventories = inventories;
-            console.log(this.inventories);
           });
         }
         
