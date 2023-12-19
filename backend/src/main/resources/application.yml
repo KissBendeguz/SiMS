@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5332/uno
+    url: jdbc:postgresql://localhost:5332/sims
     username: root
-    password: ascendesuperius
+    password: simsDevelopment
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -24,6 +24,6 @@ application:
   security:
     jwt:
       secret-key: ad7205a6abfe94462841119255593a6c595e8d477d152875a4db3c4b2d1416d3
-      expiration: 86400000 # a day
+      expiration: 604800000 # a day
       refresh-token:
         expiration: 604800000 # 7 days

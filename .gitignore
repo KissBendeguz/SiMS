@@ -1,0 +1,4 @@
+docker-compose.yml
+./backend/pom.xml
+./backend/src/main/resources/application.yml
+./frontend/angular.json
