@@ -13,16 +13,34 @@
   <div class="business-list" *ngIf="selectedBusiness; else noBusinessSelected">
     <h2>Businesses</h2>
     <a class="add-button sims-input" routerLink="/create">Add new</a>
-    <app-list class="hover-anim" [items]="associatedBusinesses" [selectedElement]="selectedBusiness" fieldName="name" (itemClick)="onBusinessClick($event)"></app-list>
+    <app-list class="hover-anim" [items]="associatedBusinesses" [selectedElement]="selectedBusiness" fieldName="name"
+      (itemClick)="onBusinessClick($event)"></app-list>
+    <div class="footer">
+      <div class="contacts">
+        <h2>Elérhetőségek:</h2>
+        <ul>
+          <li>info@sims.com</li>
+          <li>06 10 123 4567</li>
+        </ul>
+      </div>
+
+      <ul class="flags">
+        <li><img src="assets/hu.svg" alt="HU"></li>
+        <li><img src="assets/gb.svg" alt="GB"></li>
+        <li><img src="assets/us.svg" alt="US"></li>
+      </ul>
+    </div>
+
   </div>
 
 
   <div class="business-info" *ngIf="selectedBusiness">
-    <div class="business" >
+    <div class="business">
       <div class="title">
         {{selectedBusiness.name}}
       </div>
-      <p class="motd">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi fuga illum reiciendis soluta quam aut temporibus consectetur quaerat et quod sapiente ab molestiae debitis laborum, optio magni ea eius neque!</p>
+      <p class="motd">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi fuga illum reiciendis soluta quam
+        aut temporibus consectetur quaerat et quod sapiente ab molestiae debitis laborum, optio magni ea eius neque!</p>
 
       <div class="details">
         <h2>Cégadatok</h2>
@@ -72,7 +90,7 @@
       <div class="title">
         Alkalmazott adatok
       </div>
-      
+
       <ng-template #noEmployeeSelected>
         <p>Kérem válasszon alkalmazottat!</p>
       </ng-template>
@@ -87,35 +105,39 @@
     <div class="inventoryContainer">
       <div class="create">
         <p>Raktár létrehozása</p>
-        <button class="sims-input inventoryCreateButton" routerLink="/inventory/create"><i class="fa-solid fa-plus"></i></button>
+        <button class="sims-input inventoryCreateButton" routerLink="/inventory/create"><i
+            class="fa-solid fa-plus"></i></button>
       </div>
       <ng-template #noInventoryFound>
         <p>A vállalkozáshoz nem tartozik egy raktár sem. Hozza létre első raktárát!</p>
       </ng-template>
 
 
-        <div class="inventories" *ngIf="inventories; else noInventoryFound">
-          <div class="inventory" *ngFor="let inventory of inventories">
-            <div class="cardTitle">
-              <p>{{inventory.name}}</p>
-              <div class="icons">
-                <a><i class="view fa-regular fa-eye" title="Villámnézet"></i></a>
-                <a><i class="delete fa-regular fa-trash-can" title="Törlés"></i></a>
-              </div>
-            </div>
-            <div class="cardContent">
-              asd
+      <div class="inventories" *ngIf="inventories; else noInventoryFound">
+        <div class="inventory" *ngFor="let inventory of inventories">
+          <div class="cardTitle">
+            <p>{{inventory.name}}</p>
+            <div class="icons">
+              <a><i class="view fa-regular fa-eye" title="Villámnézet"></i></a>
+              <a><i class="delete fa-regular fa-trash-can" title="Törlés"></i></a>
             </div>
           </div>
+          <div class="cardContent">
+            asd
+          </div>
         </div>
-      
-      
+      </div>
+
+
     </div>
   </div>
 
   <div class="employee-list" *ngIf="selectedBusiness">
-    <h2>Alkalmazottak</h2>
-    <app-list class="hover-anim" [items]="selectedBusiness.associates || null" [selectedElement]="selectedEmployee" fieldName="fullName" (itemClick)="onEmployeeClick($event)"></app-list>
+    <div class="table">
+      <h2>Alkalmazottak</h2>
+      <input type="button" value="Hozzáadás" class="sims-input">
+      <app-list class="hover-anim" [items]="selectedBusiness.associates || null" [selectedElement]="selectedEmployee"
+        fieldName="fullName" (itemClick)="onEmployeeClick($event)"></app-list>
+    </div>
   </div>
 </div>
-

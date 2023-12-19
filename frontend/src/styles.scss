@@ -73,9 +73,10 @@ a {
 
     &:hover {
         border-color: $lightblue;
-        &:is(button){
+        &:is(button, input[type="button"]){
             cursor: pointer;
         }
+
     }
     &:disabled{
         cursor: not-allowed;
