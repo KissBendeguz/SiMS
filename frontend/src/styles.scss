@@ -58,9 +58,6 @@ a {
     &:is(:hover, :active, :focus) {
         color: $lightblue;
     }
-    &:is(:visited){
-        color: inherit !important;
-    }
 }
 
 .sims-input {
