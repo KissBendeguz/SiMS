@@ -49,14 +49,17 @@ html {
 }
 
 a {
-    color: inherit;
+    color: $lightblue;
+    outline: none;
 
     &:hover{
         cursor: pointer;
     }
-    &:is(:link, :visited, :hover, :active, :focus) {
+    &:is(:hover, :active, :focus) {
         color: $lightblue;
-        outline: none;
+    }
+    &:is(:visited){
+        color: inherit !important;
     }
 }
 

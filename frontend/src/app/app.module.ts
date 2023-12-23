@@ -14,6 +14,7 @@ import { AuthInterceptor } from './services/auth.interceptor';
 import { ListComponent } from './components/list/list.component';
 import { CreateBusinessComponent } from './components/create-business/create-business.component';
 import { CreateInventoryComponent } from './components/create-inventory/create-inventory.component';
+import { ViewInventoryComponent } from './components/view-inventory/view-inventory.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CreateInventoryComponent } from './components/create-inventory/create-i
     DashboardComponent,
     ListComponent,
     CreateBusinessComponent,
-    CreateInventoryComponent
+    CreateInventoryComponent,
+    ViewInventoryComponent
   ],
   imports: [
     BrowserModule,
