@@ -182,7 +182,7 @@
   <div class="employee-list" *ngIf="selectedBusiness">
     <div class="table">
       <h2>Alkalmazottak</h2>
-      <input type="button" value="Hozzáadás" class="sims-input">
+      <button routerLink="/{{selectedBusiness.id}}/add-employee" class="sims-input">Hozzáadás</button>
       <app-list class="hover-anim" [items]="selectedBusiness.associates || null" [selectedElement]="selectedEmployee"
         fieldName="fullName" (itemClick)="onEmployeeClick($event)"></app-list>
     </div>

@@ -15,6 +15,7 @@ import { ListComponent } from './components/list/list.component';
 import { CreateBusinessComponent } from './components/create-business/create-business.component';
 import { CreateInventoryComponent } from './components/create-inventory/create-inventory.component';
 import { ViewInventoryComponent } from './components/view-inventory/view-inventory.component';
+import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ViewInventoryComponent } from './components/view-inventory/view-invento
     ListComponent,
     CreateBusinessComponent,
     CreateInventoryComponent,
-    ViewInventoryComponent
+    ViewInventoryComponent,
+    AddEmployeeComponent
   ],
   imports: [
     BrowserModule,
