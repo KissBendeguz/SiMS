@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -22,6 +23,14 @@ public class User extends BaseEntity implements UserDetails {
     private Gender gender;
     private String email;
     private String password;
+
+    private String placeOfBirth;
+    private Date dateOfBirth;
+    private String homeAddress;
+    private String citizenship;
+    private String identityCardNumber;
+    private String socialSecurityNumber;
+    private String phoneNumber;
 
 
     @JsonIgnore

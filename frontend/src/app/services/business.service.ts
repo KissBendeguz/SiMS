@@ -6,6 +6,17 @@ import { User } from '../models/user';
 import { Inventory } from '../models/inventory';
 import { httpOptions } from './auth.service';
 
+export interface AddEmployeeRequest{
+  email: string;
+  
+  dateOfBirth: Date;
+  placeOfBirth: string;
+  citizenship: string;
+  homeAddress: string;
+  socialSecurityNumber: string;
+  identityCardNumber: string;
+  phoneNumber: string;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -32,6 +43,10 @@ export class BusinessService {
 
   updateBusiness(id: number, business: Business): Observable<Business> {
     return this.http.patch<Business>(`${this.apiUrl}/${id}`, business, { headers: httpOptions.headers });
+  }
+
+  addEmployee(id: number, request:AddEmployeeRequest){
+    return this.http.put<void>(`${this.apiUrl}/${id}/add`, request, { headers: httpOptions.headers });
   }
 
   inviteUser(businessId: number, userId: number): Observable<User> {

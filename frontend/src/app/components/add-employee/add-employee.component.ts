@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Inventory } from 'src/app/models/inventory';
 import { AuthService } from 'src/app/services/auth.service';
+import { AddEmployeeRequest, BusinessService } from 'src/app/services/business.service';
 import { InventoryService } from 'src/app/services/inventory.service';
 
 @Component({
@@ -26,8 +27,7 @@ export class AddEmployeeComponent {
 
 
   constructor(
-    private authService: AuthService,
-    private inventoryService: InventoryService,
+    private businessService: BusinessService,
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder
@@ -35,10 +35,7 @@ export class AddEmployeeComponent {
 
 
 
-  createForm = this.formBuilder.nonNullable.group({
- //   name: ['', [Validators.required, Validators.pattern(/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/)]],
-    address: ['', [Validators.required]],
-    name: ['', [Validators.required, Validators.pattern(/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/)]],
+  addForm = this.formBuilder.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     phone: ['',Validators.required],
     placeofbirth: ['', [Validators.required]],
@@ -50,25 +47,37 @@ export class AddEmployeeComponent {
 
   }, { updateOn: 'blur' });
 
-  //get name() { return this.createForm.get('name') }
-  get address() { return this.createForm.get('address') }
-  get name() { return this.createForm.get('name') }
-  get email() { return this.createForm.get('email') }
-  get phone() { return this.createForm.get('phone') }
-  get placeofbirth() { return this.createForm.get('placeofbirth') }
-  get dateofbirth() { return this.createForm.get('dateofbirth') }
-  get homeaddress() { return this.createForm.get('homeaddress') }
-  get citizenship() { return this.createForm.get('citizenship') }
-  get identitycardnumber() { return this.createForm.get('identitycardnumber') }
-  get socialsecuritynumber() { return this.createForm.get('socialsecuritynumber') }
+  get email() { return this.addForm.get('email') }
+  get phone() { return this.addForm.get('phone') }
+  get placeofbirth() { return this.addForm.get('placeofbirth') }
+  get dateofbirth() { return this.addForm.get('dateofbirth') }
+  get homeaddress() { return this.addForm.get('homeaddress') }
+  get citizenship() { return this.addForm.get('citizenship') }
+  get identitycardnumber() { return this.addForm.get('identitycardnumber') }
+  get socialsecuritynumber() { return this.addForm.get('socialsecuritynumber') }
 
-  create() {
-    if (!this.createForm.valid) {
-      Object.keys(this.createForm.controls).forEach(key => {
-        this.createForm.controls[key].markAsTouched();
+  add() {
+    console.log(this.addForm.valid)
+    if (!this.addForm.valid) {
+      Object.keys(this.addForm.controls).forEach(key => {
+        this.addForm.controls[key].markAsTouched();
       });
-      this.createForm.updateValueAndValidity();
+      this.addForm.updateValueAndValidity();
       return;
     }
+    const request:AddEmployeeRequest = {
+      email: this.email!.value,
+      phoneNumber: this.phone!.value,
+      placeOfBirth: this.placeofbirth!.value,
+      dateOfBirth: new Date(this.dateofbirth!.value),
+      homeAddress: this.homeaddress!.value,
+      citizenship: this.citizenship!.value,
+      identityCardNumber: this.identitycardnumber!.value,
+      socialSecurityNumber: this.socialsecuritynumber!.value
+    }
+    console.log("http kérés")
+    this.businessService.addEmployee(this.businessId,request).subscribe({
+      next: () => this.router.navigate(['/']),
+    });
   }
 }

@@ -1,5 +1,5 @@
 <div class="container">
-    <form [formGroup]="createForm" (ngSubmit)="create()">
+    <form [formGroup]="addForm" (ngSubmit)="add()">
         <h2>Alkalmazott hozzáadása</h2>
 
 
@@ -24,7 +24,7 @@
                         : (dateofbirth?.valid || dateofbirth?.untouched ? 'Születés Ideje' : 'Invalid Születés Ideje!')
                     }}
                 </label>
-                <input  class="sims-input" type="text" placeholder="2000.01.01." id="dateofbirth" name="dateofbirth"
+                <input  class="sims-input" type="date" placeholder="2000.01.01." id="dateofbirth" name="dateofbirth"
                     formControlName="dateofbirth">
             </div>
         </div>

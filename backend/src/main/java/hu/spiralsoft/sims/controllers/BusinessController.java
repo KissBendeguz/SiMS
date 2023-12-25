@@ -7,6 +7,7 @@ import hu.spiralsoft.sims.repositories.BusinessRepository;
 import hu.spiralsoft.sims.repositories.InventoryRepository;
 import hu.spiralsoft.sims.repositories.UserRepository;
 import hu.spiralsoft.sims.security.JwtService;
+import hu.spiralsoft.sims.security.http.addEmployeeRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -128,19 +129,27 @@ public class BusinessController {
         }
         return ResponseEntity.notFound().build();
     }
-    private record EmailRequest(String email){}
     @PutMapping("/{id}/add")
-    public ResponseEntity<?> addEmployee(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id, @RequestBody EmailRequest body){
+    public ResponseEntity<?> addEmployee(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id, @RequestBody addEmployeeRequest body){
         Optional<Business> optionalBusiness = businessRepository.findById(id);
         if(optionalBusiness.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         Business business = optionalBusiness.get();
-        Optional<User> optionalEmployee = userRepository.findByEmail(body.email());
+        Optional<User> optionalEmployee = userRepository.findByEmail(body.getEmail());
         if (optionalEmployee.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         User employee = optionalEmployee.get();
+
+        employee.setHomeAddress(body.getHomeAddress());
+        employee.setDateOfBirth(body.getDateOfBirth());
+        employee.setPlaceOfBirth(body.getPlaceOfBirth());
+        employee.setCitizenship(body.getCitizenship());
+        employee.setIdentityCardNumber(body.getIdentityCardNumber());
+        employee.setSocialSecurityNumber(body.getSocialSecurityNumber());
+        employee.setPhoneNumber(body.getPhoneNumber());
+
         employee.getAssociatedBusinesses().add(business);
         userRepository.save(employee);
         business.getAssociates().add(employee);
