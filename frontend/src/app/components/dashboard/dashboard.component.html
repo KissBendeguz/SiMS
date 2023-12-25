@@ -127,8 +127,6 @@
     
 
 
-
-    <!--<div class="divider"></div>-->
     <div class="inventoryContainer">
       <div class="create">
         <p>Raktár létrehozása</p>
@@ -140,16 +138,39 @@
 
 
       <div class="inventories" *ngIf="inventories; else noInventoryFound">
-        <div class="inventory" *ngFor="let inventory of inventories">
+        <div class="inventory" *ngFor="let inventory of inventories" >
           <div class="cardTitle">
             <p>{{inventory.name}}</p>
             <div class="icons">
-              <a><i class="view fa-regular fa-eye" title="Villámnézet"></i></a>
+              <a routerLink="/{{selectedBusiness.id}}/inventory/{{inventory.id}}"><i class="view fa-regular fa-eye" title="Megtekintés"></i></a>
               <a><i class="delete fa-regular fa-trash-can" title="Törlés"></i></a>
             </div>
           </div>
           <div class="cardContent">
-            asd
+            <table>
+              <tbody>
+                <tr>
+                  <th>Elnevezés</th>
+                  <th>Cím</th>
+                  <th>Termékszám</th>
+                </tr>
+                <tr>
+                  <td>{{inventory.name}}</td>
+                  <td>{{inventory.address}}</td>
+                  <td>{{inventory.products.size || 0}}</td>
+                </tr>
+                <tr>
+                  <th>Menedzser</th>
+                  <th>M. Tel.</th>
+                  <th>M. Email</th>
+                </tr>
+                <tr>
+                  <td>{{inventory.managerName}}</td>
+                  <td>{{inventory.managerPhone}}</td>
+                  <td>{{inventory.managerEmail}}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

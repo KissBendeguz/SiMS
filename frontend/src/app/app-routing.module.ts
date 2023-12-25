@@ -7,12 +7,14 @@ import { AuthGuard } from './services/auth.guard';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreateBusinessComponent } from './components/create-business/create-business.component';
 import { CreateInventoryComponent } from './components/create-inventory/create-inventory.component';
+import { ViewInventoryComponent } from './components/view-inventory/view-inventory.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'create', component: CreateBusinessComponent, canActivate: [AuthGuard] },
   { path: ':businessId/inventory/create', component: CreateInventoryComponent, canActivate: [AuthGuard] },
+  { path: ':businessId/inventory/:inventoryId', component: ViewInventoryComponent, canActivate: [AuthGuard] },
   { path: '', component: DashboardComponent, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/' },
 ];

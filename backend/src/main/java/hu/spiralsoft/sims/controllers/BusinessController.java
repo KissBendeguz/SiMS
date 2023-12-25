@@ -80,6 +80,20 @@ public class BusinessController {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Business> getBusiness(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id){
+        Optional<Business> optionalBusiness = businessRepository.findById(id);
+        if(optionalBusiness.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        Business business = optionalBusiness.get();
+        if(!business.getAssociates().contains(authenticatedUser)){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        return ResponseEntity.ok(business);
+
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBusiness(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id) {
         Optional<Business> optionalBusiness = businessRepository.findById(id);

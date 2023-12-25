@@ -1,0 +1,30 @@
+:host{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    width: 80%;
+
+    border: 1px solid red;
+
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    .controls,.products{
+        border: 1px solid red;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding: 1rem;
+    }
+    .controls{
+        flex: 3;
+    }
+    .products{
+        flex: 4;
+    }
+}
