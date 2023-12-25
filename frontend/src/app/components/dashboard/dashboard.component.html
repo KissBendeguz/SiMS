@@ -94,10 +94,37 @@
       <ng-template #noEmployeeSelected>
         <p>Kérem válasszon alkalmazottat!</p>
       </ng-template>
-      <div *ngIf="selectedEmployee!=null; else noEmployeeSelected">
-        <p>Kiválasztott alkalmazott: {{selectedEmployee.fullName}}</p>
+      <div class="details">
+        <h2 *ngIf="selectedEmployee!=null; else noEmployeeSelected">{{selectedEmployee.fullName}}</h2>
+        <table>
+          <tbody>
+            <tr>
+              <td>Születési hely:<span id="Születési hely"></span></td>
+              <td>Idő:<span id="Idő"></span></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Állampolgárság:<span id="Állampolgárság"></span></td>
+              <td>TAJ száma:<span id="TAJ száma"></span></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Lakcíme:<span id="Lakcíme"></span></td>
+              <td>Telefonszáma:<span id="Telefonszáma"></span></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>E-mail címe:<span id="E-mail címe"></span></td>
+              <td>Személyi igazolványszáma:<span id="Személyi igazolványszáma"></span></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
     </div>
+
+    
 
 
 
