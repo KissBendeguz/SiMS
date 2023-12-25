@@ -1,0 +1,46 @@
+@use 'src/variables' as *;
+
+:host {
+  height: 100%;
+  display: flex;
+  width: 80vw;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $darkblue;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 50%;
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 calc(50% - 10px);
+
+      label {
+        font-size: .9rem;
+      }
+    }
+    .double-input-group{
+      display: flex;
+      gap: .5rem;
+      justify-content: space-between;
+    }
+    input[type="submit"]{
+        text-align: center;
+    }
+  }
+
+}
+.flex-start{
+  align-items: flex-start;
+}

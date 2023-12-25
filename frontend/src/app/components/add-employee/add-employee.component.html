@@ -1,0 +1,113 @@
+<div class="container">
+    <form [formGroup]="createForm" (ngSubmit)="create()">
+        <h2>Alkalmazott hozzáadása</h2>
+
+
+        <div class="double-input-group">
+            <div class="input-group">
+                <label for="placeofbirth">
+                    {{
+                        placeofbirth?.touched && placeofbirth?.errors?.['required']
+                        ? 'Születési hely is required'
+                        : (placeofbirth?.valid || placeofbirth?.untouched ? 'Születési hely' : 'Invalid Születési hely!')
+                    }}
+                </label>
+                <input  class="sims-input" type="text" placeholder="1010 Budapest, Budai út.1" id="placeofbirth" name="placeofbirth"
+                    formControlName="placeofbirth">
+            </div>
+
+            <div class="input-group">
+                <label for="dateofbirth">
+                    {{
+                        dateofbirth?.touched && dateofbirth?.errors?.['required']
+                        ? 'Születés Ideje is required'
+                        : (dateofbirth?.valid || dateofbirth?.untouched ? 'Születés Ideje' : 'Invalid Születés Ideje!')
+                    }}
+                </label>
+                <input  class="sims-input" type="text" placeholder="2000.01.01." id="dateofbirth" name="dateofbirth"
+                    formControlName="dateofbirth">
+            </div>
+        </div>
+
+        <div class="double-input-group">
+            <div class="input-group">
+                <label for="homeaddress">
+                    {{
+                        homeaddress?.touched && homeaddress?.errors?.['required']
+                        ? 'Lakcíme is required'
+                        : (homeaddress?.valid || homeaddress?.untouched ? 'Lakcíme' : 'Invalid address!')
+                    }}
+                </label>
+                <input  class="sims-input" type="text" placeholder="1010 Budapest, Budai út.1" id="homeaddress" name="homeaddress"
+                    formControlName="homeaddress">
+            </div>
+            <div class="input-group">
+                <label for="citizenship">
+                    {{
+                        citizenship?.touched && citizenship?.errors?.['required']
+                        ? 'citizenship is required'
+                        : (citizenship?.valid || citizenship?.untouched ? 'Állampolgárság' : 'Állampolgárság')
+                    }}
+                </label>
+                <input class="sims-input" type="text" placeholder="Magyar" id="citizenship:" name="citizenship:"
+                    formControlName="citizenship">
+            </div>
+        </div>
+
+        <div class="double-input-group">
+            <div class="input-group">
+                <label for="phone">
+                    {{
+                        phone?.touched && phone?.errors?.['required']
+                        ? 'Phone is required'
+                        : (phone?.valid || phone?.untouched ? 'phone' : 'Invalid Phone!')
+                    }}
+                </label>
+                <input class="sims-input" type="text" placeholder="Phone" id="phone" name="phone"
+                    formControlName="phone">
+            </div>
+
+            <div class="input-group">
+                <label for="email">
+                    {{
+                        email?.touched && email?.errors?.['required']
+                        ? 'Email is required'
+                        : (email?.valid || email?.untouched ? 'email' : 'Invalid email!')
+                    }}
+                </label>
+                <input class="sims-input" type="text" placeholder="Email" id="email" name="email"
+                    formControlName="email">
+            </div>
+        </div>
+
+        <div class="double-input-group">
+            <div class="input-group">
+                <label for="identitycardnumber">
+                    {{
+                        identitycardnumber?.touched && identitycardnumber?.errors?.['required']
+                        ? 'Személyi igazolványszáma is required'
+                        : (identitycardnumber?.valid || identitycardnumber?.untouched ? 'Személyi igazolványszáma' : 'Invalid Személyi igazolványszáma!')
+                    }}
+                </label>
+                <input class="sims-input" type="text" placeholder="000000XX" id="identitycardnumber" name="identitycardnumber"
+                    formControlName="identitycardnumber">
+            </div>
+
+            <div class="input-group">
+                <label for="socialsecuritynumber">
+                    {{
+                        socialsecuritynumber?.touched && socialsecuritynumber?.errors?.['required']
+                        ? 'Email is required'
+                        : (socialsecuritynumber?.valid || socialsecuritynumber?.untouched ? 'TAJ száma' : 'Invalid TAJ száma!')
+                    }}
+                </label>
+                <input class="sims-input" type="text" placeholder="111 222 333" id="socialsecuritynumber" name="socialsecuritynumber"
+                    formControlName="socialsecuritynumber">
+            </div>
+        </div> 
+
+        <div class="input-group">
+            <input class="sims-button" type="submit" value="Létrehozás">
+        </div>
+    </form>
+</div>
