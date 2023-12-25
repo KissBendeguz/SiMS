@@ -87,9 +87,9 @@ public class BusinessController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         Business business = optionalBusiness.get();
-        if(!business.getAssociates().contains(authenticatedUser)){
+        /*if(!business.getAssociates().contains(authenticatedUser)){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
+        }*/
         return ResponseEntity.ok(business);
 
     }
@@ -113,7 +113,7 @@ public class BusinessController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
     @PatchMapping("/{id}")
-    public ResponseEntity<Business> updateBusiness(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer id,@RequestBody Business body){
+    public ResponseEntity<Business> updateBusiness(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id, @RequestBody Business body){
         Optional<Business> optionalBusiness = businessRepository.findById(id);
         if(optionalBusiness.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -127,6 +127,25 @@ public class BusinessController {
             return ResponseEntity.ok(business);
         }
         return ResponseEntity.notFound().build();
+    }
+    private record EmailRequest(String email){}
+    @PutMapping("/{id}/add")
+    public ResponseEntity<?> addEmployee(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id, @RequestBody EmailRequest body){
+        Optional<Business> optionalBusiness = businessRepository.findById(id);
+        if(optionalBusiness.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        Business business = optionalBusiness.get();
+        Optional<User> optionalEmployee = userRepository.findByEmail(body.email());
+        if (optionalEmployee.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        User employee = optionalEmployee.get();
+        employee.getAssociatedBusinesses().add(business);
+        userRepository.save(employee);
+        business.getAssociates().add(employee);
+        businessRepository.save(business);
+        return ResponseEntity.ok().build();
     }
     @PatchMapping("/{businessId}/invite/{userId}")
     public ResponseEntity<User> inviteUser(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer businessId,@PathVariable Integer userId){

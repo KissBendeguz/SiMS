@@ -25,23 +25,27 @@ export class ViewInventoryComponent {
   ngOnInit(): void {
     const businessIdParam = this.route.snapshot.params['businessId'];
     const inventoryIdParam = this.route.snapshot.params['inventoryId'];
+    console.log(inventoryIdParam)
 
     if (!isNaN(Number(businessIdParam)) || !isNaN(Number(inventoryIdParam))) {
       this.businessId = Number(businessIdParam);
-      this.businessId = Number(inventoryIdParam);
+      this.inventoryId = Number(inventoryIdParam);
     } else {
       this.router.navigate(['/']);
+      return;
     }
     this.userService.authenticatedUser$.subscribe(user => {
       this.authenticatedUser = user;
+      console.log('business get')
+      this.businessService.getBusiness(this.businessId).subscribe((business:Business) => {
+        this.business = business;
+    
+        console.log('inventory get')
+        this.inventoryService.getInventory(this.inventoryId).subscribe((inventory:Inventory) => {
+          this.inventory = inventory;
+        });
     });
     
-    this.businessService.getBusiness(this.businessId).subscribe((business:Business) => {
-      this.business = business;
-  
-      this.inventoryService.getInventory(this.inventoryId).subscribe((inventory:Inventory) => {
-        this.inventory = inventory;
-      });
       
     });
 

@@ -61,9 +61,9 @@ public class InventoryController {
 
         if (inventoryOptional.isPresent()) {
             Inventory inventory = inventoryOptional.get();
-            if (inventory.getBusiness().getOwner().equals(authenticatedUser)) {
+            //if (inventory.getBusiness().getOwner().equals(authenticatedUser)) {
                 return ResponseEntity.ok(inventory);
-            }
+            //}
         }
 
         return ResponseEntity.notFound().build();
