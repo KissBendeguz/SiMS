@@ -91,10 +91,10 @@
         Alkalmazott adatok
       </div>
 
-      <ng-template #noEmployeeSelected>
-        <p>Kérem válasszon alkalmazottat!</p>
-      </ng-template>
       <div class="details">
+        <ng-template #noEmployeeSelected>
+          <h2>Kérem válasszon alkalmazottat!</h2>
+        </ng-template>
         <h2 *ngIf="selectedEmployee!=null; else noEmployeeSelected">{{selectedEmployee.fullName}}</h2>
         <table>
           <tbody>

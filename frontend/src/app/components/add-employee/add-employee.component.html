@@ -1,8 +1,13 @@
 <div class="container">
     <form [formGroup]="addForm" (ngSubmit)="add()">
+        <div class="goback">
+            <a routerLink="/"><i class="fa-solid fa-turn-up"></i> Go back</a>
+          </div>
         <h2>Alkalmazott hozzáadása</h2>
-
-
+        <div *ngIf="errorMessage" class="sims-error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <p>{{errorMessage}}</p>
+        </div>
         <div class="double-input-group">
             <div class="input-group">
                 <label for="placeofbirth">

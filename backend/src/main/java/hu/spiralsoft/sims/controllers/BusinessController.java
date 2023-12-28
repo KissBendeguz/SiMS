@@ -56,8 +56,8 @@ public class BusinessController {
         businessRepository.save(business);
         savedUser.get().getAssociatedBusinesses().add(business);
         userRepository.save(savedUser.get());
-        business.getAssociates().add(savedUser.get());
-        businessRepository.save(business);
+        /*business.getAssociates().add(savedUser.get());
+        businessRepository.save(business);*/
 
         return ResponseEntity.status(HttpStatus.CREATED).body(business);
     }

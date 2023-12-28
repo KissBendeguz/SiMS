@@ -1,7 +1,9 @@
 <div class="container">
     <form [formGroup]="createForm" (ngSubmit)="create()">
+        <div class="goback">
+            <a routerLink="/"><i class="fa-solid fa-turn-up"></i> Go back</a>
+        </div>
         <h2>Creating a virtual inventory</h2>
-
         <div class="input-group">
             <label for="name">
                 {{

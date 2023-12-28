@@ -1,9 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Inventory } from 'src/app/models/inventory';
 import { AuthService } from 'src/app/services/auth.service';
 import { AddEmployeeRequest, BusinessService } from 'src/app/services/business.service';
+import { HttpErrorService } from 'src/app/services/http-error.service';
 import { InventoryService } from 'src/app/services/inventory.service';
 
 @Component({
@@ -14,6 +16,7 @@ import { InventoryService } from 'src/app/services/inventory.service';
 
 export class AddEmployeeComponent {
   businessId: number;
+  errorMessage: string;
 
   ngOnInit(): void {
     const businessIdParam = this.route.snapshot.params['businessId'];
@@ -23,6 +26,7 @@ export class AddEmployeeComponent {
     } else {
       this.router.navigate(['/']);
     }
+    
   }
 
 
@@ -30,8 +34,28 @@ export class AddEmployeeComponent {
     private businessService: BusinessService,
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+    private httpErrorService: HttpErrorService
+  ) {
+    this.httpErrorService.error$.subscribe((error: HttpErrorResponse | null) => {
+      switch(error?.status){
+        case 403:
+          this.errorMessage = "Bad credentials";
+          break;
+        case 404:
+          this.errorMessage = "User is not found with this email address.";
+          break;
+        case 500:
+        case 501:
+        case 502:
+        case 503:
+        case 504:
+          this.errorMessage = "Service unavailable";
+          break;
+      }
+    }
+  );
+  }
 
 
 

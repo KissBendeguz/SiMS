@@ -35,7 +35,18 @@ export class DashboardComponent implements OnInit {
         let sortedBusinessArray = Array.from(businesses).sort((a, b) => a.name.localeCompare(b.name));
         this.associatedBusinesses = new Set(sortedBusinessArray);
         this.selectedBusiness = sortedBusinessArray[0];
+        const updatedBusinesses = new Set<Business>(sortedBusinessArray);
 
+        this.associatedBusinesses.forEach(business => {
+          const ownerEmail = business.owner.email;
+          business.associates = new Set([...business.associates].filter(associate => associate.email !== ownerEmail));
+
+          if (business.associates.size > 0) {
+            updatedBusinesses.add(business);
+          }
+        });
+
+        this.associatedBusinesses = updatedBusinesses;
         if(this.selectedBusiness){
           this.businessService.getBusinessInventories(this.selectedBusiness.id).subscribe((inventories: Set<Inventory>) => {
             this.inventories = inventories;
@@ -47,6 +58,9 @@ export class DashboardComponent implements OnInit {
     
     onBusinessClick(business:Business) {
       this.selectedBusiness = business;
+      this.businessService.getBusinessInventories(this.selectedBusiness.id).subscribe((inventories: Set<Inventory>) => {
+        this.inventories = inventories;
+      });
     }
     onEmployeeClick(employee:User){
       this.selectedEmployee = this.selectedEmployee === employee ? null : employee;

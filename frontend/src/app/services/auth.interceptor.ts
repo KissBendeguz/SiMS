@@ -9,10 +9,14 @@ import {
 import { Observable, catchError, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
 import { HttpErrorService } from './http-error.service';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService,private httpErrorService:HttpErrorService) {}
+  constructor(
+    private authService: AuthService,
+    private httpErrorService:HttpErrorService,
+    private userService: UserService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -33,12 +37,15 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         this.httpErrorService.addError(error);
         if(token){
-          this.authService.removeToken();
-          if(error.status===401){ //UNAUTHORIZED
-            console.warn("Invalid or expired token has been removed.");
-          }else if(error.status >= 500 && error.status <= 504){
-            console.warn("Token has been removed due to Server error.")
+
+          switch(error.status){
+            case 401:
+            case 500:
+            case 504:
+              console.warn("Interceptor forced a logout due to an error(UNAUTHORIZED or SERVER ERROR)");
+              this.userService.logout();
           }
+
         }
         return throwError(() => error);
       })

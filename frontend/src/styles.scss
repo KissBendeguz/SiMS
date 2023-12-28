@@ -162,3 +162,15 @@ a {
         font-weight: 200;
     }
 }
+
+.goback {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    a{
+        font-size: 1.3rem;
+        i{
+            transform: rotate(-90deg);
+        }
+    }
+}

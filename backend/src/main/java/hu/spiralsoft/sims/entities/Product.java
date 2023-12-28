@@ -1,5 +1,6 @@
 package hu.spiralsoft.sims.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -17,6 +18,9 @@ import java.util.Map;
 public class Product extends BaseEntity{
     private String name;
     private double quantity;
+    private String unit;
+    private String itemNumber;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date addedToInventory;
     @OneToOne
     private User addedBy;
