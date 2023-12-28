@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Form, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Business } from 'src/app/models/business';
 import { Inventory } from 'src/app/models/inventory';
@@ -22,10 +22,15 @@ export class ViewInventoryComponent {
   businessId: number;
   inventoryId: number
 
+dynamicForm: FormGroup;
+
   ngOnInit(): void {
     const businessIdParam = this.route.snapshot.params['businessId'];
     const inventoryIdParam = this.route.snapshot.params['inventoryId'];
     console.log(inventoryIdParam)
+    this.dynamicForm = this.fb.group({
+    dynamicProperties: this.fb.array([]),
+    });
 
     if (!isNaN(Number(businessIdParam)) || !isNaN(Number(inventoryIdParam))) {
       this.businessId = Number(businessIdParam);
@@ -58,6 +63,31 @@ export class ViewInventoryComponent {
     private businessService: BusinessService,
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private fb: FormBuilder
   ) {}
+
+
+
+  get dynamicProperties() {
+    return this.dynamicForm.get('dynamicProperties') as FormArray;
+  }
+
+  addProperty() {
+    const propertyGroup = this.fb.group({
+      key: ['', Validators.required],
+      value: ['', Validators.required],
+    });
+
+    this.dynamicProperties.push(propertyGroup);
+  }
+
+  removeProperty(index: number) {
+    this.dynamicProperties.removeAt(index);
+  }
+
+  onSubmit() {
+    // Handle form submission, e.g., send data to the backend
+    const formData = this.dynamicForm.value;
+    console.log(formData);
+  }
 }
