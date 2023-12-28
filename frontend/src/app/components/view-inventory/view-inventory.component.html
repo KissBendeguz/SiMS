@@ -1,43 +1,50 @@
 <div class="container">
-    <div class="controls">
+    <div class="add-products">
         <form [formGroup]="dynamicForm">
-            <div class="details">
-                <tr><label for="productName">Termék neve:</label>
+            <div class="regular-inputs">
+                <div class="input-group">
+                    <label for="productName">Termék neve:</label>
                     <input type="text" id="productName" name="productName">
-                </tr>
-
-                <tr><label for="quantity">Cikkszám:</label>
-                    <input type="text" id="quantity" name="quantity">
-                </tr>
-
-                <tr><label for="quantity">Mennyiség:</label>
-                    <input type="text" id="quantity" name="quantity">
-                </tr>
-
-                <tr> <label for="quantity">Mértékegység:</label>
-                    <input type="number" id="quantity" name="quantity">
-                </tr>
-
-                <tr><label for="quantity">Kategóriák:</label>
-                    <input type="text" id="quantity" name="quantity">
-                </tr>
-                <div formArrayName="dynamicProperties">
-                    <div *ngFor="let property of dynamicProperties.controls; let i = index">
-                        <div [formGroupName]="i">
-                            <label for="key">Key:</label>
-                            <input type="text" id="key" formControlName="key" />
-
-                            <label for="value">Value:</label>
-                            <input type="text" id="value" formControlName="value" />
-
-                            <button type="button" (click)="removeProperty(i)">Remove</button>
-                        </div>
-                    </div>
-                    <button type="button" (click)="addProperty()">Add Property</button>
-
                 </div>
-                <button type="submit">Termék hozzáadása</button>
+                <div class="input-group">
+                    <label for="quantity">Cikkszám:</label>
+                    <input type="text" id="quantity" name="quantity">
+                </div>
+                <div class="input-group">
+                    <label for="quantity">Mennyiség:</label>
+                    <input type="text" id="quantity" name="quantity">
+                </div>
+                <div class="input-group">
+                    <label for="quantity">Mértékegység:</label>
+                    <input type="number" id="quantity" name="quantity">
+                </div>
+                <div class="input-group">
+                    <label for="quantity">Kategóriák:</label>
+                    <input type="text" id="quantity" name="quantity">
+                </div>
             </div>
+            <div formArrayName="dynamicProperties">
+                <h2>Tulajdonságok</h2>
+                <div *ngFor="let property of dynamicProperties.controls; let i = index">
+                    <div class="double-input-group" [formGroupName]="i">
+                        <div class="input-group">
+                            <label for="key">Tulajdonság:</label>
+                            <input type="text" id="key" formControlName="key" />
+                        </div>
+                        <div class="input-group">
+                            <label for="value">Érték:</label>
+                            <input type="text" id="value" formControlName="value" />
+                        </div>
+
+                        <button type="button" (click)="removeProperty(i)">Remove</button>
+
+                    </div>
+                </div>
+                <button type="button" (click)="addProperty()">Add Property</button>
+
+            </div>
+            <button type="submit">Termék hozzáadása</button>
+
         </form>
     </div>
     <div class="products">

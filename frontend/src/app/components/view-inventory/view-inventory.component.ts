@@ -31,7 +31,7 @@ dynamicForm: FormGroup;
     this.dynamicForm = this.fb.group({
     dynamicProperties: this.fb.array([]),
     });
-
+  this.addProperty(); 
     if (!isNaN(Number(businessIdParam)) || !isNaN(Number(inventoryIdParam))) {
       this.businessId = Number(businessIdParam);
       this.inventoryId = Number(inventoryIdParam);
