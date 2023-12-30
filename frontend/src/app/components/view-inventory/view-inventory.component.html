@@ -1,49 +1,58 @@
 <div class="container">
     <div class="add-products">
-        <form [formGroup]="dynamicForm">
+        <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
             <div class="regular-inputs">
-                <div class="input-group">
-                    <label for="productName">Termék neve:</label>
-                    <input type="text" id="productName" name="productName">
+                <div class="row">
+                    <div class="input-group f-12">
+                        <label for="productName">Termék neve:</label>
+                        <input type="text" id="productName" name="productName">
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label for="quantity">Cikkszám:</label>
-                    <input type="text" id="quantity" name="quantity">
+                <div class="row">
+                    <div class="input-group f-6">
+                        <label for="itemNumber">Cikkszám:</label>
+                        <input type="text" id="itemNumber" name="itemNumber">
+                    </div>
+                    <div class="input-group f-6">
+                        <label for="category">Kategóriák:</label>
+                        <input type="text" id="category" name="category">
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label for="quantity">Mennyiség:</label>
-                    <input type="text" id="quantity" name="quantity">
-                </div>
-                <div class="input-group">
-                    <label for="quantity">Mértékegység:</label>
-                    <input type="number" id="quantity" name="quantity">
-                </div>
-                <div class="input-group">
-                    <label for="quantity">Kategóriák:</label>
-                    <input type="text" id="quantity" name="quantity">
+                <div class="row">
+                    <div class="input-group f-6">
+                        <label for="quantity">Mennyiség:</label>
+                        <input type="number" id="quantity" name="quantity">
+                    </div>
+                    <div class="input-group f-6">
+                        <label for="unit">Mértékegység:</label>
+                        <input type="text" id="unit" name="unit">
+                    </div>
                 </div>
             </div>
-            <div formArrayName="dynamicProperties">
+
+            <div class="dynamicProperties" formArrayName="dynamicProperties">
                 <h2>Tulajdonságok</h2>
                 <div *ngFor="let property of dynamicProperties.controls; let i = index">
                     <div class="double-input-group" [formGroupName]="i">
-                        <div class="input-group">
-                            <label for="key">Tulajdonság:</label>
-                            <input type="text" id="key" formControlName="key" />
+                        <div class="row">
+                            <div class="input-group">
+                                <input type="text" id="key" formControlName="key" placeholder="Tulajdonság" />
+                            </div>
+                            <div class="input-group">
+                                <input type="text" id="value" formControlName="value" placeholder="Érték" />
+                            </div>
+                            <button class="icon-button" (click)="removeProperty(i)">
+                                <i class="delete fa-regular fa-trash-can red pointer" title="Törlés"></i>
+                            </button>
                         </div>
-                        <div class="input-group">
-                            <label for="value">Érték:</label>
-                            <input type="text" id="value" formControlName="value" />
-                        </div>
-
-                        <button type="button" (click)="removeProperty(i)">Remove</button>
-
                     </div>
                 </div>
-                <button type="button" (click)="addProperty()">Add Property</button>
+                <button class="icon-button lightblue pointer" type="button" (click)="addProperty()" title="Tulajdonság hozzáadása">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
 
             </div>
-            <button type="submit">Termék hozzáadása</button>
+            <input type="submit" value="Termék hozzáadása">
 
         </form>
     </div>

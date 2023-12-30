@@ -27,11 +27,7 @@ dynamicForm: FormGroup;
   ngOnInit(): void {
     const businessIdParam = this.route.snapshot.params['businessId'];
     const inventoryIdParam = this.route.snapshot.params['inventoryId'];
-    console.log(inventoryIdParam)
-    this.dynamicForm = this.fb.group({
-    dynamicProperties: this.fb.array([]),
-    });
-  this.addProperty(); 
+    
     if (!isNaN(Number(businessIdParam)) || !isNaN(Number(inventoryIdParam))) {
       this.businessId = Number(businessIdParam);
       this.inventoryId = Number(inventoryIdParam);
@@ -64,7 +60,18 @@ dynamicForm: FormGroup;
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder
-  ) {}
+  ) {
+    this.dynamicForm = this.fb.nonNullable.group({
+      productName: ['', Validators.required],
+      itemNumber: ['',Validators.required],
+      category: ['', Validators.required],
+      quantity: ['', Validators.required],
+      unit: ['', [Validators.required]],
+
+      dynamicProperties: this.fb.array([]),
+    },{ updateOn: 'blur' });
+    this.addProperty();
+  }
 
 
 
@@ -86,7 +93,6 @@ dynamicForm: FormGroup;
   }
 
   onSubmit() {
-    // Handle form submission, e.g., send data to the backend
     const formData = this.dynamicForm.value;
     console.log(formData);
   }

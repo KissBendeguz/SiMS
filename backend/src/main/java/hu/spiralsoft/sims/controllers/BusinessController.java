@@ -197,6 +197,7 @@ public class BusinessController {
 
     @GetMapping("/{id}/inventories")
     public ResponseEntity<Set<Inventory>> getBusinessInventories(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer id){
+        //SELECT * FROM inventories WHERE business_id = id
         Optional<Set<Inventory>> oInventories = inventoryRepository.findAllByBusinessId(id);
         if (oInventories.isEmpty()){
             return ResponseEntity.notFound().build();

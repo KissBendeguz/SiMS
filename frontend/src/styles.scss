@@ -46,6 +46,7 @@ html {
     font-family: 'Roboto', sans-serif;
 
     height: 100%;
+    overflow-y: hidden;
 }
 
 a {
@@ -173,4 +174,21 @@ a {
             transform: rotate(-90deg);
         }
     }
+}
+.icon-button{
+    border: none;
+    background: none;
+    font-size: 1.2rem;
+}
+.pointer{
+    cursor: pointer;
+}
+.red{
+    color: $red;
+}
+.green{
+    color: $green;
+}
+.lightblue{
+    color: $lightblue;
 }

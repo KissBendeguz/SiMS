@@ -5,18 +5,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-y: auto;
 }
 
 .container {
+    max-height: calc(100vh - 64px);
     justify-content: center;
     align-items: center;
-    margin-left: auto;
-    margin-right: 10px;
-    width: 100%;
     flex-direction: row;
+    width: 50%;
+    @include lt-lg{
+        width: 70%;
+    }
+    @include lt-md{
+        width: 80%;
+    }
+    @include lt-sm{
+        width: 100%;
+    }
+
 
     .add-products {
-        width: 80%;
+        width: 100%;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
         box-shadow: 0 0 4px;
@@ -28,28 +38,51 @@
     form {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
-        width: 100%;
+    
+        h2{
+            padding: .3rem;
+            font-weight: 200;
+            position: relative;
+            &::before{
+                content: "";
+                position: absolute;
+                top: 0;
 
+            }
+        }
         .regular-inputs {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+            flex-direction: column;
+        
+        }
+        .row{
+            display: flex;
+            flex-direction: row;
+        }
+        .f-12{
+            flex: 12;
+        }
+        .f-6{
+            flex: 6;
         }
 
         .double-input-group {
             display: flex;
             gap: .5rem;
-            justify-content: space-between;
+            justify-content: center;
+        }
+        .dynamicProperties{
+            text-align: center;
         }
 
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
-            width: 15%;
-            max-width: 250px;
-            min-width: 200px;
+            justify-content: center;
+            gap: .5rem;
+            
+            //border: 1px solid red;
+            padding: .25rem 1rem;
             label {
                 font-size: 0.9rem;
             }
@@ -67,14 +100,15 @@
         input[type="submit"] {
             padding: 8px;
             border: none;
-            border-radius: 4px;
-            background-color: #4CAF50;
+            background-color: $lightblue;
             color: white;
+            font-size: 1rem;
+            font-weight: 200;
             cursor: pointer;
             transition: background-color 0.3s ease;
 
             &:hover {
-                background-color: #45a049;
+                background-color: darken($color: $lightblue, $amount: 10);
             }
 
             &:disabled {
@@ -83,4 +117,7 @@
             }
         }
     }
+}
+i{
+    padding: .5rem;
 }
