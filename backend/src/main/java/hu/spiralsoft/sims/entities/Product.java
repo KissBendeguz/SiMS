@@ -20,6 +20,7 @@ public class Product extends BaseEntity{
     private double quantity;
     private String unit;
     private String itemNumber;
+    private String category;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date addedToInventory;
     @OneToOne

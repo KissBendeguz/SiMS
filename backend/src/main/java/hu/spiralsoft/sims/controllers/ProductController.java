@@ -44,6 +44,7 @@ public class ProductController {
                 Product product = Product.builder()
                         .name(requestBody.getName())
                         .quantity(requestBody.getQuantity())
+                        .category(requestBody.getCategory())
                         .addedToInventory(new Date())
                         .addedBy(authenticatedUser)
                         .inventory(inventory)
@@ -97,6 +98,9 @@ public class ProductController {
 
                 existingProduct.setName(requestBody.getName());
                 existingProduct.setQuantity(requestBody.getQuantity());
+                existingProduct.setCategory(requestBody.getCategory());
+                existingProduct.setItemNumber(requestBody.getItemNumber());
+                existingProduct.setUnit(requestBody.getUnit());
                 existingProduct.setDynProperties(requestBody.getDynProperties());
 
                 productRepository.save(existingProduct);
