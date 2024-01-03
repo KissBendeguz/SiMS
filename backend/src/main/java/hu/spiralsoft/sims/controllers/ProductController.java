@@ -27,7 +27,7 @@ public class ProductController {
     private final InventoryRepository inventoryRepository;
     private final ProductRepository productRepository;
 
-    @PostMapping("")
+    @PostMapping("/{inventoryId}")
     public ResponseEntity<Product> createProduct(
             @AuthenticationPrincipal User authenticatedUser,
             @PathVariable Integer inventoryId,
