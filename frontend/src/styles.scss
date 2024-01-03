@@ -192,3 +192,23 @@ a {
 .lightblue{
     color: $lightblue;
 }
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+.f-12{flex: 12;}
+.f-11{flex: 11;}
+.f-10{flex: 10;}
+.f-9{flex: 9;}
+.f-8{flex: 8;}
+.f-7{flex: 7;}
+.f-6{flex: 6;}
+.f-5{flex: 5;}
+.f-4{flex: 4;}
+.f-3{flex: 3;}
+.f-2{flex: 2;}
+.f-1{flex: 1;}
+
+.test{border: 1px solid red}
+

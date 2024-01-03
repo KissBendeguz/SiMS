@@ -22,7 +22,7 @@ export class ViewInventoryComponent {
   businessId: number;
   inventoryId: number
 
-dynamicForm: FormGroup;
+  dynamicForm: FormGroup;
 
   ngOnInit(): void {
     const businessIdParam = this.route.snapshot.params['businessId'];
