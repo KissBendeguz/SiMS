@@ -9,5 +9,7 @@ export class Product {
     addedBy: User;
     inventory: Inventory;
     dynProperties: Map<string,string>;
-    
+    unit: string;
+    category: string;
+    itemNumber: string;
 }

@@ -53,9 +53,10 @@ a {
     color: $lightblue;
     outline: none;
 
-    &:hover{
+    &:hover {
         cursor: pointer;
     }
+
     &:is(:hover, :active, :focus) {
         color: $lightblue;
     }
@@ -64,9 +65,11 @@ a {
 .sims-input {
     all: unset;
     border: 1px solid $darkblue;
-    &.ng-invalid.ng-touched{
+
+    &.ng-invalid.ng-touched {
         border-color: $red;
     }
+
     background-color: $offwhite;
     border-radius: 4px;
     height: 1.7rem;
@@ -74,12 +77,14 @@ a {
 
     &:hover {
         border-color: $lightblue;
-        &:is(button, input[type="button"]){
+
+        &:is(button, input[type="button"]) {
             cursor: pointer;
         }
 
     }
-    &:disabled{
+
+    &:disabled {
         cursor: not-allowed;
     }
 
@@ -95,8 +100,8 @@ a {
     }
 }
 
-.sims-arrow{
-    &:is(button){
+.sims-arrow {
+    &:is(button) {
         width: 4rem;
         aspect-ratio: 1/1;
         font-size: 1.6rem;
@@ -111,13 +116,16 @@ a {
 
         box-shadow: 0 0 20px $darkblue;
         background: transparent;
-        &>i{
+
+        &>i {
             background: transparent;
             mix-blend-mode: color-burn;
         }
 
         cursor: pointer;
-        &:disabled,&[disabled]{
+
+        &:disabled,
+        &[disabled] {
             cursor: not-allowed;
             opacity: .5;
             border-color: rgba($color: $darkblue, $alpha: .5);
@@ -139,14 +147,15 @@ a {
     }
 }
 
-.sims-error{
+.sims-error {
     position: relative;
     color: $red;
     background-color: $offwhite;
-    
+
     $size: 32px;
-    i{
-        
+
+    i {
+
         position: absolute;
         top: calc($size / 2 * -1);
         left: calc(50% - ($size / 2));
@@ -154,7 +163,8 @@ a {
         background-color: white;
         font-size: $size;
     }
-    p{
+
+    p {
         text-align: center;
         border: 1px solid $red;
         border-radius: 4px;
@@ -168,47 +178,59 @@ a {
     width: 100%;
     display: flex;
     justify-content: center;
-    a{
+
+    a {
         font-size: 1.3rem;
-        i{
+
+        i {
             transform: rotate(-90deg);
         }
     }
 }
-.icon-button{
+
+.icon-button {
     border: none;
     background: none;
-    font-size: 1.2rem;
+    //font-size: 1.2rem;
+    font-size: inherit;
+   
 }
-.pointer{
+
+.pointer {
     cursor: pointer;
 }
-.red{
+
+.red {
     color: $red;
 }
-.green{
+
+.green {
     color: $green;
 }
-.lightblue{
+
+.lightblue {
     color: $lightblue;
 }
 
-.row{
+.row {
     display: flex;
     flex-direction: row;
+    
 }
-.f-12{flex: 12;}
-.f-11{flex: 11;}
-.f-10{flex: 10;}
-.f-9{flex: 9;}
-.f-8{flex: 8;}
-.f-7{flex: 7;}
-.f-6{flex: 6;}
-.f-5{flex: 5;}
-.f-4{flex: 4;}
-.f-3{flex: 3;}
-.f-2{flex: 2;}
-.f-1{flex: 1;}
+.f-05{
+    flex: 0.5;
+}
 
-.test{border: 1px solid red}
+@for $i from 1 through 24 {
+    .f-#{$i} {
+        flex: $i;
+    }
+}
 
+.test {
+    border: 1px solid red
+}
+
+.t-center{
+    text-align: center;
+}

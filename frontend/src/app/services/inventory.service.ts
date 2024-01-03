@@ -24,4 +24,5 @@ export class InventoryService {
   getAllProducts(id:number){
     return this.http.get<Product>(`${this.apiUrl}/${id}/products`, { headers: httpOptions.headers });
   }
+  
 }

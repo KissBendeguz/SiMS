@@ -61,10 +61,15 @@
         .header{
             font-weight: 500;
             border-bottom: 2px solid $lightblue;
+            font-size: 16px;
         }
         .row{
             font-weight: 300;
             padding: .5rem .2rem;
+            align-items: center;
+            &>:first-child{
+                padding-right: 10px;
+            } 
         }
     }
 
@@ -98,6 +103,12 @@
         }
         .dynamicProperties{
             text-align: center;
+            button {
+                padding: 1rem;
+                i{
+                    font-size: 1.2rem;
+                }
+            }
         }
 
         .input-group {
@@ -143,7 +154,10 @@
         }
     }
 }
-i{
-    padding: .5rem;
-}
 
+.control{
+    text-align: right;
+    button{
+        padding: 5px;
+    }
+}

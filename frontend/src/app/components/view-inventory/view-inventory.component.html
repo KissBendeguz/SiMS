@@ -5,27 +5,27 @@
                 <div class="row">
                     <div class="input-group f-12">
                         <label for="productName">Termék neve:</label>
-                        <input type="text" id="productName" name="productName">
+                        <input type="text" id="productName" name="productName" formControlName="productName">
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-group f-6">
                         <label for="itemNumber">Cikkszám:</label>
-                        <input type="text" id="itemNumber" name="itemNumber">
+                        <input type="text" id="itemNumber" name="itemNumber" formControlName="itemNumber">
                     </div>
                     <div class="input-group f-6">
                         <label for="category">Kategóriák:</label>
-                        <input type="text" id="category" name="category">
+                        <input type="text" id="category" name="category" formControlName="category">
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-group f-6">
                         <label for="quantity">Mennyiség:</label>
-                        <input type="number" id="quantity" name="quantity">
+                        <input type="number" id="quantity" name="quantity" formControlName="quantity">
                     </div>
                     <div class="input-group f-6">
                         <label for="unit">Mértékegység:</label>
-                        <input type="text" id="unit" name="unit">
+                        <input type="text" id="unit" name="unit" formControlName="unit">
                     </div>
                 </div>
             </div>
@@ -36,10 +36,10 @@
                     <div class="double-input-group" [formGroupName]="i">
                         <div class="row">
                             <div class="input-group">
-                                <input type="text" id="key" formControlName="key" placeholder="Tulajdonság" />
+                                <input type="text" id="key" formControlName="key" placeholder="Tulajdonság"/>
                             </div>
                             <div class="input-group">
-                                <input type="text" id="value" formControlName="value" placeholder="Érték" />
+                                <input type="text" id="value" formControlName="value" placeholder="Érték"/>
                             </div>
                             <button class="icon-button" (click)="removeProperty(i)">
                                 <i class="delete fa-regular fa-trash-can red pointer" title="Törlés"></i>
@@ -47,7 +47,8 @@
                         </div>
                     </div>
                 </div>
-                <button class="icon-button lightblue pointer" type="button" (click)="addProperty()" title="Tulajdonság hozzáadása">
+                <button class="icon-button lightblue pointer" type="button" (click)="addProperty()"
+                    title="Tulajdonság hozzáadása">
                     <i class="fa-solid fa-plus"></i>
                 </button>
 
@@ -61,39 +62,29 @@
             <h2>Jelenlegi termékek</h2>
         </div>
         <div class="row">
-            <div class="col header name f-4">Név</div>
-            <div class="col header itemNumber f-3">Cikkszám</div>
-            <div class="col header category f-2">Kategória</div>
-            <div class="col header quantity f-2">Mennyiség</div>
-            <div class="col header unit f-1">Egység</div>
+            <div class="col header select f-05 t-center"><button class="icon-button"><i class="fa-solid fa-caret-down pointer"></i></button></div>
+            <div class="col header name f-7">Név</div>
+            <div class="col header itemNumber f-5">Cikkszám</div>
+            <div class="col header category f-4">Kategória</div>
+            <div class="col header quantity f-3">Mennyiség</div>
+            <div class="col header unit f-2">Egység</div>
+            <div class="col header control f-2">Kezelés</div>
         </div>
         <div class="row">
-            <div class="col f-4">Teszt</div>
-            <div class="col f-3">TESZT-120240-12345</div>
-            <div class="col f-2">teszt</div>
-            <div class="col f-2">12</div>
-            <div class="col f-1">Darab</div>
-        </div>
-        <div class="row">
-            <div class="col f-4">asd</div>
-            <div class="col f-3">asd</div>
-            <div class="col f-2">asd</div>
-            <div class="col f-2">asd</div>
-            <div class="col f-1">asd</div>
-        </div>
-        <div class="row">
-            <div class="col f-4">asd</div>
-            <div class="col f-3">asd</div>
-            <div class="col f-2">asd</div>
-            <div class="col f-2">asd</div>
-            <div class="col f-1">asd</div>
-        </div>
-        <div class="row">
-            <div class="col f-4">asd</div>
-            <div class="col f-3">asd</div>
-            <div class="col f-2">asd</div>
-            <div class="col f-2">asd</div>
-            <div class="col f-1">asd</div>
+            <div class="col f-05 t-center"><button class="icon-button"><i class="fa-regular fa-circle-check pointer"></i></button></div>
+            <div class="col f-7">Teszt</div>
+            <div class="col f-5">TESZT-120240-12345</div>
+            <div class="col f-4">teszt</div>
+            <div class="col f-3">12</div>
+            <div class="col f-2">Darab</div>
+            <div class="col control f-2">
+                <button class="icon-button">
+                    <i class="fa-solid fa-pen-to-square pointer" title="Szerkesztés"></i>
+                </button>
+                <button class="icon-button">
+                    <i class="delete fa-regular fa-trash-can red pointer" title="Törlés"></i>
+                </button>
+            </div>
         </div>
     </div>
 </div>
