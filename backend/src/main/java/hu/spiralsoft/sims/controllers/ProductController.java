@@ -45,6 +45,7 @@ public class ProductController {
                         .name(requestBody.getName())
                         .quantity(requestBody.getQuantity())
                         .category(requestBody.getCategory())
+                        .itemNumber(requestBody.getItemNumber())
                         .addedToInventory(new Date())
                         .addedBy(authenticatedUser)
                         .inventory(inventory)

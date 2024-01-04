@@ -23,7 +23,8 @@ public class Product extends BaseEntity{
     private String category;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date addedToInventory;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "added_by_id")
     private User addedBy;
     @ManyToOne
     @JsonIgnore
