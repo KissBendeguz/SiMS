@@ -61,7 +61,7 @@
         <div class="title">
             <h2>Jelenlegi termékek</h2>
         </div>
-        <div class="row">
+        <div class="row underlined">
             <div class="col header select f-05 t-center"><button class="icon-button"><i class="fa-solid fa-caret-down pointer"></i></button></div>
             <div class="col header name f-7">Név</div>
             <div class="col header itemNumber f-5">Cikkszám</div>
@@ -70,19 +70,19 @@
             <div class="col header unit f-2">Egység</div>
             <div class="col header control f-2">Kezelés</div>
         </div>
-        <div class="row">
+        <div class="row" *ngFor="let product of inventory?.products">
             <div class="col f-05 t-center"><button class="icon-button"><i class="fa-regular fa-circle-check pointer"></i></button></div>
-            <div class="col f-7">Teszt</div>
-            <div class="col f-5">TESZT-120240-12345</div>
-            <div class="col f-4">teszt</div>
-            <div class="col f-3">12</div>
-            <div class="col f-2">Darab</div>
+            <div class="col f-7">{{product.name}}</div>
+            <div class="col f-5">{{product.itemNumber}}</div>
+            <div class="col f-4">{{product.category}}</div>
+            <div class="col f-3">{{product.quantity}}</div>
+            <div class="col f-2">{{product.unit}}</div>
             <div class="col control f-2">
                 <button class="icon-button">
                     <i class="fa-solid fa-pen-to-square pointer" title="Szerkesztés"></i>
                 </button>
                 <button class="icon-button">
-                    <i class="delete fa-regular fa-trash-can red pointer" title="Törlés"></i>
+                    <i class="delete fa-regular fa-trash-can red pointer" title="Törlés" (click)="deleteProduct(product.id)"></i>
                 </button>
             </div>
         </div>

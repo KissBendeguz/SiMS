@@ -1,5 +1,6 @@
 package hu.spiralsoft.sims.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +19,8 @@ public class Inventory extends BaseEntity{
     private String managerName;
     private String managerPhone;
     private String managerEmail;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Business business;
     @OneToMany
     @JoinColumn(name = "inventory_product_map")

@@ -4,8 +4,10 @@ import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs';
 import { Gender } from 'src/app/models/gender';
+import { User } from 'src/app/models/user';
 import { AuthService, RegisterRequest } from 'src/app/services/auth.service';
 import { HttpErrorService } from 'src/app/services/http-error.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -21,13 +23,18 @@ export class RegisterComponent {
 
   constructor(
     private authService: AuthService,
+    private userService:UserService,
     private router: Router,
     private formBuilder: FormBuilder,
     private httpErrorService: HttpErrorService,
   ) {
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/']);
-    }
+    this.userService.authenticatedUser$.subscribe({
+      next: (user: User | null) => {
+        if (user !== null) {
+          this.router.navigate(['/']);
+        }
+      },
+    })
     this.httpErrorService.error$.subscribe((error: HttpErrorResponse | null) => {
       switch(error?.status){
         case 403:

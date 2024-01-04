@@ -22,7 +22,7 @@ export class InventoryService {
     return this.http.patch<Inventory>(`${this.apiUrl}/${id}`, inventory, { headers: httpOptions.headers });
   }
   getAllProducts(id:number){
-    return this.http.get<Product>(`${this.apiUrl}/${id}/products`, { headers: httpOptions.headers });
+    return this.http.get<Set<Product>>(`${this.apiUrl}/${id}/products`, { headers: httpOptions.headers });
   }
   
 }

@@ -32,11 +32,11 @@ export class AuthInterceptor implements HttpInterceptor {
         },
       });
     }
-
+    console.log(clonedRequest)
     return next.handle(clonedRequest).pipe(
       catchError((error: HttpErrorResponse) => {
         this.httpErrorService.addError(error);
-        if(token){
+        //if(token){
 
           switch(error.status){
             case 401:
@@ -46,7 +46,7 @@ export class AuthInterceptor implements HttpInterceptor {
               this.userService.logout();
           }
 
-        }
+        //}
         return throwError(() => error);
       })
     );

@@ -16,8 +16,8 @@ export class ProductService {
     return this.http.post<Product>(`${this.apiUrl}/${inventoryId}`, product, { headers: httpOptions.headers });
   }
   
-  deleteBusiness(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: httpOptions.headers });
+  deleteProduct(inventoryId: number,productId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${inventoryId}/${productId}`, { headers: httpOptions.headers });
   }
 
   modifyProduct(inventoryId: number, product: Product):Observable<Product>{

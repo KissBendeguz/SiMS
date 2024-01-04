@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Form, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs';
 import { Business } from 'src/app/models/business';
 import { Inventory } from 'src/app/models/inventory';
 import { Product } from 'src/app/models/product';
@@ -37,17 +38,16 @@ export class ViewInventoryComponent {
       this.router.navigate(['/']);
       return;
     }
-    this.userService.authenticatedUser$.subscribe(user => {
+    this.userService.authenticatedUser$.pipe(take(1)).subscribe(user => {
       this.authenticatedUser = user;
-      console.log('business get')
-      this.businessService.getBusiness(this.businessId).subscribe((business: Business) => {
-        this.business = business;
+      this.businessService.getBusiness(this.businessId).subscribe(
+        {
+          next: (business: Business) => {
+            this.business = business;
 
-        console.log('inventory get')
-        this.inventoryService.getInventory(this.inventoryId).subscribe((inventory: Inventory) => {
-          this.inventory = inventory;
+            this.fetchInventory();
+          }
         });
-      });
 
 
     });
@@ -96,6 +96,14 @@ export class ViewInventoryComponent {
     return this.dynamicForm.get('dynamicProperties') as FormArray;
   }
 
+  private fetchInventory(): void {
+    this.inventoryService.getInventory(this.inventoryId).subscribe({
+      next: (inventory: Inventory) => {
+        this.inventory = inventory;
+      }
+    });
+  }
+
   addProperty() {
     const propertyGroup = this.fb.group({
       key: ['', Validators.required],
@@ -109,13 +117,31 @@ export class ViewInventoryComponent {
     this.dynamicProperties.removeAt(index);
   }
 
+  deleteProduct(id: number) {
+
+    this.productService.deleteProduct(this.inventoryId, id).subscribe({
+      next: () => {
+        this.fetchInventory();
+      }
+    })
+  }
+
   onSubmit() {
+    if (!this.dynamicForm.valid) {
+      Object.keys(this.dynamicForm.controls).forEach(key => {
+        this.dynamicForm.controls[key].markAsTouched();
+      });
+      this.dynamicForm.updateValueAndValidity();
+      return;
+    }
+
     const formData = this.dynamicForm.value;
-    console.log(formData);
+
     const dynProperties = formData.dynamicProperties.reduce((acc, property) => {
       acc[property.key] = property.value;
       return acc;
     }, {});
+
     const newProduct = new Product();
     newProduct.name = this.name?.value;
     newProduct.itemNumber = this.itemNumber?.value;
@@ -123,7 +149,13 @@ export class ViewInventoryComponent {
     newProduct.quantity = this.quantity?.value;
     newProduct.unit = this.unit?.value;
     newProduct.dynProperties = dynProperties;
-    console.log(JSON.stringify(newProduct));
-    this.productService.createProduct(this.inventoryId, newProduct).subscribe();
+
+    this.productService.createProduct(this.inventoryId, newProduct).subscribe({
+      next: () => {
+        this.fetchInventory();
+        this.dynamicForm.reset();
+      },
+    });
+
   }
 }

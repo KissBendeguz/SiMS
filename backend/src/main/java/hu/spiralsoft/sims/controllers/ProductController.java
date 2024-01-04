@@ -46,6 +46,7 @@ public class ProductController {
                         .quantity(requestBody.getQuantity())
                         .category(requestBody.getCategory())
                         .itemNumber(requestBody.getItemNumber())
+                        .unit(requestBody.getUnit())
                         .addedToInventory(new Date())
                         .addedBy(authenticatedUser)
                         .inventory(inventory)
@@ -53,6 +54,8 @@ public class ProductController {
                         .build();
 
                 productRepository.save(product);
+                inventory.getProducts().add(product);
+                inventoryRepository.save(inventory);
                 return ResponseEntity.ok(product);
             } else {
                 return ResponseEntity.badRequest().build();
@@ -63,22 +66,24 @@ public class ProductController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{inventoryId}/{productId}")
     public ResponseEntity<?> deleteProduct(
             @AuthenticationPrincipal User authenticatedUser,
-            @PathVariable int id
+            @PathVariable Integer inventoryId,
+            @PathVariable Integer productId
     ) {
-        Optional<Product> productOptional = productRepository.findById(id);
+        Optional<Product> productOptional = productRepository.findById(productId);
+        Optional<Inventory> inventoryOptional = inventoryRepository.findById(inventoryId);
 
-        if (productOptional.isPresent()) {
+        if (inventoryOptional.isPresent() && productOptional.isPresent()) {
             Product product = productOptional.get();
+            Inventory inventory = inventoryOptional.get();
 
-            if (product.getAddedBy().equals(authenticatedUser)) {
-                productRepository.delete(product);
-                return ResponseEntity.ok().build();
-            } else {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-            }
+            inventory.getProducts().remove(product);
+            inventoryRepository.save(inventory);
+            productRepository.delete(product);
+
+            return ResponseEntity.ok().build();
         }
 
         return ResponseEntity.notFound().build();
