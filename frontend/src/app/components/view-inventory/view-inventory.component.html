@@ -4,7 +4,13 @@
             <div class="regular-inputs">
                 <div class="row">
                     <div class="input-group f-12">
-                        <label for="productName">Termék neve:</label>
+                        <label for="name">
+                            {{
+                                name?.touched && name?.errors?.['required']
+                                  ? 'Termék neve kötelező!'
+                                  : 'Termék neve'
+                            }}
+                        </label>
                         <input type="text" id="productName" name="productName" formControlName="productName">
                     </div>
                 </div>
@@ -36,10 +42,10 @@
                     <div class="double-input-group" [formGroupName]="i">
                         <div class="row">
                             <div class="input-group">
-                                <input type="text" id="key" formControlName="key" placeholder="Tulajdonság"/>
+                                <input type="text" id="key" formControlName="key" placeholder="Tulajdonság" />
                             </div>
                             <div class="input-group">
-                                <input type="text" id="value" formControlName="value" placeholder="Érték"/>
+                                <input type="text" id="value" formControlName="value" placeholder="Érték" />
                             </div>
                             <button class="icon-button" (click)="removeProperty(i)">
                                 <i class="delete fa-regular fa-trash-can red pointer" title="Törlés"></i>
@@ -62,7 +68,15 @@
             <h2>Jelenlegi termékek</h2>
         </div>
         <div class="row underlined">
-            <div class="col header select f-05 t-center"><button class="icon-button"><i class="fa-solid fa-caret-down pointer"></i></button></div>
+            <div class="col header select f-05 t-center">
+                <button class="icon-button" (click)="toggleSelectAll()">
+                    <i class="fa-solid fa-caret-down pointer"></i>
+                </button>
+                <button class="icon-button" *ngIf="this.selectedProducts.size!==0">
+                    <i class="delete fa-regular fa-trash-can red pointer" title="Törlés"
+                        (click)="deleteSelectedProducts()"></i>
+                </button>
+            </div>
             <div class="col header name f-7">Név</div>
             <div class="col header itemNumber f-5">Cikkszám</div>
             <div class="col header category f-4">Kategória</div>
@@ -70,8 +84,19 @@
             <div class="col header unit f-2">Egység</div>
             <div class="col header control f-2">Kezelés</div>
         </div>
-        <div class="row" *ngFor="let product of inventory?.products">
-            <div class="col f-05 t-center"><button class="icon-button"><i class="fa-regular fa-circle-check pointer"></i></button></div>
+        <div class="row" *ngIf="noProductsFound">
+            <div class="col f-24 t-center">Nem található termék.</div>
+        </div>
+        <div class="row" *ngIf="resourceLoading">
+            <div class="col f-24 t-center loading"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+        </div>
+        <div class="row" *ngFor="let product of getProducts()">
+            <div class="col f-05 t-center">
+                <button class="icon-button" (click)="toggleSelect(product)">
+                    <i *ngIf="!selectedProducts.has(product)" class="fa-regular fa-circle-check pointer"></i>
+                    <i *ngIf="selectedProducts.has(product)" class="fa-solid fa-circle-check pointer"></i>
+                </button>
+            </div>
             <div class="col f-7">{{product.name}}</div>
             <div class="col f-5">{{product.itemNumber}}</div>
             <div class="col f-4">{{product.category}}</div>
@@ -82,7 +107,8 @@
                     <i class="fa-solid fa-pen-to-square pointer" title="Szerkesztés"></i>
                 </button>
                 <button class="icon-button">
-                    <i class="delete fa-regular fa-trash-can red pointer" title="Törlés" (click)="deleteProduct(product.id)"></i>
+                    <i class="delete fa-regular fa-trash-can red pointer" title="Törlés"
+                        (click)="deleteProduct(product.id)"></i>
                 </button>
             </div>
         </div>

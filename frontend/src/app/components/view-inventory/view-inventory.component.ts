@@ -22,6 +22,11 @@ export class ViewInventoryComponent {
   business: Business | null;
   inventory: Inventory | null;
 
+  noProductsFound: boolean = false;
+  resourceLoading: boolean = true;
+
+  selectedProducts: Set<Product> = new Set<Product>();
+
   businessId: number;
   inventoryId: number
 
@@ -97,9 +102,14 @@ export class ViewInventoryComponent {
   }
 
   private fetchInventory(): void {
+    this.noProductsFound = false;
+    this.resourceLoading = true;
     this.inventoryService.getInventory(this.inventoryId).subscribe({
       next: (inventory: Inventory) => {
-        this.inventory = inventory;
+        this.inventory = inventory as Inventory;
+        this.inventory.products = new Set<Product>(this.inventory.products);
+        this.noProductsFound = this.inventory.products.size === 0;
+        this.resourceLoading = false;
       }
     });
   }
@@ -118,11 +128,42 @@ export class ViewInventoryComponent {
   }
 
   deleteProduct(id: number) {
-
     this.productService.deleteProduct(this.inventoryId, id).subscribe({
       next: () => {
         this.fetchInventory();
       }
+    })
+  }
+
+  getProducts(): Set<Product> {
+    return this.inventory?.products as Set<Product>;
+  }
+
+  toggleSelectAll() {
+    let copiedSet = new Set<Product>(this.inventory!.products);
+    if (this.selectedProducts.size !== copiedSet.size) {
+      this.selectedProducts = copiedSet;
+    } else {
+      this.selectedProducts.clear();
+    }
+  }
+
+  toggleSelect(product: Product) {
+    if (!this.selectedProducts.has(product)) {
+      this.selectedProducts.add(product);
+    } else {
+      this.selectedProducts.delete(product);
+    }
+  }
+
+  deleteSelectedProducts() {
+    this.selectedProducts.forEach((product: Product) => {
+      this.productService.deleteProduct(this.inventoryId, product.id).subscribe({
+        next: () => {
+          this.selectedProducts.delete(product);
+          this.fetchInventory();
+        }
+      });
     })
   }
 

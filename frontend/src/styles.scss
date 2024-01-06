@@ -62,13 +62,13 @@ a {
     }
 }
 
+input.ng-invalid.ng-touched {
+    border-color: $red;
+}
 .sims-input {
     all: unset;
     border: 1px solid $darkblue;
 
-    &.ng-invalid.ng-touched {
-        border-color: $red;
-    }
 
     background-color: $offwhite;
     border-radius: 4px;
@@ -193,6 +193,7 @@ a {
     background: none;
     //font-size: 1.2rem;
     font-size: inherit;
+    color: inherit;
    
 }
 
