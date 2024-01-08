@@ -106,7 +106,7 @@ public class ProductController {
                 existingProduct.setCategory(requestBody.getCategory());
                 existingProduct.setItemNumber(requestBody.getItemNumber());
                 existingProduct.setUnit(requestBody.getUnit());
-                existingProduct.setDynProperties(requestBody.getDynProperties());
+                //existingProduct.setDynProperties(requestBody.getDynProperties());
 
                 productRepository.save(existingProduct);
 
