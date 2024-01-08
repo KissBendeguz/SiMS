@@ -20,7 +20,7 @@ export class ProductService {
     return this.http.delete<void>(`${this.apiUrl}/${inventoryId}/${productId}`, { headers: httpOptions.headers });
   }
 
-  modifyProduct(inventoryId: number, product: Product):Observable<Product>{
-    return this.http.patch<Product>(`${this.apiUrl}/${inventoryId}`, product, { headers: httpOptions.headers });
+  modifyProduct(productId: number, product: Product):Observable<Product>{
+    return this.http.patch<Product>(`${this.apiUrl}/${productId}`, product, { headers: httpOptions.headers });
   }
 }

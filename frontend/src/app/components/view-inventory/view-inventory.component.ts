@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Form, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { take } from 'rxjs';
+import { take, timeout } from 'rxjs';
 import { Business } from 'src/app/models/business';
 import { Inventory } from 'src/app/models/inventory';
 import { Product } from 'src/app/models/product';
@@ -31,6 +31,8 @@ export class ViewInventoryComponent {
   inventoryId: number
 
   dynamicForm: FormGroup;
+  editingForm: FormGroup;
+  editingProduct: Product | null;
 
   ngOnInit(): void {
     const businessIdParam = this.route.snapshot.params['businessId'];
@@ -78,6 +80,14 @@ export class ViewInventoryComponent {
 
       dynamicProperties: this.fb.array([]),
     }, { updateOn: 'blur' });
+
+    this.editingForm = this.fb.nonNullable.group({
+      editingProductName: ['', Validators.required],
+      editingItemNumber: ['', Validators.required],
+      editingCategory: ['', Validators.required],
+      editingQuantity: ['', Validators.required],
+      editingUnit: ['', [Validators.required]],
+    }, { updateOn: 'blur' });
     this.addProperty();
   }
 
@@ -101,15 +111,23 @@ export class ViewInventoryComponent {
     return this.dynamicForm.get('dynamicProperties') as FormArray;
   }
 
+  getProperties(product: Product): [string, string][] {
+    console.log(product)
+    //return Array.from(product.dynProperties.entries()) ;
+    return Object.entries(product.dynProperties);
+  }
+
   private fetchInventory(): void {
     this.noProductsFound = false;
     this.resourceLoading = true;
     this.inventoryService.getInventory(this.inventoryId).subscribe({
       next: (inventory: Inventory) => {
         this.inventory = inventory as Inventory;
-        this.inventory.products = new Set<Product>(this.inventory.products);
+        this.inventory.products = new Set([...this.inventory.products].sort((a, b) => a.name.localeCompare(b.name)));
         this.noProductsFound = this.inventory.products.size === 0;
-        this.resourceLoading = false;
+        setTimeout(() => {
+          this.resourceLoading = false;
+        }, 500);
       }
     });
   }
@@ -127,12 +145,51 @@ export class ViewInventoryComponent {
     this.dynamicProperties.removeAt(index);
   }
 
-  deleteProduct(id: number) {
+  deleteProduct(event: Event, id: number) {
+    event.stopPropagation();
     this.productService.deleteProduct(this.inventoryId, id).subscribe({
       next: () => {
         this.fetchInventory();
       }
     })
+  }
+
+  editProduct(event: Event, product: Product) {
+    event.stopPropagation();
+    this.selectedProducts.add(product);
+    this.editingProduct = product;
+    this.editingForm!.get("editingProductName")!.setValue(product.name);
+    this.editingForm!.get("editingItemNumber")!.setValue(product.itemNumber);
+    this.editingForm!.get("editingCategory")!.setValue(product.category);
+    this.editingForm!.get("editingQuantity")!.setValue(product.quantity);
+    this.editingForm!.get("editingUnit")!.setValue(product.unit);
+  }
+
+  cancelEdit(event: Event) {
+    event.stopPropagation();
+    if (this.editingProduct != null) {
+      this.selectedProducts.delete(this.editingProduct);
+      this.editingProduct = null;
+    }
+  }
+
+  saveEdit(event: Event) {
+    event.stopPropagation();
+    let product = new Product();
+    product.name = this.editingForm!.get("editingProductName")?.value;
+    product.itemNumber = this.editingForm!.get("editingItemNumber")?.value;
+    product.category = this.editingForm!.get("editingCategory")?.value;
+    product.quantity = this.editingForm!.get("editingQuantity")?.value;
+    product.unit = this.editingForm!.get("editingUnit")?.value;
+    this.productService.modifyProduct(this.editingProduct!.id, product).subscribe({
+      next: () => {
+        if (this.editingProduct != null) {
+          this.selectedProducts.delete(this.editingProduct);
+          this.editingProduct = null;
+        }
+
+      }
+    });
   }
 
   getProducts(): Set<Product> {
@@ -146,6 +203,10 @@ export class ViewInventoryComponent {
     } else {
       this.selectedProducts.clear();
     }
+  }
+
+  stopPropagation(event: Event) {
+    event.stopPropagation();
   }
 
   toggleSelect(product: Product) {

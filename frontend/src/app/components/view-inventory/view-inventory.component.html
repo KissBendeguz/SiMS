@@ -6,9 +6,9 @@
                     <div class="input-group f-12">
                         <label for="name">
                             {{
-                                name?.touched && name?.errors?.['required']
-                                  ? 'Termék neve kötelező!'
-                                  : 'Termék neve'
+                            name?.touched && name?.errors?.['required']
+                            ? 'Termék neve kötelező!'
+                            : 'Termék neve'
                             }}
                         </label>
                         <input type="text" id="productName" name="productName" formControlName="productName">
@@ -90,26 +90,84 @@
         <div class="row" *ngIf="resourceLoading">
             <div class="col f-24 t-center loading"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
         </div>
-        <div class="row" *ngFor="let product of getProducts()">
-            <div class="col f-05 t-center">
-                <button class="icon-button" (click)="toggleSelect(product)">
-                    <i *ngIf="!selectedProducts.has(product)" class="fa-regular fa-circle-check pointer"></i>
-                    <i *ngIf="selectedProducts.has(product)" class="fa-solid fa-circle-check pointer"></i>
-                </button>
+        <div class="item" *ngFor="let product of getProducts()" (click)="toggleSelect(product)">
+            <div class="row" [formGroup]="editingForm">
+                <div class="col f-05 t-center">
+                    <button class="icon-button">
+                        <i *ngIf="!selectedProducts.has(product)" class="fa-regular fa-circle-check pointer"></i>
+                        <i *ngIf="selectedProducts.has(product)" class="fa-solid fa-circle-check pointer"></i>
+                    </button>
+                </div>
+                <div class="col f-7">
+                    <div *ngIf="product.id!==editingProduct?.id">
+                        {{product.name}}
+                    </div>
+                    <div *ngIf="product.id===editingProduct?.id">
+                        <input type="text" value="{{product.name}}" (click)="stopPropagation($event)" formControlName="editingProductName">
+                    </div>
+                </div>
+                <div class="col f-5">
+                    <div *ngIf="product.id!==editingProduct?.id">
+                        {{product.itemNumber}}
+                    </div>
+                    <div *ngIf="product.id===editingProduct?.id">
+                        <input type="text" value="{{product.itemNumber}}" (click)="stopPropagation($event)" formControlName="editingItemNumber">
+                    </div>
+                </div>
+                <div class="col f-4">
+                    <div *ngIf="product.id!==editingProduct?.id">
+                        {{product.category}}
+                    </div>
+                    <div *ngIf="product.id===editingProduct?.id">
+                        <input type="text" value="{{product.category}}" (click)="stopPropagation($event)" formControlName="editingCategory">
+                    </div>
+                </div>
+                <div class="col f-3">
+                    <div *ngIf="product.id!==editingProduct?.id">
+                        {{product.quantity}}
+                    </div>
+                    <div *ngIf="product.id===editingProduct?.id">
+                        <input type="text" value="{{product.quantity}}" (click)="stopPropagation($event)" formControlName="editingQuantity">
+                    </div>
+                </div>
+                <div class="col f-2">
+                    <div *ngIf="product.id!==editingProduct?.id">
+                        {{product.unit}}
+                    </div>
+                    <div *ngIf="product.id===editingProduct?.id">
+                        <input type="text" value="{{product.unit}}" (click)="stopPropagation($event)" formControlName="editingUnit">
+                    </div>
+                </div>
+                <div class="col control f-2">
+                    <div *ngIf="product.id!==editingProduct?.id">
+                        <button class="icon-button" (click)="editProduct($event,product)">
+                            <i class="fa-solid fa-pen-to-square pointer" title="Szerkesztés"></i>
+                        </button>
+                        <button class="icon-button" (click)="deleteProduct($event,product.id)">
+                            <i class="delete fa-regular fa-trash-can red pointer" title="Törlés"></i>
+                        </button>
+                    </div>
+                    <div *ngIf="product.id===editingProduct?.id">
+                        <button class="icon-button">
+                            <i class="fa-solid fa-floppy-disk pointer" title="Mentés"></i>
+                        </button>
+                        <button class="icon-button" (click)="cancelEdit($event)">
+                            <i class="fa-solid fa-ban red pointer " title="Mégsem"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="col f-7">{{product.name}}</div>
-            <div class="col f-5">{{product.itemNumber}}</div>
-            <div class="col f-4">{{product.category}}</div>
-            <div class="col f-3">{{product.quantity}}</div>
-            <div class="col f-2">{{product.unit}}</div>
-            <div class="col control f-2">
-                <button class="icon-button">
-                    <i class="fa-solid fa-pen-to-square pointer" title="Szerkesztés"></i>
-                </button>
-                <button class="icon-button">
-                    <i class="delete fa-regular fa-trash-can red pointer" title="Törlés"
-                        (click)="deleteProduct(product.id)"></i>
-                </button>
+            <div class="row" *ngIf="selectedProducts.has(product)">
+                <div class="col t-center" [ngClass]="'f-'+(24/getProperties(product).length)"
+                    *ngFor="let property of getProperties(product)"> 
+                    <div *ngIf="product.id!==editingProduct?.id">
+                        {{ property[0] }} : {{ property[1] }}
+                    </div>
+                    <div *ngIf="product.id===editingProduct?.id">
+                        <input type="text" value="{{property[0]}}" (click)="stopPropagation($event)"> :
+                        <input type="text" value="{{property[1]}}" (click)="stopPropagation($event)">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
