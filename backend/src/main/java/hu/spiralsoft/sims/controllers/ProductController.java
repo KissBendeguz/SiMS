@@ -100,7 +100,6 @@ public class ProductController {
         if (productOptional.isPresent()) {
             Product existingProduct = productOptional.get();
 
-            if (existingProduct.getAddedBy().equals(authenticatedUser)) {
 
                 existingProduct.setName(requestBody.getName());
                 existingProduct.setQuantity(requestBody.getQuantity());
@@ -112,9 +111,7 @@ public class ProductController {
                 productRepository.save(existingProduct);
 
                 return ResponseEntity.ok(existingProduct);
-            } else {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-            }
+
         }
 
         return ResponseEntity.notFound().build();
