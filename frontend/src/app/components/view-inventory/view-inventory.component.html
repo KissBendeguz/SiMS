@@ -151,7 +151,7 @@
                         </button>
                     </div>
                     <div *ngIf="product.id===editingProduct?.id">
-                        <button class="icon-button">
+                        <button class="icon-button" (click)="saveEdit($event)">
                             <i class="fa-solid fa-floppy-disk pointer" title="Mentés"></i>
                         </button>
                         <button class="icon-button" (click)="cancelEdit($event)">

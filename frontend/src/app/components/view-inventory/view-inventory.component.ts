@@ -186,6 +186,7 @@ export class ViewInventoryComponent {
         if (this.editingProduct != null) {
           this.selectedProducts.delete(this.editingProduct);
           this.editingProduct = null;
+          this.fetchInventory();
         }
 
       }
