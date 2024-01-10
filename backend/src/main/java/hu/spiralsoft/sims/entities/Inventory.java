@@ -22,13 +22,12 @@ public class Inventory extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Business business;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name = "inventory_product_map")
     @JoinTable(
             name = "inventory_product_map",
             joinColumns = @JoinColumn(name = "inventory_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products;
-
 
 }

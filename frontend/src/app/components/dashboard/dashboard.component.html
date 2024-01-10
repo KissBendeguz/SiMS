@@ -6,7 +6,7 @@
         <p>Get started with your <span>own</span> business.</p>
       </a>
       <h2>or</h2>
-      <p>Check you invitations in the menu if you are expecting any.</p>
+      <p>Ask your supervisor to invite you to their business.</p>
     </div>
   </ng-template>
 
@@ -37,11 +37,13 @@
   <div class="business-info" *ngIf="selectedBusiness">
     <div class="business">
       <div class="title">
-        {{selectedBusiness.name}}
+        <div class="content f-23">
+          {{selectedBusiness.name}}
+        </div>
+        <div class="icons f-1">
+          <button class="icon-button red pointer" (click)="deleteSelectedBusiness()"><i class="delete fa-regular fa-trash-can" title="Törlés"></i></button>
+        </div>
       </div>
-      <p class="motd">Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi fuga illum reiciendis soluta quam
-        aut temporibus consectetur quaerat et quod sapiente ab molestiae debitis laborum, optio magni ea eius neque!</p>
-
       <div class="details">
         <h2>Cégadatok</h2>
         <table>
@@ -95,29 +97,46 @@
         <ng-template #noEmployeeSelected>
           <h2>Kérem válasszon alkalmazottat!</h2>
         </ng-template>
-        <h2 *ngIf="selectedEmployee!=null; else noEmployeeSelected">{{selectedEmployee.fullName}}</h2>
+        <h2 *ngIf="selectedEmployee!=null; else noEmployeeSelected">{{selectedEmployee.fullName}} <button class="icon-button red pointer" (click)="removeEmployee(selectedEmployee)"><i class="fa-solid fa-user-xmark"></i>
+        </button></h2>
         <table>
           <tbody>
             <tr>
-              <td>Születési hely:<span id="Születési hely"></span></td>
-              <td>Idő:<span id="Idő"></span></td>
-              <td></td>
+              <th>Születési hely</th>
+              <th>Születési idő</th>
             </tr>
             <tr>
-              <td>Állampolgárság:<span id="Állampolgárság"></span></td>
-              <td>TAJ száma:<span id="TAJ száma"></span></td>
-              <td></td>
+              <td>{{selectedEmployee?.placeOfBirth || "-"}}</td>
+              <td>{{selectedEmployee?.dateOfBirth || "-"}}</td>
+            </tr>
+
+            <tr>
+              <th>Személyi igazolványszáma</th>
+              <th>TAJ száma</th>
             </tr>
             <tr>
-              <td>Lakcíme:<span id="Lakcíme"></span></td>
-              <td>Telefonszáma:<span id="Telefonszáma"></span></td>
-              <td></td>
+              <td>{{selectedEmployee?.identityCardNumber || "-"}}</td>
+              <td>{{selectedEmployee?.socialSecurityNumber || "-"}}</td>
+            </tr>
+
+            <tr>
+              <th>Lakcíme</th>
+              <th>Telefonszáma</th>
             </tr>
             <tr>
-              <td>E-mail címe:<span id="E-mail címe"></span></td>
-              <td>Személyi igazolványszáma:<span id="Személyi igazolványszáma"></span></td>
-              <td></td>
+              <td>{{selectedEmployee?.homeAddress || "-"}}</td>
+              <td>{{selectedEmployee?.phoneNumber || "-"}}</td>
             </tr>
+
+            <tr>
+              <th>E-mail címe</th>
+              <th>Állampolgárság</th>
+            </tr>
+            <tr>
+              <td>{{selectedEmployee?.email || "-"}}</td>
+              <td>{{selectedEmployee?.citizenship || "-"}}</td>
+            </tr>
+
           </tbody>
         </table>
       </div>
@@ -143,7 +162,7 @@
             <p>{{inventory.name}}</p>
             <div class="icons">
               <a routerLink="/{{selectedBusiness.id}}/inventory/{{inventory.id}}"><i class="view fa-regular fa-eye" title="Megtekintés"></i></a>
-              <a><i class="delete fa-regular fa-trash-can" title="Törlés"></i></a>
+              <button class="icon-button red pointer" (click)="deleteInventory(inventory)"><i class="fa-regular fa-trash-can" title="Törlés"></i></button>
             </div>
           </div>
           <div class="cardContent">
@@ -182,7 +201,7 @@
   <div class="employee-list" *ngIf="selectedBusiness">
     <div class="table">
       <h2>Alkalmazottak</h2>
-      <button routerLink="/{{selectedBusiness.id}}/add-employee" class="sims-input">Hozzáadás</button>
+      <button *ngIf="selectedBusiness.owner.id === authenticatedUser?.id" routerLink="/{{selectedBusiness.id}}/add-employee" class="sims-input">Hozzáadás</button>
       <app-list class="hover-anim" [items]="selectedBusiness.associates || null" [selectedElement]="selectedEmployee"
         fieldName="fullName" (itemClick)="onEmployeeClick($event)"></app-list>
     </div>

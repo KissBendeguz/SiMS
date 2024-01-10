@@ -138,9 +138,18 @@
 
     .title {
       //border-bottom: 2px solid $lightblue;
+      
+      width: 80%;
       text-align: center;
       font-size: 1.5rem;
-      margin: 1rem;
+      padding-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      .icon-button{
+        font-size: 1.2rem;
+      }
+      
     }
 
 
@@ -155,6 +164,9 @@
 
 
     .business {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       flex: 3;
       max-height: 100%;
       overflow-y: auto;
@@ -229,9 +241,6 @@
               display: flex;
               gap: .5rem;
               
-              .delete:hover{
-                color: $red;
-              }
             }
           }
           .cardContent{
@@ -323,6 +332,9 @@
       font-weight: normal;
       text-align: center;
       padding: .2rem;
+      .icon-button{
+        font-size: 1rem;
+      }
     }
   }
 
@@ -357,12 +369,10 @@
           &:last-child {
             text-align: right;
           }
-
           padding: .25rem;
         }
       }
     }
   }
-
 
 }

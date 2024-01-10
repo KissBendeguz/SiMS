@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Business } from 'src/app/models/business';
 import { Inventory } from 'src/app/models/inventory';
+import { Product } from 'src/app/models/product';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { BusinessService } from 'src/app/services/business.service';
+import { InventoryService } from 'src/app/services/inventory.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,55 +16,88 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class DashboardComponent implements OnInit {
   authenticatedUser: User | null;
-  selectedBusiness: Business | null ;
+  selectedBusiness: Business | null;
+  selectedBusinessIndex: number;
   selectedEmployee: User | null;
 
   inventories: Set<Inventory> = new Set<Inventory>();
-  associatedBusinesses:Set<Business> = new Set<Business>();
-  
+  associatedBusinesses: Set<Business> = new Set<Business>();
+
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private businessService: BusinessService
-    ) { }
-    
-    ngOnInit(): void {
-      this.userService.authenticatedUser$.subscribe(user => {
-        this.authenticatedUser = user;
-      });
-      
-      this.businessService.getAssociatedBusinesses().subscribe((businesses: Set<Business>) =>{
-        let sortedBusinessArray = Array.from(businesses).sort((a, b) => a.name.localeCompare(b.name));
-        this.associatedBusinesses = new Set(sortedBusinessArray);
-        this.selectedBusiness = sortedBusinessArray[0];
-        const updatedBusinesses = new Set<Business>(sortedBusinessArray);
+    private businessService: BusinessService,
+    private inventoryService: InventoryService
+  ) { }
 
-        this.associatedBusinesses.forEach(business => {
-          const ownerEmail = business.owner.email;
-          business.associates = new Set([...business.associates].filter(associate => associate.email !== ownerEmail));
+  ngOnInit(): void {
+    this.userService.authenticatedUser$.subscribe(user => {
+      this.authenticatedUser = user;
+    });
 
-          if (business.associates.size > 0) {
-            updatedBusinesses.add(business);
-          }
-        });
+    this.fetchData();
+  }
 
-        this.associatedBusinesses = updatedBusinesses;
-        if(this.selectedBusiness){
-          this.businessService.getBusinessInventories(this.selectedBusiness.id).subscribe((inventories: Set<Inventory>) => {
-            this.inventories = inventories;
-          });
+  private fetchData(){
+    this.businessService.getAssociatedBusinesses().subscribe((businesses: Set<Business>) => {
+      console.log(businesses)
+
+      //sort
+      this.associatedBusinesses = new Set([...businesses].sort((a, b) => a.name.localeCompare(b.name)));
+
+      //set first as selected
+      this.selectedBusiness = [...this.associatedBusinesses][0];
+
+      //remove owner from list
+      const updatedBusinesses = new Set(this.associatedBusinesses);
+      this.associatedBusinesses.forEach(business => {
+        business.associates = new Set([...business.associates].filter(associate => associate.id !== business.owner.id));
+
+        if (business.associates.size > 0) {
+          updatedBusinesses.add(business);
         }
-        
       });
-    }
-    
-    onBusinessClick(business:Business) {
-      this.selectedBusiness = business;
-      this.businessService.getBusinessInventories(this.selectedBusiness.id).subscribe((inventories: Set<Inventory>) => {
-        this.inventories = inventories;
-      });
-    }
-    onEmployeeClick(employee:User){
-      this.selectedEmployee = this.selectedEmployee === employee ? null : employee;
-    }
+      this.associatedBusinesses = updatedBusinesses;
+
+      if(this.associatedBusinesses.size>0){
+        this.fetchInventories();
+      }
+
+    });
+  }
+
+  private fetchInventories(){
+    this.businessService.getBusinessInventories(this.selectedBusiness!.id).subscribe((inventories: Set<Inventory>) => {
+      this.inventories = new Set<Inventory>(inventories);
+      this.inventories.forEach(inventory=>{
+        inventory.products = new Set<Product>(inventory.products);
+      })
+    });
+  }
+  onBusinessClick(business: Business) {
+    this.selectedBusiness = business;
+    this.fetchInventories();
+  }
+
+  onEmployeeClick(employee: User) {
+    this.selectedEmployee = this.selectedEmployee === employee ? null : employee;
+  }
+
+
+  removeEmployee(employee: User){
+    this.businessService.removeEmployee(this.selectedBusiness!.id,employee.id).subscribe({next:() => {
+      this.selectedEmployee = null;
+      this.fetchData();
+    }});
+  }
+  deleteSelectedBusiness(){
+    this.businessService.deleteBusiness(this.selectedBusiness!.id).subscribe({next:() => {
+      this.fetchData();
+    }})
+  }
+  deleteInventory(inventory:Inventory){
+    this.inventoryService.deleteInventory(inventory.id).subscribe({next:()=>{
+      this.fetchInventories();
+    }})
+  }
 }

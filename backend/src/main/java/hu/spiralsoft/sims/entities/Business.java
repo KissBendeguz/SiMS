@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.lang.Nullable;
 
 import java.util.Date;
 import java.util.Set;
@@ -26,19 +27,10 @@ public class Business extends BaseEntity{
     private Date simsRegistrationDate;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User owner;
 
 
     @ManyToMany(mappedBy = "associatedBusinesses" ,fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<User> associates;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "invitations",
-            joinColumns = @JoinColumn(name = "business_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> invitedUsers;
-
 }

@@ -46,7 +46,11 @@ export class BusinessService {
   }
 
   addEmployee(id: number, request:AddEmployeeRequest){
-    return this.http.put<void>(`${this.apiUrl}/${id}/add`, request, { headers: httpOptions.headers });
+    return this.http.put<void>(`${this.apiUrl}/${id}/addEmployee`, request, { headers: httpOptions.headers });
+  }
+
+  removeEmployee(businessId:number, employeeId:number){
+    return this.http.put<void>(`${this.apiUrl}/${businessId}/removeEmployee/${employeeId}`, { headers: httpOptions.headers });
   }
 
   inviteUser(businessId: number, userId: number): Observable<User> {

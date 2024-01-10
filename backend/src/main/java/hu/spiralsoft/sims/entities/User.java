@@ -1,5 +1,6 @@
 package hu.spiralsoft.sims.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,6 +26,7 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
 
     private String placeOfBirth;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date dateOfBirth;
     private String homeAddress;
     private String citizenship;
@@ -42,12 +44,22 @@ public class User extends BaseEntity implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "business_id"))
     private Set<Business> associatedBusinesses;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "invitedUsers")
-    private Set<Business> invitedToBusinesses;
 
     public String getFullName(){
         return this.firstname+" "+this.lastname;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        User otherUser = (User) obj;
+        return id != null && id.equals(otherUser.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 
 

@@ -5,11 +5,19 @@ export class User {
     id: number;
     email: string;
     password: string;
-    firstname:string;
-    lastname:string;
-    fullName:string;
-    gender:Gender;
+    firstname: string;
+    lastname: string;
+    fullName: string;
+    gender: Gender;
     associatedBusinesses: Set<Business>;
+
+    dateOfBirth: Date;
+    placeOfBirth: string;
+    homeAddress: string;
+    citizenship: string;
+    identityCardNumber: string;
+    socialSecurityNumber: string;
+    phoneNumber: string;
 
 
     // No-args constructor

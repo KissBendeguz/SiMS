@@ -8,6 +8,7 @@ import hu.spiralsoft.sims.repositories.InventoryRepository;
 import hu.spiralsoft.sims.repositories.UserRepository;
 import hu.spiralsoft.sims.security.JwtService;
 import hu.spiralsoft.sims.security.http.addEmployeeRequest;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -88,9 +89,9 @@ public class BusinessController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         Business business = optionalBusiness.get();
-        /*if(!business.getAssociates().contains(authenticatedUser)){
+        if(!business.getAssociates().contains(authenticatedUser)){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }*/
+        }
         return ResponseEntity.ok(business);
 
     }
@@ -101,18 +102,39 @@ public class BusinessController {
         if (optionalBusiness.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-
         Business business = optionalBusiness.get();
 
-        if (business.getOwner() != null && business.getOwner().getId().equals(authenticatedUser.getId())) {
-            authenticatedUser.getAssociatedBusinesses().remove(business);
-            userRepository.save(authenticatedUser);
-            businessRepository.deleteById(id);
-            return ResponseEntity.ok().build();
+        if (!authenticatedUser.equals(business.getOwner())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        try {
+            for (User associate : business.getAssociates()) {
+                associate.getAssociatedBusinesses().remove(business);
+                userRepository.save(associate);
+            }
+            business.setOwner(null);
+            business.getAssociates().clear();
+            Optional<Set<Inventory>> optionalInventories = inventoryRepository.findAllByBusinessId(business.getId());
+            if(optionalInventories.isPresent()){
+                Set<Inventory> inventories = optionalInventories.get();
+                for (Inventory inventory : inventories) {
+                    inventoryRepository.delete(inventory);
+                    inventoryRepository.flush();
+                }
+            }
+
+
+            businessRepository.delete(business);
+            businessRepository.flush();
+
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+
     @PatchMapping("/{id}")
     public ResponseEntity<Business> updateBusiness(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id, @RequestBody Business body){
         Optional<Business> optionalBusiness = businessRepository.findById(id);
@@ -129,13 +151,17 @@ public class BusinessController {
         }
         return ResponseEntity.notFound().build();
     }
-    @PutMapping("/{id}/add")
+    @PutMapping("/{id}/addEmployee")
     public ResponseEntity<?> addEmployee(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id, @RequestBody addEmployeeRequest body){
         Optional<Business> optionalBusiness = businessRepository.findById(id);
-        if(optionalBusiness.isEmpty()){
-            return ResponseEntity.notFound().build();
+        if(optionalBusiness.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         Business business = optionalBusiness.get();
+        //Only the business owner can add an employee
+        if(!business.getOwner().equals(authenticatedUser)){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         Optional<User> optionalEmployee = userRepository.findByEmail(body.getEmail());
         if (optionalEmployee.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -156,48 +182,31 @@ public class BusinessController {
         businessRepository.save(business);
         return ResponseEntity.ok().build();
     }
-    @PatchMapping("/{businessId}/invite/{userId}")
-    public ResponseEntity<User> inviteUser(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer businessId,@PathVariable Integer userId){
+    @PutMapping("/{businessId}/removeEmployee/{employeeId}")
+    public ResponseEntity<?> removeEmployee(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer businessId, @PathVariable Integer employeeId){
         Optional<Business> optionalBusiness = businessRepository.findById(businessId);
-        Optional<User> optionalUser = userRepository.findById(userId);
-        if(optionalBusiness.isEmpty() || optionalUser.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        //replace with permission system check if implemented
-        if(optionalBusiness.get().getOwner().equals(authenticatedUser)){
-            Business business = optionalBusiness.get();
-            User user = optionalUser.get();
-            user.getInvitedToBusinesses().add(business);
-            userRepository.save(user);
-            business.getInvitedUsers().add(user);
-            businessRepository.save(business);
-            return ResponseEntity.ok(user);
-        }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-    }
-    @PatchMapping("/{id}/join")
-    public ResponseEntity<Business> joinBusiness(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer id){
-        Optional<Business> optionalBusiness = businessRepository.findById(id);
-        if(optionalBusiness.isEmpty()){
+        if(optionalBusiness.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         Business business = optionalBusiness.get();
-        if (business.getInvitedUsers().contains(authenticatedUser)){
-            authenticatedUser.getAssociatedBusinesses().add(business);
-            authenticatedUser.getInvitedToBusinesses().remove(business);
-            userRepository.save(authenticatedUser);
-            business.getAssociates().add(authenticatedUser);
-            business.getInvitedUsers().remove(authenticatedUser);
-            businessRepository.save(business);
-            return ResponseEntity.ok(business);
+        if(!business.getOwner().equals(authenticatedUser)){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        Optional<User> optionalEmployee = userRepository.findById(employeeId);
+        if (optionalEmployee.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        User employee = optionalEmployee.get();
 
+        employee.getAssociatedBusinesses().remove(business);
+        userRepository.save(employee);
+        business.getAssociates().remove(employee);
+        businessRepository.save(business);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}/inventories")
     public ResponseEntity<Set<Inventory>> getBusinessInventories(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer id){
-        //SELECT * FROM inventories WHERE business_id = id
         Optional<Set<Inventory>> oInventories = inventoryRepository.findAllByBusinessId(id);
         if (oInventories.isEmpty()){
             return ResponseEntity.notFound().build();

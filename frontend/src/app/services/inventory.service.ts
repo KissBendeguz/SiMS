@@ -15,6 +15,9 @@ export class InventoryService {
   createInventory(businessId:number,inventory:Inventory){
     return this.http.post<Inventory>(`${this.apiUrl}/${businessId}`, inventory, { headers: httpOptions.headers });
   }
+  deleteInventory(inventoryId:number){
+    return this.http.delete<void>(`${this.apiUrl}/${inventoryId}`, { headers: httpOptions.headers });
+  }
   getInventory(id:number){
     return this.http.get<Inventory>(`${this.apiUrl}/${id}`, { headers: httpOptions.headers });
   }

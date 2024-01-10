@@ -33,12 +33,16 @@ public class InventoryController {
     @PostMapping("/{id}")
     public ResponseEntity<Inventory> createInventory(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id, @RequestBody Inventory body) {
         if (body == null) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         Optional<Business> oBusiness = businessRepository.findById(id);
         if (oBusiness.isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        Business business = oBusiness.get();
+        if(!authenticatedUser.equals(business.getOwner())){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
         Inventory inventory = Inventory.builder()
@@ -48,25 +52,39 @@ public class InventoryController {
                 .managerPhone(body.getManagerPhone())
                 .managerEmail(body.getManagerEmail())
                 .products(new HashSet<>())
-                .business(oBusiness.get())
+                .business(business)
                 .build();
         inventoryRepository.save(inventory);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(inventory);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteInventory(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer id){
+        Optional<Inventory> inventoryOptional = inventoryRepository.findById(id);
+
+        if (inventoryOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        Inventory inventory = inventoryOptional.get();
+        if(!authenticatedUser.equals(inventory.getBusiness().getOwner())){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        inventoryRepository.delete(inventory);
+        inventoryRepository.flush();
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Inventory> getInventory(@AuthenticationPrincipal User authenticatedUser, @PathVariable int id) {
         Optional<Inventory> inventoryOptional = inventoryRepository.findById(id);
 
-        if (inventoryOptional.isPresent()) {
-            Inventory inventory = inventoryOptional.get();
-            //if (inventory.getBusiness().getOwner().equals(authenticatedUser)) {
-                return ResponseEntity.ok(inventory);
-            //}
+        if (inventoryOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.notFound().build();
+        Inventory inventory = inventoryOptional.get();
+        return ResponseEntity.ok(inventory);
     }
 
     @PatchMapping("/{id}")
