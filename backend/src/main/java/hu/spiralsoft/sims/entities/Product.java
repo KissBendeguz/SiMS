@@ -26,7 +26,7 @@ public class Product extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "added_by_id")
     private User addedBy;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JsonIgnore
     private Inventory inventory;
     @ElementCollection
