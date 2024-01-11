@@ -3,33 +3,22 @@
         <img src="assets/box-logo.svg" alt="" class="logo">
         <span>SiMS</span>
     </div>
-    <nav *ngIf="authenticatedUser">
-        <ul> 
-            <li>{{authenticatedUser.firstname +" "+ authenticatedUser.lastname}}</li>
-            <li>
+    <nav>
+        <ul>
+            <li *ngIf="authenticatedUser">{{authenticatedUser.firstname +" "+ authenticatedUser.lastname}}</li>
+            <li *ngIf="authenticatedUser">
                 <div class="nav-settings" data-dropdown>
                     <i class="fa-solid fa-gear" data-dropdown-button></i>
                     <div class="nav-settings-content" data-dropdown>
                         <ul>
-                            <li>Language</li>
-                            <li>Account settings</li>
                             <li (click)="logout()">Logout</li>
                         </ul>
                     </div>
                 </div>
             </li>
-            <li>
-                <div class="nav-settings" data-dropdown>
-                    <i class="fa-solid fa-bell" data-dropdown-button></i>
-                    <div class="nav-settings-content" data-dropdown>
-                        <ul>
-                            <li>Értesítés</li>
-                            <li>Értesítés</li>
-                            <li>Értesítés</li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
+            <li class="flag"><img src="assets/hu.svg" alt="HU"></li>
+            <li class="flag"><img src="assets/gb.svg" alt="GB"></li>
+            <li class="flag"><img src="assets/us.svg" alt="US"></li>
         </ul>
     </nav>
 </header>

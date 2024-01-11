@@ -46,7 +46,7 @@ html {
     font-family: 'Roboto', sans-serif;
 
     height: 100%;
-    overflow-y: hidden;
+    //overflow-y: hidden;
 }
 
 a {
@@ -65,6 +65,7 @@ a {
 input.ng-invalid.ng-touched {
     border-color: $red;
 }
+
 .sims-input {
     all: unset;
     border: 1px solid $darkblue;
@@ -102,8 +103,9 @@ input.ng-invalid.ng-touched {
 
 .sims-arrow {
     &:is(button) {
-        width: 4rem;
-        aspect-ratio: 1/1;
+        //width: 4rem;
+        padding: 1rem;
+        //aspect-ratio: 1/1;
         font-size: 1.6rem;
         display: flex;
         align-items: center;
@@ -120,6 +122,10 @@ input.ng-invalid.ng-touched {
         &>i {
             background: transparent;
             mix-blend-mode: color-burn;
+            aspect-ratio: 1/1;
+            height: 1.5rem;
+            width: 1.5rem;
+            font-size: 1.5rem;
         }
 
         cursor: pointer;
@@ -194,7 +200,11 @@ input.ng-invalid.ng-touched {
     //font-size: 1.2rem;
     font-size: inherit;
     color: inherit;
-   
+
+}
+
+ul {
+    list-style: none;
 }
 
 .pointer {
@@ -216,9 +226,10 @@ input.ng-invalid.ng-touched {
 .row {
     display: flex;
     flex-direction: row;
-    
+
 }
-.f-05{
+
+.f-05 {
     flex: 0.5;
 }
 
@@ -232,6 +243,69 @@ input.ng-invalid.ng-touched {
     border: 1px solid red
 }
 
-.t-center{
+.t-center {
     text-align: center;
+}
+
+.flag {
+    height: 20px;
+
+    img {
+        height: 100%;
+    }
+}
+
+.details {
+    width: 90%;
+    @include lt-xl{
+        width: 100%;
+      }
+    box-shadow: 0 0 5px $darkblue;
+    padding-top: .25rem;
+    background-color: $darkblue;
+    h2 {
+        color: $white;
+        font-weight: normal;
+        text-align: center;
+        padding-bottom: .25rem;
+        .icon-button{
+          font-size: 1rem;
+        }
+    }
+}
+.inventory-details{
+    width: 100%;
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.tableRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.25rem;
+    text-align: center;
+    background-color: $white;
+
+    &.tableHeader {
+        background-color: $offwhite;
+        color: $darkblue;
+        font-size: .9rem;
+        font-weight: bold;
+    }
+
+    .tableCell {
+        flex: 1;
+        word-break: break-all;
+
+        &:first-child {
+            text-align: left;
+        }
+
+        &:last-child {
+            text-align: right;
+        }
+    }
 }

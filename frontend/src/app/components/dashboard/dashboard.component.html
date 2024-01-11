@@ -1,4 +1,4 @@
-<div class="dashboard-container">
+<div class="dashboard-container" [ngStyle]="{'justify-content': selectedBusiness==null ? 'center' : 'initial'}">
   <ng-template #noBusinessSelected>
     <div class="no-business">
       <h1>Currently, you are not affiliated with any business.</h1>
@@ -15,22 +15,6 @@
     <a class="add-button sims-input" routerLink="/create">Add new</a>
     <app-list class="hover-anim" [items]="associatedBusinesses" [selectedElement]="selectedBusiness" fieldName="name"
       (itemClick)="onBusinessClick($event)"></app-list>
-    <div class="footer">
-      <div class="contacts">
-        <h2>Elérhetőségek:</h2>
-        <ul>
-          <li>info&#64;sims.com</li>
-          <li>06 10 123 4567</li>
-        </ul>
-      </div>
-
-      <ul class="flags">
-        <li><img src="assets/hu.svg" alt="HU"></li>
-        <li><img src="assets/gb.svg" alt="GB"></li>
-        <li><img src="assets/us.svg" alt="US"></li>
-      </ul>
-    </div>
-
   </div>
 
 
@@ -46,47 +30,28 @@
       </div>
       <div class="details">
         <h2>Cégadatok</h2>
-        <table>
-          <tbody>
-            <tr>
-              <th>Tulajdonos</th>
-              <th>Cégnév</th>
-              <th>Nyilvántartásba történő felvétel</th>
-            </tr>
-            <tr>
-              <td>{{selectedBusiness.owner.fullName}}</td>
-              <td>{{selectedBusiness.name}}</td>
-              <td>{{selectedBusiness.businessRegistrationDate}}</td>
-            </tr>
-            <tr>
-              <th>Adószám</th>
-              <th>Székhely</th>
-              <th>SiMS felvétel</th>
-            </tr>
-            <tr>
-              <td>{{selectedBusiness.taxNumber}}</td>
-              <td>{{selectedBusiness.headQuarters}}</td>
-              <td>{{selectedBusiness.simsRegistrationDate}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="details">
-        <h2>Elérhetőségek</h2>
-        <table>
-          <tbody>
-            <tr>
-              <th>Email</th>
-              <th>Tel.</th>
-              <th>Fax</th>
-            </tr>
-            <tr>
-              <td>???</td>
-              <td>???</td>
-              <td>???</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-container">
+          <div class="tableRow tableHeader">
+            <div class="tableCell">Tulajdonos</div>
+            <div class="tableCell">Cégnév</div>
+            <div class="tableCell">Nyilvántartásba történő felvétel</div>
+          </div>
+          <div class="tableRow">
+            <div class="tableCell">{{selectedBusiness.owner.fullName}}</div>
+            <div class="tableCell">{{selectedBusiness.name}}</div>
+            <div class="tableCell">{{selectedBusiness.businessRegistrationDate}}</div>
+          </div>
+          <div class="tableRow tableHeader">
+            <div class="tableCell">Adószám</div>
+            <div class="tableCell">Székhely</div>
+            <div class="tableCell">SiMS felvétel</div>
+          </div>
+          <div class="tableRow">
+            <div class="tableCell">{{selectedBusiness.taxNumber}}</div>
+            <div class="tableCell">{{selectedBusiness.headQuarters}}</div>
+            <div class="tableCell">{{selectedBusiness.simsRegistrationDate}}</div>
+          </div>
+        </div>
       </div>
 
       <div class="title">
@@ -97,48 +62,53 @@
         <ng-template #noEmployeeSelected>
           <h2>Kérem válasszon alkalmazottat!</h2>
         </ng-template>
-        <h2 *ngIf="selectedEmployee!=null; else noEmployeeSelected">{{selectedEmployee.fullName}} <button class="icon-button red pointer" (click)="removeEmployee(selectedEmployee)"><i class="fa-solid fa-user-xmark"></i>
-        </button></h2>
-        <table>
-          <tbody>
-            <tr>
-              <th>Születési hely</th>
-              <th>Születési idő</th>
-            </tr>
-            <tr>
-              <td>{{selectedEmployee?.placeOfBirth || "-"}}</td>
-              <td>{{selectedEmployee?.dateOfBirth || "-"}}</td>
-            </tr>
-
-            <tr>
-              <th>Személyi igazolványszáma</th>
-              <th>TAJ száma</th>
-            </tr>
-            <tr>
-              <td>{{selectedEmployee?.identityCardNumber || "-"}}</td>
-              <td>{{selectedEmployee?.socialSecurityNumber || "-"}}</td>
-            </tr>
-
-            <tr>
-              <th>Lakcíme</th>
-              <th>Telefonszáma</th>
-            </tr>
-            <tr>
-              <td>{{selectedEmployee?.homeAddress || "-"}}</td>
-              <td>{{selectedEmployee?.phoneNumber || "-"}}</td>
-            </tr>
-
-            <tr>
-              <th>E-mail címe</th>
-              <th>Állampolgárság</th>
-            </tr>
-            <tr>
-              <td>{{selectedEmployee?.email || "-"}}</td>
-              <td>{{selectedEmployee?.citizenship || "-"}}</td>
-            </tr>
-
-          </tbody>
-        </table>
+      
+        <div *ngIf="selectedEmployee != null; else noEmployeeSelected">
+          <h2>
+            {{selectedEmployee.fullName}}
+            <button class="icon-button red pointer" (click)="removeEmployee(selectedEmployee)">
+              <i class="fa-solid fa-user-xmark"></i>
+            </button>
+          </h2>
+        </div>
+      
+        <div class="table-container">
+          <div class="tableRow tableHeader">
+            <div class="tableCell">Születési hely</div>
+            <div class="tableCell">Születési idő</div>
+          </div>
+          <div class="tableRow">
+            <div class="tableCell">{{selectedEmployee?.placeOfBirth || "-"}}</div>
+            <div class="tableCell">{{selectedEmployee?.dateOfBirth || "-"}}</div>
+          </div>
+      
+          <div class="tableRow tableHeader">
+            <div class="tableCell">Személyi igazolványszáma</div>
+            <div class="tableCell">TAJ száma</div>
+          </div>
+          <div class="tableRow">
+            <div class="tableCell">{{selectedEmployee?.identityCardNumber || "-"}}</div>
+            <div class="tableCell">{{selectedEmployee?.socialSecurityNumber || "-"}}</div>
+          </div>
+      
+          <div class="tableRow tableHeader">
+            <div class="tableCell">Lakcíme</div>
+            <div class="tableCell">Telefonszáma</div>
+          </div>
+          <div class="tableRow">
+            <div class="tableCell">{{selectedEmployee?.homeAddress || "-"}}</div>
+            <div class="tableCell">{{selectedEmployee?.phoneNumber || "-"}}</div>
+          </div>
+      
+          <div class="tableRow tableHeader">
+            <div class="tableCell">E-mail címe</div>
+            <div class="tableCell">Állampolgárság</div>
+          </div>
+          <div class="tableRow">
+            <div class="tableCell">{{selectedEmployee?.email || "-"}}</div>
+            <div class="tableCell">{{selectedEmployee?.citizenship || "-"}}</div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -166,30 +136,31 @@
             </div>
           </div>
           <div class="cardContent">
-            <table>
-              <tbody>
-                <tr>
-                  <th>Elnevezés</th>
-                  <th>Cím</th>
-                  <th>Termékszám</th>
-                </tr>
-                <tr>
-                  <td>{{inventory.name}}</td>
-                  <td>{{inventory.address}}</td>
-                  <td>{{inventory.products.size || 0}}</td>
-                </tr>
-                <tr>
-                  <th>Menedzser</th>
-                  <th>M. Tel.</th>
-                  <th>M. Email</th>
-                </tr>
-                <tr>
-                  <td>{{inventory.managerName}}</td>
-                  <td>{{inventory.managerPhone}}</td>
-                  <td>{{inventory.managerEmail}}</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="inventory-details">
+              <div class="table-container">
+                <div class="tableRow tableHeader">
+                  <div class="tableCell">Elnevezés</div>
+                  <div class="tableCell">Cím</div>
+                  <div class="tableCell">Termékszám</div>
+                </div>
+                <div class="tableRow">
+                  <div class="tableCell">{{inventory.name}}</div>
+                  <div class="tableCell">{{inventory.address}}</div>
+                  <div class="tableCell">{{inventory.products.size || 0}}</div>
+                </div>
+            
+                <div class="tableRow tableHeader">
+                  <div class="tableCell">Menedzser</div>
+                  <div class="tableCell">M. Tel.</div>
+                  <div class="tableCell">M. Email</div>
+                </div>
+                <div class="tableRow">
+                  <div class="tableCell">{{inventory.managerName}}</div>
+                  <div class="tableCell">{{inventory.managerPhone}}</div>
+                  <div class="tableCell">{{inventory.managerEmail}}</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

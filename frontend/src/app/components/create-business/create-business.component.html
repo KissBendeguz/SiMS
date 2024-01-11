@@ -19,7 +19,7 @@
   <button class="sims-arrow" type="button" id="previous" (click)="previousQuestion()" [disabled]="questionIndex === 0">
     <i class="fas fa-chevron-left"></i>
   </button>
-  <input class="sims-input" type="submit" value="Submit" (click)="createBusiness()">
+  <button class="sims-arrow" type="submit" (click)="createBusiness()">Submit</button>
   <button class="sims-arrow" type="button" id="next" (click)="nextQuestion()" [disabled]="questionIndex === questions.length - 1">
     <i class="fas fa-chevron-right"></i>
   </button>

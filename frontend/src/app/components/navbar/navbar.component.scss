@@ -48,6 +48,9 @@ header{
 
             .nav-settings{
                 position: relative;
+                &>i{
+                    line-height: unset;
+                }
 
                 .nav-settings-content{
                     cursor: auto;

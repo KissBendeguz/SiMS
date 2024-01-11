@@ -4,6 +4,9 @@
   height: 100%;
   display: flex;
   width: 80vw;
+  @include lt-lg{
+    width: unset;
+  }
 }
 
 .container {
@@ -20,6 +23,9 @@
     flex-direction: column;
     gap: 1.5rem;
     width: 50%;
+    @include lt-lg{
+      width: 100%;
+    }
 
     .input-group {
       display: flex;

@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
   }
 
   @HostListener('document:click', ['$event'])
-  handleDocumentClick(event: MouseEvent): void {
+  handleDocumentClick(event: MouseEvent | TouchEvent): void {
     const target = event.target as HTMLElement;
 
     const isDropdownButton = target.matches('[data-dropdown-button]');
