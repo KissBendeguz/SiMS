@@ -38,9 +38,6 @@ public class BusinessController {
 
     @PostMapping("")
     public ResponseEntity<Business> createBusiness(@AuthenticationPrincipal User authenticatedUser, @RequestBody Business body){
-        if (body == null){
-            return ResponseEntity.badRequest().build();
-        }
         Optional<User> savedUser = userRepository.findById(authenticatedUser.getId());
         if (savedUser.isEmpty()){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

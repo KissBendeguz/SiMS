@@ -33,36 +33,31 @@ public class ProductController {
             @PathVariable Integer inventoryId,
             @RequestBody Product requestBody
     ) {
+        Optional<Inventory> inventoryOptional = inventoryRepository.findById(inventoryId);
 
-        if (requestBody != null) {
-
-            Optional<Inventory> inventoryOptional = inventoryRepository.findById(inventoryId);
-
-            if (inventoryOptional.isPresent()) {
-                Inventory inventory = inventoryOptional.get();
-
-                Product product = Product.builder()
-                        .name(requestBody.getName())
-                        .quantity(requestBody.getQuantity())
-                        .category(requestBody.getCategory())
-                        .itemNumber(requestBody.getItemNumber())
-                        .unit(requestBody.getUnit())
-                        .addedToInventory(new Date())
-                        .addedBy(authenticatedUser)
-                        .inventory(inventory)
-                        .dynProperties(requestBody.getDynProperties())
-                        .build();
-
-                productRepository.save(product);
-                inventory.getProducts().add(product);
-                inventoryRepository.save(inventory);
-                return ResponseEntity.ok(product);
-            } else {
-                return ResponseEntity.badRequest().build();
-            }
+        if (inventoryOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        return ResponseEntity.badRequest().build();
+        Inventory inventory = inventoryOptional.get();
+
+        Product product = Product.builder()
+                .name(requestBody.getName())
+                .quantity(requestBody.getQuantity())
+                .category(requestBody.getCategory())
+                .itemNumber(requestBody.getItemNumber())
+                .unit(requestBody.getUnit())
+                .addedToInventory(new Date())
+                .addedBy(authenticatedUser)
+                .inventory(inventory)
+                .dynProperties(requestBody.getDynProperties())
+                .build();
+
+        productRepository.save(product);
+        inventory.getProducts().add(product);
+        inventoryRepository.save(inventory);
+        return ResponseEntity.status(HttpStatus.CREATED).body(product);
+
     }
 
 

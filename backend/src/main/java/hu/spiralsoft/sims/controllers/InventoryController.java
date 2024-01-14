@@ -91,20 +91,24 @@ public class InventoryController {
     public ResponseEntity<Inventory> modifyInventory(@AuthenticationPrincipal User authenticatedUser, @PathVariable int id, @RequestBody Inventory body) {
         Optional<Inventory> oInventory = inventoryRepository.findById(id);
 
-        if (oInventory.isPresent()) {
-            Inventory existingInventory = oInventory.get();
-            if (existingInventory.getBusiness().getOwner().equals(authenticatedUser)) {
-
-                existingInventory.setName(body.getName());
-
-                inventoryRepository.save(existingInventory);
-
-                return ResponseEntity.ok(existingInventory);
-            }
+        if (oInventory.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        Inventory existingInventory = oInventory.get();
+        if (!existingInventory.getBusiness().getOwner().equals(authenticatedUser)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
-        return ResponseEntity.notFound().build();
+        existingInventory.setName(body.getName());
+        existingInventory.setAddress(body.getAddress());
+        existingInventory.setManagerEmail(body.getManagerEmail());
+        existingInventory.setManagerName(body.getManagerName());
+        existingInventory.setManagerPhone(body.getManagerPhone());
+
+        inventoryRepository.save(existingInventory);
+        return ResponseEntity.ok(existingInventory);
     }
+
 
     @GetMapping("/{id}/products")
     public ResponseEntity<Set<Product>> getAllProducts(@AuthenticationPrincipal User authenticatedUser, @PathVariable int id) {
