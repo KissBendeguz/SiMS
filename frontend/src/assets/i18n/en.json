@@ -47,6 +47,11 @@
     "managerPhone": "M. phone",
     "managerEmail": "M. email"
   },
+  "login":{
+    "title": "Sign in to SiMS",
+    "signIn": "Sign in",
+    "noAccount": " if you don't have an account."
+  },
   "createBusiness":{
     "questions":{
       "1":"What is the official name of your business?",
@@ -62,7 +67,10 @@
     "arrow":"Arrow",
     "submit":"Create"
   },
-  "login":{
-    "signIn": "Sign in to SiMS"
+  "register":{
+    "getStarted":"Get started with SiMS",
+    "firstName":"First Name",
+    "required": "is required",
+    "lastName": "LastName"
   }
 }
