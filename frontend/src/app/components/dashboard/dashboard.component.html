@@ -1,18 +1,18 @@
 <div class="dashboard-container" [ngStyle]="{'justify-content': selectedBusiness==null ? 'center' : 'initial'}">
   <ng-template #noBusinessSelected>
     <div class="no-business">
-      <h1>Currently, you are not affiliated with any business.</h1>
+      <h1>{{ 'noBusinessSelected.title' | translate }}</h1>
       <a routerLink="/create" class="get-started-link">
-        <p>Get started with your <span>own</span> business.</p>
+        <p>{{'noBusinessSelected.getStarted' | translate}} <span>{{'noBusinessSelected.own' | translate}}</span> {{'noBusinessSelected.business' | translate}}</p>
       </a>
-      <h2>or</h2>
-      <p>Ask your supervisor to invite you to their business.</p>
+      <h2>{{'noBusinessSelected.or' | translate}}</h2>
+      <p>{{'noBusinessSelected.askSupervisor' | translate}}</p>
     </div>
   </ng-template>
 
   <div class="business-list" *ngIf="selectedBusiness; else noBusinessSelected">
-    <h2>Businesses</h2>
-    <a class="add-button sims-input" routerLink="/create">Add new</a>
+    <h2>{{'businessList.title' | translate}}</h2>
+    <a class="add-button sims-input" routerLink="/create">{{'businessList.addNew' | translate}}</a>
     <app-list class="hover-anim" [items]="associatedBusinesses" [selectedElement]="selectedBusiness" fieldName="name"
       (itemClick)="onBusinessClick($event)"></app-list>
   </div>
@@ -25,16 +25,16 @@
           {{selectedBusiness.name}}
         </div>
         <div class="icons f-1">
-          <button class="icon-button red pointer" (click)="deleteSelectedBusiness()"><i class="delete fa-regular fa-trash-can" title="Törlés"></i></button>
+          <button class="icon-button red pointer" (click)="deleteSelectedBusiness()"><i class="delete fa-regular fa-trash-can" title="{{'delete' | translate}}"></i></button>
         </div>
       </div>
       <div class="details">
-        <h2>Cégadatok</h2>
+        <h2>{{'businessInfo.title' | translate}}</h2>
         <div class="table-container">
           <div class="tableRow tableHeader">
-            <div class="tableCell">Tulajdonos</div>
-            <div class="tableCell">Cégnév</div>
-            <div class="tableCell">Nyilvántartásba történő felvétel</div>
+            <div class="tableCell">{{'owner' | translate}}</div>
+            <div class="tableCell">{{'businessName' | translate}}</div>
+            <div class="tableCell">{{'registrationDate' | translate}}</div>
           </div>
           <div class="tableRow">
             <div class="tableCell">{{selectedBusiness.owner.fullName}}</div>
@@ -42,9 +42,9 @@
             <div class="tableCell">{{selectedBusiness.businessRegistrationDate}}</div>
           </div>
           <div class="tableRow tableHeader">
-            <div class="tableCell">Adószám</div>
-            <div class="tableCell">Székhely</div>
-            <div class="tableCell">SiMS felvétel</div>
+            <div class="tableCell">{{'taxNumber' | translate}}</div>
+            <div class="tableCell">{{'headquarters' | translate}}</div>
+            <div class="tableCell">{{'simsRegistrationDate' | translate}}</div>
           </div>
           <div class="tableRow">
             <div class="tableCell">{{selectedBusiness.taxNumber}}</div>
@@ -55,18 +55,18 @@
       </div>
 
       <div class="title">
-        Alkalmazott adatok
+        {{'employeeData.title' | translate}}
       </div>
 
       <div class="details">
         <ng-template #noEmployeeSelected>
-          <h2>Kérem válasszon alkalmazottat!</h2>
+          <h2>{{'businessInfo.noEmployeeSelected' | translate}}</h2>
         </ng-template>
       
         <div *ngIf="selectedEmployee != null; else noEmployeeSelected">
           <h2>
             {{selectedEmployee.fullName}}
-            <button class="icon-button red pointer" (click)="removeEmployee(selectedEmployee)">
+            <button class="icon-button red pointer" (click)="removeEmployee(selectedEmployee)" title="{{'businessInfo.removeEmployee' | translate}}">
               <i class="fa-solid fa-user-xmark"></i>
             </button>
           </h2>
@@ -74,8 +74,8 @@
       
         <div class="table-container">
           <div class="tableRow tableHeader">
-            <div class="tableCell">Születési hely</div>
-            <div class="tableCell">Születési idő</div>
+            <div class="tableCell">{{'employeeData.placeOfBirth' | translate}}</div>
+            <div class="tableCell">{{'employeeData.dateOfBirth' | translate}}</div>
           </div>
           <div class="tableRow">
             <div class="tableCell">{{selectedEmployee?.placeOfBirth || "-"}}</div>
@@ -83,8 +83,8 @@
           </div>
       
           <div class="tableRow tableHeader">
-            <div class="tableCell">Személyi igazolványszáma</div>
-            <div class="tableCell">TAJ száma</div>
+            <div class="tableCell">{{'employeeData.idCardNumber' | translate}}</div>
+            <div class="tableCell">{{'employeeData.socSecNumber' | translate}}</div>
           </div>
           <div class="tableRow">
             <div class="tableCell">{{selectedEmployee?.identityCardNumber || "-"}}</div>
@@ -92,8 +92,8 @@
           </div>
       
           <div class="tableRow tableHeader">
-            <div class="tableCell">Lakcíme</div>
-            <div class="tableCell">Telefonszáma</div>
+            <div class="tableCell">{{'employeeData.homeAddress' | translate}}</div>
+            <div class="tableCell">{{'employeeData.phoneNumber' | translate}}</div>
           </div>
           <div class="tableRow">
             <div class="tableCell">{{selectedEmployee?.homeAddress || "-"}}</div>
@@ -101,8 +101,8 @@
           </div>
       
           <div class="tableRow tableHeader">
-            <div class="tableCell">E-mail címe</div>
-            <div class="tableCell">Állampolgárság</div>
+            <div class="tableCell">{{'employeeData.emailAddress' | translate}}</div>
+            <div class="tableCell">{{'employeeData.citizenship' | translate}}</div>
           </div>
           <div class="tableRow">
             <div class="tableCell">{{selectedEmployee?.email || "-"}}</div>
@@ -118,11 +118,11 @@
 
     <div class="inventoryContainer">
       <div class="create">
-        <p>Raktár létrehozása</p>
+        <p>{{'inventory.create' | translate}}</p>
         <button class="sims-input inventoryCreateButton" routerLink="{{selectedBusiness.id}}/inventory/create"><i class="fa-solid fa-plus"></i></button>
       </div>
       <ng-template #noInventoryFound>
-        <p>A vállalkozáshoz nem tartozik egy raktár sem. Hozza létre első raktárát!</p>
+        <p>{{'inventory.notFound' | translate}}</p>
       </ng-template>
 
 
@@ -139,9 +139,9 @@
             <div class="inventory-details">
               <div class="table-container">
                 <div class="tableRow tableHeader">
-                  <div class="tableCell">Elnevezés</div>
-                  <div class="tableCell">Cím</div>
-                  <div class="tableCell">Termékszám</div>
+                  <div class="tableCell">{{'inventory.name' | translate}}</div>
+                  <div class="tableCell">{{'inventory.addr' | translate}}</div>
+                  <div class="tableCell">{{'inventory.productCount' | translate}}</div>
                 </div>
                 <div class="tableRow">
                   <div class="tableCell">{{inventory.name}}</div>
@@ -150,9 +150,9 @@
                 </div>
             
                 <div class="tableRow tableHeader">
-                  <div class="tableCell">Menedzser</div>
-                  <div class="tableCell">M. Tel.</div>
-                  <div class="tableCell">M. Email</div>
+                  <div class="tableCell">{{'inventory.manager' | translate}}</div>
+                  <div class="tableCell">{{'inventory.managerPhone' | translate}}</div>
+                  <div class="tableCell">{{'inventory.managerEmail' | translate}}</div>
                 </div>
                 <div class="tableRow">
                   <div class="tableCell">{{inventory.managerName}}</div>
@@ -171,8 +171,8 @@
 
   <div class="employee-list" *ngIf="selectedBusiness">
     <div class="table">
-      <h2>Alkalmazottak</h2>
-      <button *ngIf="selectedBusiness.owner.id === authenticatedUser?.id" routerLink="/{{selectedBusiness.id}}/add-employee" class="sims-input">Hozzáadás</button>
+      <h2>{{'employeeData.employees' | translate}}</h2>
+      <button *ngIf="selectedBusiness.owner.id === authenticatedUser?.id" routerLink="/{{selectedBusiness.id}}/add-employee" class="sims-input">{{'businessList.addNew' | translate}}</button>
       <app-list class="hover-anim" [items]="selectedBusiness.associates || null" [selectedElement]="selectedEmployee"
         fieldName="fullName" (itemClick)="onEmployeeClick($event)"></app-list>
     </div>

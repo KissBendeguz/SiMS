@@ -1,15 +1,15 @@
 <div class="goback">
-  <a routerLink="/"><i class="fa-solid fa-turn-up"></i> Go back</a>
+  <a routerLink="/"><i class="fa-solid fa-turn-up"></i> {{'back' | translate}}</a>
 </div>
 <form [formGroup]="businessForm" (ngSubmit)="createBusiness()">
   <div class="container" [style.transform]="'translateX(' + (-questionIndex * 100) + 'vw)'" [style.min-width]="(questions.length*100)+'vw'">
     <div class="field" *ngFor="let question of questions; let i = index">
       <div class="question" #question>
-        <label for="question-{{ i + 1 }}">{{ question.text }}</label>
-        <input type="{{question.inputType}}" class="sims-input" id="{{question.field}}-{{ i + 1 }}" formControlName="{{question.field}}-{{ i + 1 }}" (keydown.enter)="nextQuestion()" (keydown.escape)="previousQuestion()"  placeholder="Please answer" />
+        <label for="question-{{ i + 1 }}">{{ 'createBusiness.questions.'+question.id | translate }}</label>
+        <input type="{{question.inputType}}" class="sims-input" id="{{question.field}}-{{ i + 1 }}" formControlName="{{question.field}}-{{ i + 1 }}" (keydown.enter)="nextQuestion()" (keydown.escape)="previousQuestion()"  placeholder="{{'createBusiness.plsAnswer' | translate}}" />
         <div class="instructions">
-          <p>Press Return or press the <label class="highlight" for="next">Next</label> arrow button.</p>
-          <p>Press Escape or press the <label class="highlight" for="previous">Previous</label> arrow button.</p>
+          <p>{{'createBusiness.pressReturn' | translate}} <label class="highlight" for="next">{{'createBusiness.next' | translate}}</label> {{'createBusiness.arrow' | translate}}.</p>
+          <p>{{'createBusiness.pressEsc' | translate}} <label class="highlight" for="previous">{{'createBusiness.prev' | translate}}</label> {{'createBusiness.arrow' | translate}}.</p>
         </div>
       </div>
     </div>
@@ -19,7 +19,7 @@
   <button class="sims-arrow" type="button" id="previous" (click)="previousQuestion()" [disabled]="questionIndex === 0">
     <i class="fas fa-chevron-left"></i>
   </button>
-  <button class="sims-arrow" type="submit" (click)="createBusiness()">Submit</button>
+  <button class="sims-arrow" type="submit" (click)="createBusiness()">{{'createBusiness.submit' | translate}}</button>
   <button class="sims-arrow" type="button" id="next" (click)="nextQuestion()" [disabled]="questionIndex === questions.length - 1">
     <i class="fas fa-chevron-right"></i>
   </button>

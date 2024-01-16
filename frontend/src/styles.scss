@@ -250,6 +250,11 @@ ul {
 .flag {
     height: 20px;
 
+    button {
+        all:unset;
+        height: 100%;
+    }
+    
     img {
         height: 100%;
     }

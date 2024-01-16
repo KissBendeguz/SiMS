@@ -10,6 +10,7 @@
   display: flex;
   justify-content: space-between;
   height: 100%;
+  overflow: hidden;
 
   @include lt-lg{
     flex-direction: column;
@@ -48,6 +49,10 @@
       @include lt-lg{
         width: 10rem;
       }
+      @include lt-xl{
+        font-size: 80%;
+      }
+      font-size: 80%;
       text-align: center;
       cursor: pointer;
       background-color: $lightblue;
@@ -275,12 +280,13 @@
       @include lt-lg{
         width: 90%;
       }
+      max-width: 15vw;
 
 
-      input{
+      button{
         text-align: center;
         width: 80%;
-        
+
       }
 
       h2 {

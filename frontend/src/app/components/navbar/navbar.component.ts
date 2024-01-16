@@ -4,6 +4,7 @@ import { filter, take } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private router:Router,
-    private activatedRoute:ActivatedRoute
+    private activatedRoute:ActivatedRoute,
+    private translateService: TranslateService
     ) { }
 
   loadAuthenticatedUser(){
@@ -62,7 +64,9 @@ export class NavbarComponent implements OnInit {
       dropdown.classList.remove('active');
     });
   }
-
+  changeLanguage(lang:string){
+    this.translateService.use(lang);
+  }
   logout() {
     this.authenticatedUser = null;
     this.userService.logout();

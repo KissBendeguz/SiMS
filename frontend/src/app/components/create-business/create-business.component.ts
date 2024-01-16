@@ -1,6 +1,7 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Business } from 'src/app/models/business';
 import { BusinessService } from 'src/app/services/business.service';
 
@@ -13,10 +14,10 @@ export class CreateBusinessComponent {
   businessForm: FormGroup;
   questionIndex = 0;
   questions = [
-    { id: 1, text: 'What is the official name of your business?', inputType: 'text', field:'name'},
-    { id: 2, text: 'Where is the primary location of your business (Headquarters)?', inputType: 'text', field: 'headQuarters' },
-    { id: 3, text: 'When was your business formally registered?', inputType: 'date', field: 'businessRegistrationDate'},
-    { id: 4, text: 'What is the tax identification number for your business?', inputType: 'text', field: 'taxNumber'},
+    { id: 1, inputType: 'text', field:'name'},
+    { id: 2, inputType: 'text', field: 'headQuarters' },
+    { id: 3, inputType: 'date', field: 'businessRegistrationDate'},
+    { id: 4, inputType: 'text', field: 'taxNumber'},
   ];
 
 
@@ -25,6 +26,7 @@ export class CreateBusinessComponent {
     private el: ElementRef, 
     private businessService:BusinessService,
     private router: Router,
+    private translateService: TranslateService
     ) {
     const controls = {};
     this.questions.forEach((question, index) => {

@@ -1,0 +1,44 @@
+{
+    "noBusinessSelected": {
+      "title": "Jelenleg nincs hozzárendelve vállalkozásod.",
+      "getStarted": "Kezdd el a",
+      "ownBusiness": "saját vállalkozásodat.",
+      "or": "vagy",
+      "askSupervisor": "Kérdezd meg a felügyelődet, hogy hozzádja-e vállalkozásához."
+    },
+    "businessList": {
+      "title": "Vállalkozások",
+      "addNew": "Új hozzáadása"
+    },
+    "businessInfo": {
+      "title": "Vállalkozás Információ",
+      "details": "Részletek",
+      "businessData": "Vállalkozási Adatok",
+      "employeeData": "Alkalmazotti Adatok",
+      "noEmployeeSelected": "Kérlek válassz ki egy alkalmazottat!",
+      "removeEmployee": "Alkalmazott eltávolítása"
+    },
+    "inventoryContainer": {
+      "createInventory": "Raktár létrehozása",
+      "noInventoryFound": "Nincs raktár a vállalkozáshoz. Hozd létre az elsőt!"
+    },
+    "inventoryCreate": {
+      "create": "Raktár létrehozása",
+      "button": "Létrehozás",
+      "placeholder": "Raktár neve...",
+      "createButton": {
+        "create": "Létrehozás",
+        "cancel": "Mégse"
+      },
+      "error": "A raktár létrehozása során hiba történt."
+    },
+    "viewInventory": {
+      "view": "Megtekintés",
+      "delete": "Törlés"
+    },
+    "employeeList": {
+      "title": "Alkalmazottak listája",
+      "add": "Hozzáadás",
+      "delete": "Törlés"
+    }
+  }
