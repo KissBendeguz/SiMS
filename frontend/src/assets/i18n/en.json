@@ -61,5 +61,8 @@
     "prev":"Previous",
     "arrow":"Arrow",
     "submit":"Create"
+  },
+  "login":{
+    "signIn": "Sign in to SiMS"
   }
 }

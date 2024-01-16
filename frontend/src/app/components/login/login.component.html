@@ -1,7 +1,7 @@
 <div class="container">
     <div class="login">
         <form [formGroup]="loginForm" (ngSubmit)="login()">
-            <h2>Sign in to SiMS;</h2>
+            <h2>{{'login.signIn' | translate}}</h2>
             <div *ngIf="errorMessage" class="sims-error">
                 <i class="fa-solid fa-circle-exclamation"></i>
                 <p>{{errorMessage}}</p>
