@@ -1,6 +1,8 @@
 {
   "back":"Go back",
   "delete": "Delete",
+  "save":"Save",
+  "cancel":"Cancel",
   "owner": "Owner",
   "businessName":"Business name",
   "registrationDate":"Registration date",
@@ -46,7 +48,20 @@
     "productCount":"Count of products",
     "manager": "Manager",
     "managerPhone": "M. phone",
-    "managerEmail": "M. email"
+    "managerEmail": "M. email",
+    "productName": "Product name",
+    "itemNumber": "Item Number",
+    "category": "Category",
+    "quantity": "Quantity",
+    "unit": "Unit",
+    "properties": "Properties",
+    "property:": "Property",
+    "addProperty": "Add property",
+    "addProduct": "Add product",
+    "value": "Value",
+    "edit": "Edit",
+    "currentProducts": "Current Products",
+    "noProductsFound": "No products found!"
   },
   "login":{
     "title": "Sign in to SiMS",
