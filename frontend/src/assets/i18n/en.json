@@ -66,7 +66,12 @@
   "login":{
     "title": "Sign in to SiMS",
     "signIn": "Sign in",
-    "noAccount": " if you don't have an account."
+    "noAccount": " if you don't have an account.",
+    "sideContent": {
+      "title":"SiMS Warehouse Management",
+      "p1":"The goal of the SiMS Warehouse Program is to facilitate the simple and efficient management of warehouses, the easy addition of employees, and the accurate tracking of products.",
+      "p2":"For entrepreneurs and warehouse managers, this program provides an opportunity to easily track which products are located in a particular warehouse and enables employees to work efficiently."
+    }
   },
   "createBusiness":{
     "questions":{
