@@ -1,24 +1,24 @@
 <div class="container">
     <div class="login">
         <form [formGroup]="loginForm" (ngSubmit)="login()">
-            <h2>Sign in to SiMS;</h2>
+            <h2>{{'login.title' | translate}}</h2>
             <div *ngIf="errorMessage" class="sims-error">
                 <i class="fa-solid fa-circle-exclamation"></i>
                 <p>{{errorMessage}}</p>
             </div>
             <div class="input-group">
-                <label for="email">{{email?.touched && !email?.valid ?"Email is required.":"Email"}}</label>
+                <label for="email">{{email?.touched && !email?.valid ?"Email "+('register.required' | translate)+".":"Email"}}</label>
                 <input class="sims-input" type="text" id="email" name="email" placeholder="example@email.com" formControlName="email">
             </div>
             <div class="input-group">
-                <label for="password">{{password?.touched && !password?.valid ?"Password is required.":"Password"}}</label>
+                <label for="password">{{password?.touched && !password?.valid ? ('register.password' | translate)+' '+('register.required' | translate):('register.password' | translate)}}</label>
                 <input class="sims-input" type="password" id="password" name="password" placeholder="******" formControlName="password">
             </div>
             <div>
-                <input class="sims-button" type="submit" value="Sign in">
+                <input class="sims-button" type="submit" value="{{'login.signIn' | translate}}">
             </div>
             <div>
-                <p><a routerLink="/register">Sign up</a> if you don't have an account.</p>
+                <p><a routerLink="/register">{{'register.signUp'}}</a> {{'login.noAccount'}}</p>
             </div>
         </form>
 

@@ -1,12 +1,15 @@
 {
   "back":"Go back",
   "delete": "Delete",
+  "save":"Save",
+  "cancel":"Cancel",
   "owner": "Owner",
   "businessName":"Business name",
   "registrationDate":"Registration date",
   "simsRegistrationDate":"SiMS registration date",
   "taxNumber": "Tax number",
   "headquarters": "Headquarters",
+  "logout": "Logout",
   "noBusinessSelected": {
     "title": "Currently, you are not affiliated with any business.",
     "getStarted": "Get started with your",
@@ -45,7 +48,25 @@
     "productCount":"Count of products",
     "manager": "Manager",
     "managerPhone": "M. phone",
-    "managerEmail": "M. email"
+    "managerEmail": "M. email",
+    "productName": "Product name",
+    "itemNumber": "Item Number",
+    "category": "Category",
+    "quantity": "Quantity",
+    "unit": "Unit",
+    "properties": "Properties",
+    "property:": "Property",
+    "addProperty": "Add property",
+    "addProduct": "Add product",
+    "value": "Value",
+    "edit": "Edit",
+    "currentProducts": "Current Products",
+    "noProductsFound": "No products found!"
+  },
+  "login":{
+    "title": "Sign in to SiMS",
+    "signIn": "Sign in",
+    "noAccount": " if you don't have an account."
   },
   "createBusiness":{
     "questions":{
@@ -62,7 +83,6 @@
     "arrow":"Arrow",
     "submit":"Create"
   },
-
   "register":{
     "getStarted":"Get started with SiMS",
     "firstName":"First Name",

@@ -1,6 +1,6 @@
 <div class="container">
     <div class="goback">
-        <a routerLink="/"><i class="fa-solid fa-turn-up"></i> Go back</a>
+        <a routerLink="/"><i class="fa-solid fa-turn-up"></i> {{'back'|translate}}</a>
       </div>
     <div class="add-products">
         <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
@@ -10,8 +10,8 @@
                         <label for="name">
                             {{
                             name?.touched && name?.errors?.['required']
-                            ? 'Termék neve kötelező!'
-                            : 'Termék neve'
+                            ? ('inventory.productName' | translate) +' '+ ('register.required')
+                            : ('inventory.productName' | translate)
                             }}
                         </label>
                         <input type="text" id="productName" name="productName" formControlName="productName">
@@ -19,56 +19,56 @@
                 </div>
                 <div class="row">
                     <div class="input-group f-6">
-                        <label for="itemNumber">Cikkszám:</label>
+                        <label for="itemNumber">{{'inventory.itemNumber'|translate}}</label>
                         <input type="text" id="itemNumber" name="itemNumber" formControlName="itemNumber">
                     </div>
                     <div class="input-group f-6">
-                        <label for="category">Kategóriák:</label>
+                        <label for="category">{{'inventory.category'|translate}}</label>
                         <input type="text" id="category" name="category" formControlName="category">
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-group f-6">
-                        <label for="quantity">Mennyiség:</label>
+                        <label for="quantity">{{'inventory.quantity'|translate}}</label>
                         <input type="number" id="quantity" name="quantity" formControlName="quantity">
                     </div>
                     <div class="input-group f-6">
-                        <label for="unit">Mértékegység:</label>
+                        <label for="unit">{{'inventory.unit'|translate}}</label>
                         <input type="text" id="unit" name="unit" formControlName="unit">
                     </div>
                 </div>
             </div>
 
             <div class="dynamicProperties" formArrayName="dynamicProperties">
-                <h2>Tulajdonságok</h2>
+                <h2>{{'inventory.properties'|translate}}</h2>
                 <div *ngFor="let property of dynamicProperties.controls; let i = index">
                     <div class="double-input-group" [formGroupName]="i">
                         <div class="row">
                             <div class="input-group">
-                                <input type="text" id="key" formControlName="key" placeholder="Tulajdonság" />
+                                <input type="text" id="key" formControlName="key" placeholder="{{'inventory.property'|translate}}" />
                             </div>
                             <div class="input-group">
-                                <input type="text" id="value" formControlName="value" placeholder="Érték" />
+                                <input type="text" id="value" formControlName="value" placeholder="{{'inventory.value'|translate}}" />
                             </div>
                             <button class="icon-button" (click)="removeProperty(i)">
-                                <i class="delete fa-regular fa-trash-can red pointer" title="Törlés"></i>
+                                <i class="delete fa-regular fa-trash-can red pointer" title="{{'delete'|translate}}"></i>
                             </button>
                         </div>
                     </div>
                 </div>
                 <button class="icon-button lightblue pointer" type="button" (click)="addProperty()"
-                    title="Tulajdonság hozzáadása">
+                    title="{{'inventory.addProperty'|translate}}">
                     <i class="fa-solid fa-plus"></i>
                 </button>
 
             </div>
-            <input type="submit" value="Termék hozzáadása">
+            <input type="submit" value="{{'inventory.addProduct'|translate}}">
 
         </form>
     </div>
     <div class="products">
         <div class="title">
-            <h2>Jelenlegi termékek</h2>
+            <h2>{{'inventory.currentProducts'|translate}}</h2>
         </div>
         <div class="row underlined">
             <div class="col header select f-05 t-center">
@@ -80,15 +80,15 @@
                         (click)="deleteSelectedProducts()"></i>
                 </button>
             </div>
-            <div class="col header name f-7">Név</div>
-            <div class="col header itemNumber f-5">Cikkszám</div>
-            <div class="col header category f-4">Kategória</div>
-            <div class="col header quantity f-3">Mennyiség</div>
-            <div class="col header unit f-2">Egység</div>
-            <div class="col header control f-2">Kezelés</div>
+            <div class="col header name f-7">{{'inventory.productName'|translate}}</div>
+            <div class="col header itemNumber f-5">{{'inventory.itemNumber'|translate}}</div>
+            <div class="col header category f-4">{{'inventory.category'|translate}}</div>
+            <div class="col header quantity f-3">{{'inventory.quantity'|translate}}</div>
+            <div class="col header unit f-2">{{'inventory.unit'|translate}}</div>
+            <div class="col header control f-2">{{'inventory.edit'|translate}}</div>
         </div>
         <div class="row" *ngIf="noProductsFound">
-            <div class="col f-24 t-center">Nem található termék.</div>
+            <div class="col f-24 t-center">{{'inventory.noProductsFound'|translate}}</div>
         </div>
         <div class="row" *ngIf="resourceLoading">
             <div class="col f-24 t-center loading"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
@@ -144,18 +144,18 @@
                 <div class="col control f-2">
                     <div *ngIf="product.id!==editingProduct?.id">
                         <button class="icon-button" (click)="editProduct($event,product)">
-                            <i class="fa-solid fa-pen-to-square pointer" title="Szerkesztés"></i>
+                            <i class="fa-solid fa-pen-to-square pointer" title="{{'inventory.edit'|translate}}"></i>
                         </button>
                         <button class="icon-button" (click)="deleteProduct($event,product.id)">
-                            <i class="delete fa-regular fa-trash-can red pointer" title="Törlés"></i>
+                            <i class="delete fa-regular fa-trash-can red pointer" title="{{'delete'|translate}}"></i>
                         </button>
                     </div>
                     <div *ngIf="product.id===editingProduct?.id">
                         <button class="icon-button" (click)="saveEdit($event)">
-                            <i class="fa-solid fa-floppy-disk pointer" title="Mentés"></i>
+                            <i class="fa-solid fa-floppy-disk pointer" title="{{'save'|translate}}"></i>
                         </button>
                         <button class="icon-button" (click)="cancelEdit($event)">
-                            <i class="fa-solid fa-ban red pointer " title="Mégsem"></i>
+                            <i class="fa-solid fa-ban red pointer " title="{{'cancel'|translate}}"></i>
                         </button>
                     </div>
                 </div>
