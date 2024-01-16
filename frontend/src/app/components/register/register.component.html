@@ -1,6 +1,6 @@
 <div class="container">
     <form [formGroup]="registerForm" (ngSubmit)="register()">
-        <h2>Get started with SiMS</h2>
+        <h2>{{'register.getStarted' | translate}}</h2>
         <div *ngIf="errorMessage" class="sims-error">
             <i class="fa-solid fa-circle-exclamation"></i>
             <p>{{errorMessage}}</p>
@@ -10,8 +10,8 @@
                 <label for="firstName">
                     {{
                       firstName?.touched && firstName?.errors?.['required']
-                        ? 'First name is required'
-                        : (firstName?.valid || firstName?.untouched ? 'First name' : 'Invalid first name!')
+                        ? ('register.firstName' | translate) +' '+ ('register.required' | translate)
+                        : (firstName?.valid || firstName?.untouched ? ('register.firstName' | translate) : 'Invalid first name!')
                     }}
                   </label>
                 <input class="sims-input" type="text" placeholder="John" id="firstName" name="firstName"
@@ -22,7 +22,7 @@
                     {{
                         lastName?.touched && lastName?.errors?.['required']
                           ? 'Last name is required'
-                          : (lastName?.valid || lastName?.untouched ? 'Last name' : 'Invalid last name!')
+                          : (lastName?.valid || lastName?.untouched ? ('register.Last Name' | translate) : 'Invalid last name!')
                     }}
                 </label>
                 <input class="sims-input" type="text" placeholder="Doe" id="lastName" name="lastName"

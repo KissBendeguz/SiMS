@@ -61,5 +61,12 @@
     "prev":"Previous",
     "arrow":"Arrow",
     "submit":"Create"
+  },
+
+  "register":{
+    "getStarted":"Get started with SiMS",
+    "firstName":"First Name",
+    "required": "is required",
+    "lastName": "LastName"
   }
 }
