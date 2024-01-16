@@ -1,9 +1,9 @@
 <div class="container">
     <form [formGroup]="addForm" (ngSubmit)="add()">
         <div class="goback">
-            <a routerLink="/"><i class="fa-solid fa-turn-up"></i> Go back</a>
+            <a routerLink="/"><i class="fa-solid fa-turn-up"></i> {{'back' | translate}}</a>
           </div>
-        <h2>Alkalmazott hozzáadása</h2>
+        <h2>{{'employeeData.addEmployees' | translate}}</h2>
         <div *ngIf="errorMessage" class="sims-error">
             <i class="fa-solid fa-circle-exclamation"></i>
             <p>{{errorMessage}}</p>
@@ -13,8 +13,8 @@
                 <label for="placeofbirth">
                     {{
                         placeofbirth?.touched && placeofbirth?.errors?.['required']
-                        ? 'Születési hely is required'
-                        : (placeofbirth?.valid || placeofbirth?.untouched ? 'Születési hely' : 'Invalid Születési hely!')
+                        ? ('employeeData.placeOfBirth' | translate) +' '+ ('register.required' | translate)
+                        : (placeofbirth?.valid || placeofbirth?.untouched ? ('employeeData.placeOfBirth' | translate) : ('register.invalid' | translate) +' '+ ('employeeData.placeOfBirth' | translate)+'!')
                     }}
                 </label>
                 <input  class="sims-input" type="text" placeholder="1010 Budapest, Budai út.1" id="placeofbirth" name="placeofbirth"
@@ -25,8 +25,8 @@
                 <label for="dateofbirth">
                     {{
                         dateofbirth?.touched && dateofbirth?.errors?.['required']
-                        ? 'Születés Ideje is required'
-                        : (dateofbirth?.valid || dateofbirth?.untouched ? 'Születés Ideje' : 'Invalid Születés Ideje!')
+                        ? ('employeeData.dateOfBirth' | translate) +' '+ ('register.required' | translate)
+                        : (dateofbirth?.valid || dateofbirth?.untouched ? ('employeeData.dateOfBirth' | translate) : ('register.invalid' | translate) +' '+ ('employeeData.dateOfBirth' | translate)+'!')
                     }}
                 </label>
                 <input  class="sims-input" type="date" placeholder="2000.01.01." id="dateofbirth" name="dateofbirth"
@@ -39,8 +39,8 @@
                 <label for="homeaddress">
                     {{
                         homeaddress?.touched && homeaddress?.errors?.['required']
-                        ? 'Lakcíme is required'
-                        : (homeaddress?.valid || homeaddress?.untouched ? 'Lakcíme' : 'Invalid address!')
+                        ? ('employeeData.homeAddress' | translate) +' '+ ('register.required' | translate)
+                        : (homeaddress?.valid || homeaddress?.untouched ? ('employeeData.homeAddress' | translate) : ('register.invalid' | translate) +' '+ ('employeeData.homeAddress' | translate)+'!')
                     }}
                 </label>
                 <input  class="sims-input" type="text" placeholder="1010 Budapest, Budai út.1" id="homeaddress" name="homeaddress"
@@ -50,8 +50,8 @@
                 <label for="citizenship">
                     {{
                         citizenship?.touched && citizenship?.errors?.['required']
-                        ? 'citizenship is required'
-                        : (citizenship?.valid || citizenship?.untouched ? 'Állampolgárság' : 'Állampolgárság')
+                        ? ('employeeData.citizenship' | translate) +' '+ ('register.required' | translate)
+                        : (citizenship?.valid || citizenship?.untouched ? ('employeeData.citizenship' | translate) : ('register.invalid' | translate) +' '+ ('employeeData.citizenship' | translate)+'!')
                     }}
                 </label>
                 <input class="sims-input" type="text" placeholder="Magyar" id="citizenship:" name="citizenship:"
@@ -64,8 +64,8 @@
                 <label for="phone">
                     {{
                         phone?.touched && phone?.errors?.['required']
-                        ? 'Phone is required'
-                        : (phone?.valid || phone?.untouched ? 'Phone' : 'Invalid Phone!')
+                        ? ('employeeData.phoneNumber' | translate) +' '+ ('register.required' | translate)
+                        : (phone?.valid || phone?.untouched ? ('employeeData.phoneNumber' | translate) : 'Invalid Phone!')
                     }}
                 </label>
                 <input class="sims-input" type="text" placeholder="Phone" id="phone" name="phone"
@@ -76,7 +76,7 @@
                 <label for="email">
                     {{
                         email?.touched && email?.errors?.['required']
-                        ? 'Email is required'
+                        ? ('register.email' | translate) +' '+ ('register.required' | translate)
                         : (email?.valid || email?.untouched ? 'Email' : 'Invalid Email!')
                     }}
                 </label>
@@ -90,8 +90,8 @@
                 <label for="identitycardnumber">
                     {{
                         identitycardnumber?.touched && identitycardnumber?.errors?.['required']
-                        ? 'Személyi igazolványszáma is required'
-                        : (identitycardnumber?.valid || identitycardnumber?.untouched ? 'Személyi igazolványszáma' : 'Invalid Személyi igazolványszáma!')
+                        ? ('employeeData.idCardNumber' | translate) +' '+ ('register.required' | translate)
+                        : (identitycardnumber?.valid || identitycardnumber?.untouched ? ('employeeData.idCardNumber' | translate) : 'Invalid Személyi igazolványszáma!')
                     }}
                 </label>
                 <input class="sims-input" type="text" placeholder="000000XX" id="identitycardnumber" name="identitycardnumber"
@@ -102,8 +102,8 @@
                 <label for="socialsecuritynumber">
                     {{
                         socialsecuritynumber?.touched && socialsecuritynumber?.errors?.['required']
-                        ? 'Email is required'
-                        : (socialsecuritynumber?.valid || socialsecuritynumber?.untouched ? 'TAJ száma' : 'Invalid TAJ száma!')
+                        ? ('employeeData.socSecNumber' | translate) +' '+ ('register.required' | translate)
+                        : (socialsecuritynumber?.valid || socialsecuritynumber?.untouched ? ('employeeData.socSecNumber' | translate) : 'Invalid TAJ száma!')
                     }}
                 </label>
                 <input class="sims-input" type="text" placeholder="111 222 333" id="socialsecuritynumber" name="socialsecuritynumber"
@@ -112,7 +112,7 @@
         </div> 
 
         <div class="input-group">
-            <input class="sims-button" type="submit" value="Létrehozás">
+            <input class="sims-button" type="submit" value="{{'createBusiness.submit' | translate}}">
         </div>
     </form>
 </div>
