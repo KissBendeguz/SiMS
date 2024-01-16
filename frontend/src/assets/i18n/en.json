@@ -67,6 +67,21 @@
     "getStarted":"Get started with SiMS",
     "firstName":"First Name",
     "required": "is required",
-    "lastName": "LastName"
+    "lastName": "Last Name",
+    "invalid": "Invalid",
+    "email":"Email",
+    "password":"Password",
+    "confirmPassword":"Confirm password",
+    "passwordsMustMatch":"Passwords must match!",
+    "gender":"Gender",
+    "selectYourGender":"Select your gender",
+    "select":"Select",
+    "accept":"Accept",
+    "privacyPolicy":"privacy policy",
+    "andTerms":"and terms.",
+    "signup":"Sign up",
+    "signin":"Sign in",
+    "ifYouAlreadyHaveAnAccount":"if you already have an account.",
+    "youMustAcceptThePrivacyPolicy&Terms":"You must accept the Privacy policy & Terms."
   }
 }

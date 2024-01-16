@@ -11,7 +11,7 @@
                     {{
                       firstName?.touched && firstName?.errors?.['required']
                         ? ('register.firstName' | translate) +' '+ ('register.required' | translate)
-                        : (firstName?.valid || firstName?.untouched ? ('register.firstName' | translate) : 'Invalid first name!')
+                        : (firstName?.valid || firstName?.untouched ? ('register.firstName' | translate) : ('register.invalid' | translate) +' '+ ('register.firstName' | translate)+'!')
                     }}
                   </label>
                 <input class="sims-input" type="text" placeholder="John" id="firstName" name="firstName"
@@ -21,8 +21,8 @@
                 <label for="lastName">
                     {{
                         lastName?.touched && lastName?.errors?.['required']
-                          ? 'Last name is required'
-                          : (lastName?.valid || lastName?.untouched ? ('register.Last Name' | translate) : 'Invalid last name!')
+                          ? ('register.lastName' | translate) +' '+ ('register.required' | translate)
+                          : (lastName?.valid || lastName?.untouched ? ('register.lastName' | translate) : ('register.invalid' | translate) +' '+ ('register.lastName' | translate)+'!')
                     }}
                 </label>
                 <input class="sims-input" type="text" placeholder="Doe" id="lastName" name="lastName"
@@ -33,8 +33,8 @@
             <label for="email">
                 {{
                     email?.touched && email?.errors?.['required']
-                      ? 'Email is required'
-                      : (email?.valid || email?.untouched ? 'Email' : 'Invalid Email!')
+                      ? ('register.email' | translate) +' '+ ('register.required' | translate)+'!'
+                      : (email?.valid || email?.untouched ? ('register.email' | translate) : ('register.invalid' | translate) +' '+ ('register.email' | translate)+'!')
                 }}
             </label>
             <input class="sims-input" type="text" placeholder="example@email.com" id="email" name="email"
@@ -44,8 +44,8 @@
             <label for="password">
                 {{
                     password?.touched && password?.errors?.['required']
-                      ? 'Password is required'
-                      : (password?.valid || password?.untouched ? 'Password' : 'Invalid password!')
+                      ? ('register.password' | translate) +' '+ ('register.required' | translate)+'!'
+                      : (password?.valid || password?.untouched ? ('register.password' | translate) : ('register.invalid' | translate) +' '+ ('register.password' | translate)+'!')
                 }}
             </label>
             <input (blur)="updateConfirmPasswordValidators()" class="sims-input" type="password" placeholder="******" id="password" name="password"
@@ -55,8 +55,8 @@
             <label for="confirmPassword">
                 {{
                     confirmPassword?.touched && confirmPassword?.errors?.['required']
-                      ? 'Confirm password is required'
-                      : (confirmPassword?.valid || confirmPassword?.untouched ? 'Confirm password' : 'Passwords must match!')
+                      ? ('register.confirmPassword' | translate) +' '+ ('register.required' | translate)+'!'
+                      : (confirmPassword?.valid || confirmPassword?.untouched ? ('register.confirmPassword' | translate) : ('register.passwordsMustMatch' | translate))
                 }}
             </label>
             <input (blur)="updateConfirmPasswordValidators()" class="sims-input" type="password" placeholder="******" id="confirmPassword" name="confirmPassword"
@@ -67,27 +67,27 @@
                 <label for="gender">
                     {{
                         gender?.touched && gender?.errors?.['required']
-                          ? 'Gender is required'
-                          : "Select your gender"
+                          ? ('register.gender' | translate) +' '+ ('register.required' | translate)+'!'
+                          : ('register.selectYourGender' | translate)
                     }}
                 </label>
                 <select class="sims-input" id="gender" name="gender" 
                     formControlName="gender">
-                    <option *ngFor="let gender of genderOptions" [value]="gender" [disabled]="gender==='UNKNOWN'" [hidden]="gender==='UNKNOWN'">{{ gender==="UNKNOWN"?"Select":gender }}</option>
+                    <option *ngFor="let gender of genderOptions" [value]="gender" [disabled]="gender==='UNKNOWN'" [hidden]="gender==='UNKNOWN'">{{ gender==="UNKNOWN"?('register.select' | translate):gender }}</option>
                 </select>
             </div>
         </div>
         <div class="input-group flex-start">
-            <label for="privacyPolicy" [ngStyle]="{'color': (privacyPolicy!.touched && !privacyPolicy!.valid) ? 'red' : 'black'}" *ngIf="(privacyPolicy!.touched && !privacyPolicy!.valid)">You must accept the Privacy policy & Terms.</label>
+            <label for="privacyPolicy" [ngStyle]="{'color': (privacyPolicy!.touched && !privacyPolicy!.valid) ? 'red' : 'black'}" *ngIf="(privacyPolicy!.touched && !privacyPolicy!.valid)">{{'register.youMustAcceptThePrivacyPolicy&Terms' | translate}}</label>
             <br>
             <input type="checkbox" formControlName="privacyPolicy" name="privacyPolicy">
-            <span> Accept <a routerLink="/privacypolicy">privacy policy</a> and terms.</span>
+            <span> {{'register.accept' | translate}} <a routerLink="/privacypolicy">{{'register.privacyPolicy' | translate}}</a> {{'register.andTerms' | translate}}</span>
           </div>
         <div>
-            <input class="sims-button" type="submit" value="Sign up">
+            <input class="sims-button" type="submit" value="{{'register.signup' | translate}}">
         </div>
         <div>
-            <p><a routerLink="/login">Sign in</a> if you already have an account.</p>
+            <p><a routerLink="/login">{{'register.signin' | translate}}</a> {{'register.ifYouAlreadyHaveAnAccount' | translate}}</p>
         </div>
     </form>
 </div>
