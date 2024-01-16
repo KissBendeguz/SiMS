@@ -38,7 +38,8 @@
     "phoneNumber": "Phone number",
     "emailAddress": "Email address",
     "citizenship": "Citizenship",
-    "employees": "Employees"
+    "employees": "Employees",
+    "addEmployees":"Add Employees"
   },
   "inventory": {
     "create": "Create Inventory",
