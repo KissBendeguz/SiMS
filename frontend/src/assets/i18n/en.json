@@ -7,6 +7,7 @@
   "simsRegistrationDate":"SiMS registration date",
   "taxNumber": "Tax number",
   "headquarters": "Headquarters",
+  "logout": "Logout",
   "noBusinessSelected": {
     "title": "Currently, you are not affiliated with any business.",
     "getStarted": "Get started with your",
