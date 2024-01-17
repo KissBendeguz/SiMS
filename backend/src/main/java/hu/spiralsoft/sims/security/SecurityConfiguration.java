@@ -30,7 +30,7 @@ public class SecurityConfiguration {
                 .cors(cors -> cors.configurationSource(frontendConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/v1/user/register","/api/v1/user/login","/v3/api-docs")
+                    .requestMatchers("/api/v1/user/register","/api/v1/user/login")
                     .permitAll()
                     .anyRequest()
                     .authenticated()
@@ -43,7 +43,7 @@ public class SecurityConfiguration {
     }
     CorsConfigurationSource frontendConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+        configuration.setAllowedOrigins(List.of("*"));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
