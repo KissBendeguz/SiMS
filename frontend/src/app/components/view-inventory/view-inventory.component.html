@@ -1,7 +1,7 @@
 <div class="container">
     <div class="goback">
         <a routerLink="/"><i class="fa-solid fa-turn-up"></i> {{'back'|translate}}</a>
-      </div>
+    </div>
     <div class="add-products">
         <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
             <div class="regular-inputs">
@@ -45,13 +45,16 @@
                     <div class="double-input-group" [formGroupName]="i">
                         <div class="row">
                             <div class="input-group">
-                                <input type="text" id="key" formControlName="key" placeholder="{{'inventory.property'|translate}}" />
+                                <input type="text" id="key#{{i}}" formControlName="key"
+                                placeholder="{{'inventory.property'|translate}}"> 
                             </div>
                             <div class="input-group">
-                                <input type="text" id="value" formControlName="value" placeholder="{{'inventory.value'|translate}}" />
+                                <input type="text" id="value#{{i}}" formControlName="value"
+                                    placeholder="{{'inventory.value'|translate}}">
                             </div>
                             <button class="icon-button" (click)="removeProperty(i)">
-                                <i class="delete fa-regular fa-trash-can red pointer" title="{{'delete'|translate}}"></i>
+                                <i class="delete fa-regular fa-trash-can red pointer"
+                                    title="{{'delete'|translate}}"></i>
                             </button>
                         </div>
                     </div>
@@ -72,7 +75,7 @@
         </div>
         <div class="row underlined">
             <div class="col header select f-05 t-center">
-                <button class="icon-button" (click)="toggleSelectAll()">
+                <button aria-label="Select all" class="icon-button" (click)="toggleSelectAll()">
                     <i class="fa-solid fa-caret-down pointer"></i>
                 </button>
                 <button class="icon-button" *ngIf="this.selectedProducts.size!==0">
@@ -96,7 +99,7 @@
         <div class="item" *ngFor="let product of getProducts()" (click)="toggleSelect(product)">
             <div class="row" [formGroup]="editingForm">
                 <div class="col f-05 t-center">
-                    <button class="icon-button">
+                    <button class="icon-button" aria-label="Select">
                         <i *ngIf="!selectedProducts.has(product)" class="fa-regular fa-circle-check pointer"></i>
                         <i *ngIf="selectedProducts.has(product)" class="fa-solid fa-circle-check pointer"></i>
                     </button>
@@ -106,7 +109,8 @@
                         {{product.name}}
                     </div>
                     <div *ngIf="product.id===editingProduct?.id">
-                        <input type="text" value="{{product.name}}" (click)="stopPropagation($event)" formControlName="editingProductName">
+                        <input type="text" value="{{product.name}}" (click)="stopPropagation($event)"
+                            formControlName="editingProductName">
                     </div>
                 </div>
                 <div class="col f-5">
@@ -114,7 +118,8 @@
                         {{product.itemNumber}}
                     </div>
                     <div *ngIf="product.id===editingProduct?.id">
-                        <input type="text" value="{{product.itemNumber}}" (click)="stopPropagation($event)" formControlName="editingItemNumber">
+                        <input type="text" value="{{product.itemNumber}}" (click)="stopPropagation($event)"
+                            formControlName="editingItemNumber">
                     </div>
                 </div>
                 <div class="col f-4">
@@ -122,7 +127,8 @@
                         {{product.category}}
                     </div>
                     <div *ngIf="product.id===editingProduct?.id">
-                        <input type="text" value="{{product.category}}" (click)="stopPropagation($event)" formControlName="editingCategory">
+                        <input type="text" value="{{product.category}}" (click)="stopPropagation($event)"
+                            formControlName="editingCategory">
                     </div>
                 </div>
                 <div class="col f-3">
@@ -130,7 +136,8 @@
                         {{product.quantity}}
                     </div>
                     <div *ngIf="product.id===editingProduct?.id">
-                        <input type="text" value="{{product.quantity}}" (click)="stopPropagation($event)" formControlName="editingQuantity">
+                        <input type="text" value="{{product.quantity}}" (click)="stopPropagation($event)"
+                            formControlName="editingQuantity">
                     </div>
                 </div>
                 <div class="col f-2">
@@ -138,7 +145,8 @@
                         {{product.unit}}
                     </div>
                     <div *ngIf="product.id===editingProduct?.id">
-                        <input type="text" value="{{product.unit}}" (click)="stopPropagation($event)" formControlName="editingUnit">
+                        <input type="text" value="{{product.unit}}" (click)="stopPropagation($event)"
+                            formControlName="editingUnit">
                     </div>
                 </div>
                 <div class="col control f-2">
@@ -162,13 +170,9 @@
             </div>
             <div class="row" *ngIf="selectedProducts.has(product)">
                 <div class="col t-center" [ngClass]="'f-'+(24/getProperties(product).length)"
-                    *ngFor="let property of getProperties(product)"> 
+                    *ngFor="let property of getProperties(product)">
                     <div *ngIf="product.id!==editingProduct?.id">
                         {{ property[0] }} : {{ property[1] }}
-                    </div>
-                    <div *ngIf="product.id===editingProduct?.id">
-                        <input type="text" value="{{property[0]}}" (click)="stopPropagation($event)"> :
-                        <input type="text" value="{{property[1]}}" (click)="stopPropagation($event)">
                     </div>
                 </div>
             </div>

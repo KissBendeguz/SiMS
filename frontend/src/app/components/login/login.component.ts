@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/models/user';
 import { AuthService, LoginRequest } from 'src/app/services/auth.service';
 import { HttpErrorService } from 'src/app/services/http-error.service';
@@ -23,6 +24,8 @@ export class LoginComponent {
     private router: Router,
     private httpErrorService: HttpErrorService,
     private formBuilder: FormBuilder,
+    private translateService: TranslateService,
+
   ) {
     this.userService.authenticatedUser$.subscribe({
       next: (user: User | null) => {
@@ -34,14 +37,18 @@ export class LoginComponent {
     this.httpErrorService.error$.subscribe((error: HttpErrorResponse | null) => {
       switch (error?.status) {
         case 403:
-          this.errorMessage = "Bad credentials";
+          this.translateService.get("errors.403").subscribe(
+            (translation:string) => this.errorMessage = translation,
+         );
           break;
         case 500:
         case 501:
         case 502:
         case 503:
         case 504:
-          this.errorMessage = "Service unavailable";
+          this.translateService.get("errors.500").subscribe(
+            (translation:string) => this.errorMessage = translation,
+         );
           break;
       }
     }

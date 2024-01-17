@@ -1,15 +1,15 @@
 <div class="container">
     <form [formGroup]="createForm" (ngSubmit)="create()">
         <div class="goback">
-            <a routerLink="/"><i class="fa-solid fa-turn-up"></i> Go back</a>
+            <a routerLink="/"><i class="fa-solid fa-turn-up"></i> {{'back' | translate}}</a>
         </div>
-        <h2>Creating a virtual inventory</h2>
+        <h2>{{'createInventory.creatingAVirtualInventory' | translate}}</h2>
         <div class="input-group">
             <label for="name">
                 {{
                     name?.touched && name?.errors?.['required']
-                      ? 'Name is required'
-                      : (name?.valid || name?.untouched ? 'Warehouse name' : 'Invalid name!')
+                      ? ('inventory.name' | translate) +' '+ ('register.required' | translate)+'!'
+                      : (name?.valid || name?.untouched ? ('createInventory.Warehousename' | translate) : ('createInventory.invalidName' | translate))
                 }}
             </label>
             <input class="sims-input" type="text" placeholder="Jeff" id="name" name="name"
@@ -19,8 +19,8 @@
             <label for="address">
                 {{
                     address?.touched && address?.errors?.['required']
-                      ? 'Address is required'
-                      : (address?.valid || address?.untouched ? 'Warehouse address' : 'Invalid address!')
+                      ? ('inventory.addr' | translate) +' '+ ('register.required' | translate)+'!'
+                      : (address?.valid || address?.untouched ? ('createInventory.warehouseeAdress' | translate) : ('createInventory.Warehousename' | translate)+'!')
                 }}
             </label>
             <input  class="sims-input" type="text" placeholder="Address" id="address" name="address"
@@ -30,8 +30,8 @@
             <label for="managerName">
                 {{
                     managerName?.touched && managerName?.errors?.['required']
-                      ? 'Name is required'
-                      : (managerName?.valid || managerName?.untouched ? 'Manager\'s name' : 'Invalid name!')
+                      ? ('createInventory.managerName' | translate) +' '+ ('register.required' | translate)+'!'
+                      : (managerName?.valid || managerName?.untouched ? ('createInventory.managerName' | translate) : ('createInventory.invalidName' | translate))
                 }}
             </label>
             <input class="sims-input" type="text" placeholder="Jeff" id="managerName" name="managerName"
@@ -41,8 +41,8 @@
             <label for="managerPhone">
                 {{
                     managerPhone?.touched && managerPhone?.errors?.['required']
-                      ? 'Phone is required'
-                      : (managerPhone?.valid || managerPhone?.untouched ? 'Manager\'s phone' : 'Invalid Phone!')
+                      ? ('inventory.managerPhone' | translate) +' '+ ('register.required' | translate)+'!'
+                      : (managerPhone?.valid || managerPhone?.untouched ? ('createInventory.managerPhone' | translate) : ('createInventory.invalidPhone' | translate))
                 }}
             </label>
             <input class="sims-input" type="text" placeholder="Phone" id="managerPhone" name="managerPhone"
@@ -52,15 +52,15 @@
             <label for="managerEmail">
                 {{
                     managerEmail?.touched && managerEmail?.errors?.['required']
-                      ? 'Email is required'
-                      : (managerEmail?.valid || managerEmail?.untouched ? 'Manager\'s email' : 'Invalid email!')
+                      ? ('register.email' | translate) +' '+ ('register.required' | translate)+'!'
+                      : (managerEmail?.valid || managerEmail?.untouched ? ('createInventory.managerEmail' | translate) : ('register.invalid' | translate) +' '+ ('register.email' | translate)+'!')
                 }}
             </label>
             <input class="sims-input" type="text" placeholder="Email" id="managerEmail" name="managerEmail"
                 formControlName="managerEmail">
         </div>
         <div class="input-group">
-            <input class="sims-button" type="submit" value="Létrehozás">
+            <input class="sims-button" type="submit" value="{{'createBusiness.submit' | translate}}">
         </div>
     </form>
 </div>

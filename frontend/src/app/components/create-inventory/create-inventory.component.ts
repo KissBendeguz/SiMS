@@ -41,7 +41,7 @@ export class CreateInventoryComponent {
     address: ['', [Validators.required]],
     managerName: ['', [Validators.required, Validators.pattern(/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/)]],
     managerEmail: ['', [Validators.required, Validators.email]],
-    managerPhone: ['',Validators.required]
+    managerPhone: ['',[Validators.required, Validators.pattern(/^\+(?:[0-9] ?){6,14}[0-9]$/)]]
   }, { updateOn: 'blur' });
 
   get name() { return this.createForm.get('name') }
