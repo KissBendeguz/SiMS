@@ -1,0 +1,218 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.post {
+    color: #FFC107;
+}
+
+.get, .model{
+    color: #4CAF50;
+}
+
+.put, .int {
+    color: #3498db;
+}
+
+.patch {
+    color: #9C27B0;
+}
+
+.error, .delete {
+    color: #F44336;
+}
+.property{
+    color: #8bd0ff;
+}
+.string, .null{
+    color: #e28e6c;
+}
+.document {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+h1{
+    padding: 1rem;
+}
+h2{
+    font-weight: normal;
+}
+h3{
+    font-size: 18px;
+}
+
+section {
+    margin: 1rem;
+
+    width: 50%;
+
+    @media screen and (max-width: 1400px) {
+        width: 60%;
+    }
+
+    @media screen and (max-width: 1200px) {
+        width: 70%;
+    }
+
+    @media screen and (max-width: 992px) {
+        width: 80%;
+    }
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+    }
+}
+
+.endpoint {
+    &>*{
+        margin: 1rem 0;
+    }
+    margin: 1rem;
+    padding: .5rem;
+    position: relative;
+    box-shadow: 1px 1px 3px #333;
+    &::before{
+        position: absolute;
+        content: "";
+        top: 0;
+        bottom: 0;
+
+        left: -4px;
+
+        width: 4px;
+        background-color: #333;
+    }
+    &:nth-child(odd){
+        &::before{
+            background-color: #666;
+        }
+    }
+}
+
+.details {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 4px;
+    border-bottom: 1px solid #88888860;
+    &:first-child{
+        border-top: 1px solid #88888860;
+    }
+}
+
+.col {
+    &:first-child {
+        flex: 1;
+        position: relative;
+        text-align: right;
+    }
+    &:nth-child(2) {
+        flex: 2;
+        text-align: left;
+    }
+    &:first-child::before {
+        position: absolute;
+        content: "";
+        width: 3px;
+        background-color: #333;
+        right: -10px;
+        top: 0;
+        bottom: 0;
+    }
+    
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.json{
+    pre{
+        color: #ccc;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 1rem;
+        background-color: #333;
+        .property{
+            &::before{
+                content: '"';
+            }
+            &::after{
+                content: '" ';
+            }
+        }
+        .int{
+            &::before{
+                content: ' ';
+            }
+        }
+        .string{
+            &::before{
+                content: ' "';
+            }
+            &::after{
+                content: '"';
+            }
+        }
+        .null{
+            &::before{
+                content: ' ';
+            }
+            &::after{
+                content: '';
+            }
+        }
+        .model{
+            &::before{
+                content: '@';
+            }
+        }
+    }
+}
+$apiver:"api/v1";
+.mapping{
+    &::before{
+        content: $apiver;
+    }
+}
+.errors, .params{
+    ul{
+        padding: .5rem 0;
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+    }
+    .error, .param{
+        background-color: #333;
+        line-height: 1.2rem;
+        border-radius: 4px;
+        font-size: 85%;
+        font-weight: bold;
+        padding: 0.2em 0.4em;
+        margin-right: 6px;
+    }
+    .error{
+        color:#EB5757;
+    }
+    .param{
+        color: #3498db;
+    }
+}

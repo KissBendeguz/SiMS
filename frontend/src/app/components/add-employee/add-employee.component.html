@@ -77,7 +77,7 @@
                     {{
                         email?.touched && email?.errors?.['required']
                         ? ('register.email' | translate) +' '+ ('register.required' | translate)
-                        : (email?.valid || email?.untouched ? 'Email' : 'Invalid Email!')
+                        : (email?.valid || email?.untouched ? 'Email' : ('register.invalid' | translate) +' '+ ('register.email' | translate)+'!')
                     }}
                 </label>
                 <input class="sims-input" type="text" placeholder="Email" id="email" name="email"

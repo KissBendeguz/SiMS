@@ -56,13 +56,13 @@
     "quantity": "Quantity",
     "unit": "Unit",
     "properties": "Properties",
-    "property:": "Property",
     "addProperty": "Add property",
     "addProduct": "Add product",
     "value": "Value",
     "edit": "Edit",
     "currentProducts": "Current Products",
-    "noProductsFound": "No products found!"
+    "noProductsFound": "No products found!",
+    "property":"Property"
   },
   "login":{
     "title": "Sign in to SiMS",
@@ -109,5 +109,23 @@
     "signin":"Sign in",
     "ifYouAlreadyHaveAnAccount":"if you already have an account.",
     "youMustAcceptThePrivacyPolicy&Terms":"You must accept the Privacy policy & Terms."
+  },
+  "createInventory":{
+    "creatingAVirtualInventory":"Creating a virtual inventory",
+    "Warehousename":"Warehouse name",
+    "invalidName":"Invalid name!",
+    "invalidAdress":"Invalid adress",
+    "invalidPhone":"Invalid Phone",
+    "managerName":"Manager's name",
+    "managerPhone":"Manager's Phone",
+    "warehouseeAdress":"Warehouse Adress",
+    "managerEmail":"Manager Email"
+  },
+  "errors":{
+    "403":"Bad credentials.",
+    "404":"Not found.",
+    "409":"Email adress is already taken.",
+    "500":"Service unavailable"
+
   }
 }

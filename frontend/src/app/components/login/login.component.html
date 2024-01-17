@@ -7,7 +7,7 @@
                 <p>{{errorMessage}}</p>
             </div>
             <div class="input-group">
-                <label for="email">{{email?.touched && !email?.valid ?"Email "+('register.required' | translate)+".":"Email"}}</label>
+                <label for="email">{{email?.touched && !email?.valid ?"Email "+('register.required' | translate):"Email"}}</label>
                 <input class="sims-input" type="text" id="email" name="email" placeholder="example@email.com" formControlName="email">
             </div>
             <div class="input-group">
