@@ -1,0 +1,133 @@
+{
+    
+  "back":"Vissza",
+  "delete": "Törlés",
+  "save":"Mentés",
+  "cancel":"Mégse",
+  "owner": "Tulajdonos",
+  "businessName":"Vállalkozás neve",
+  "registrationDate":"Regisztráció dátuma",
+  "simsRegistrationDate":"SiMS regisztráció dátuma",
+  "taxNumber": "Adószám",
+  "headquarters": "Székhely",
+  "logout": "Kijelentkezés",
+  "noBusinessSelected": {
+    "title": "Jelenleg nincs kapcsolatod egyetlen vállalkozással sem.",
+    "getStarted": "Kezdd el a saját",
+    "own": "saját",
+    "business": "vállalkozásodat.",
+    "or": "vagy",
+    "askSupervisor": "Kérjed meg a munkáltatod, hogy hívjon meg az általa vezetett vállalkozásba."
+  },
+  "businessList": {
+    "title": "Vállalkozások",
+    "addNew": "Új hozzáadása"
+  },
+  "businessInfo": {
+    "title": "Vállalkozási információ",
+    "businessData": "Vállalkozási adatok",
+    "noEmployeeSelected": "Kérlek válassz ki egy alkalmazottat!",
+    "removeEmployee": "Alkalmazott eltávolítása"
+  },
+  "employeeData": {
+    "title": "Alkalmazott adatok",
+    "placeOfBirth": "Születési hely",
+    "dateOfBirth": "Születési idő",
+    "idCardNumber": "Személyi igazolvány száma",
+    "socSecNumber": "TAJ szám",
+    "homeAddress": "Lakcím",
+    "phoneNumber": "Telefonszám",
+    "emailAddress": "E-mail cím",
+    "citizenship": "Állampolgárság",
+    "employees": "Alkalmazottak",
+    "addEmployees":"Alkalmazott hozzáadása"
+  },
+  "inventory": {
+    "create": "Raktár létrehozása",
+    "notFound": "Nincsenek raktárak a vállalkozásodban. Hozzd létre az első raktáradat!",
+    "name":"Név",
+    "addr": "Cím",
+    "productCount":"Termékek száma",
+    "manager": "Menedzser",
+    "managerPhone": "M. telefonszáma",
+    "managerEmail": "M. e-mail címe",
+    "productName": "Termék neve",
+    "itemNumber": "Cikkszám",
+    "category": "Kategória",
+    "quantity": "Mennyiség",
+    "unit": "Mértékegység",
+    "properties": "Tulajdonságok",
+    "addProperty": "Tulajdonság hozzáadása",
+    "addProduct": "Termék hozzáadása",
+    "value": "Érték",
+    "edit": "Szerkesztés",
+    "currentProducts": "Jelenlegi termékek",
+    "noProductsFound": "Nincsenek termékek!",
+    "property":"Tulajdonság"
+    
+  },
+  "login":{
+    "title": "Bejelentkezés a SiMS rendszerbe",
+    "signIn": "Bejelentkezés",
+    "noAccount": " ha nincs fiókod.",
+    "sideContent": {
+      "title":"SiMS Raktárkezelés",
+      "p1":"A SiMS Raktárprogram célja a raktárak egyszerű és hatékony kezelésének, az alkalmazottak könnyű hozzáadásának, valamint a termékek pontos nyomon követésének segítése.",
+      "p2":"Az üzletemberek és raktármenedzserek számára ez a program lehetőséget teremt arra, hogy könnyen nyomon kövessék, mely termékek találhatók egy adott raktárban, és lehetővé teszi az alkalmazottak hatékony munkáját."
+    }
+  },
+  "createBusiness":{
+    "questions":{
+      "1":"Mi a vállalkozás hivatalos neve?",
+      "2":"Hol található vállalkozásod székhelye?",
+      "3":"Mikor lett alapítva a vállalkozásod?",
+      "4":"Mi a vállalkozásod adóazonosító száma?"
+    },
+    "plsAnswer":"Kérlek válaszolj",
+    "pressReturn":"Nyomd meg az Enter gombot, vagy nyomd meg a",
+    "pressEsc":"Nyomd meg az Esc gombot, vagy nyomd meg a",
+    "next":"Következő",
+    "prev":"Előző",
+    "arrow":"nyílat",
+    "submit":"Létrehozás"
+  },
+  "register":{
+    "getStarted":"Kezdd el a SiMS használatát",
+    "firstName":"Keresztnév",
+    "required": "kötelező!",
+    "lastName": "Vezetéknév",
+    "invalid": "Érvénytelen",
+    "email":"Email",
+    "password":"Jelszó",
+    "confirmPassword":"Jelszó megerősítése",
+    "passwordsMustMatch":"A jelszavaknak egyezniük kell!",
+    "gender":"Nem",
+    "selectYourGender":"Válassz nemet",
+    "select":"Válassz",
+    "accept":"Elfogadom az",
+    "privacyPolicy":"adatvédelmi irányelvek",
+    "andTerms":"és feltételek.",
+    "signup":"Regisztráció",
+    "signin":"Bejelentkezés",
+    "ifYouAlreadyHaveAnAccount":"ha már van fiókod.",
+    "youMustAcceptThePrivacyPolicy&Terms":"El kell fogadnod az adatvédelmi irányelveket és a feltételeket."
+  },
+  "errors":{
+    "403":"Rossz hitelesítő adatok.",
+    "404":"Nem található.",
+    "409":"Az e-mail cím már foglalt",
+    "500":"Szolgáltatás nem elérhető."
+  },
+  "createInventory":{
+    "creatingAVirtualInventory":"Virtuális raktár létrehozása",
+    "Warehousename":"Raktár neve",
+    "invalidName":"Érvénytelen név!",
+    "invalidAdress":"Érvénytelen cím",
+    "invalidPhone":"Érvénytelen telefonszám",
+    "managerName":"Menedzser neve",
+    "managerPhone":"Menedzser telefonszáma",
+    "warehouseeAdress":"Raktár címe",
+    "managerEmail":"Menedzser email címe"
+  }
+
+  }

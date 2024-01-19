@@ -1,0 +1,131 @@
+{
+  "back":"Go back",
+  "delete": "Delete",
+  "save":"Save",
+  "cancel":"Cancel",
+  "owner": "Owner",
+  "businessName":"Business name",
+  "registrationDate":"Registration date",
+  "simsRegistrationDate":"SiMS registration date",
+  "taxNumber": "Tax number",
+  "headquarters": "Headquarters",
+  "logout": "Logout",
+  "noBusinessSelected": {
+    "title": "Currently, you are not affiliated with any business.",
+    "getStarted": "Get started with your",
+    "own": "own",
+    "business": "business.",
+    "or": "or",
+    "askSupervisor": "Ask your supervisor to invite you to their business."
+  },
+  "businessList": {
+    "title": "Businesses",
+    "addNew": "Add new"
+  },
+  "businessInfo": {
+    "title": "Business Information",
+    "businessData": "Business Data",
+    "noEmployeeSelected": "Please select an employee!",
+    "removeEmployee": "Remove Employee"
+  },
+  "employeeData": {
+    "title": "Employee data",
+    "placeOfBirth": "Place of birth",
+    "dateOfBirth": "Date of birth",
+    "idCardNumber": "ID card number",
+    "socSecNumber": "Social security number",
+    "homeAddress": "Home address",
+    "phoneNumber": "Phone number",
+    "emailAddress": "Email address",
+    "citizenship": "Citizenship",
+    "employees": "Employees",
+    "addEmployees":"Add Employees"
+  },
+  "inventory": {
+    "create": "Create Inventory",
+    "notFound": "No inventories found for the business. Create your first inventory!",
+    "name":"Name",
+    "addr": "Address",
+    "productCount":"Count of products",
+    "manager": "Manager",
+    "managerPhone": "M. phone",
+    "managerEmail": "M. email",
+    "productName": "Product name",
+    "itemNumber": "Item Number",
+    "category": "Category",
+    "quantity": "Quantity",
+    "unit": "Unit",
+    "properties": "Properties",
+    "addProperty": "Add property",
+    "addProduct": "Add product",
+    "value": "Value",
+    "edit": "Edit",
+    "currentProducts": "Current Products",
+    "noProductsFound": "No products found!",
+    "property":"Property"
+  },
+  "login":{
+    "title": "Sign in to SiMS",
+    "signIn": "Sign in",
+    "noAccount": " if you don't have an account.",
+    "sideContent": {
+      "title":"SiMS Warehouse Management",
+      "p1":"The goal of the SiMS Warehouse Program is to facilitate the simple and efficient management of warehouses, the easy addition of employees, and the accurate tracking of products.",
+      "p2":"For entrepreneurs and warehouse managers, this program provides an opportunity to easily track which products are located in a particular warehouse and enables employees to work efficiently."
+    }
+  },
+  "createBusiness":{
+    "questions":{
+      "1":"What is the official name of your business?",
+      "2":"Where is the primary location of your business (Headquarters)?",
+      "3":"When was your business formally registered?",
+      "4":"What is the tax identification number for your business?"
+    },
+    "plsAnswer":"Please answer",
+    "pressReturn":"Press Return or press the",
+    "pressEsc":"Press Escape or press the",
+    "next":"Next",
+    "prev":"Previous",
+    "arrow":"Arrow",
+    "submit":"Create"
+  },
+  "register":{
+    "getStarted":"Get started with SiMS",
+    "firstName":"First Name",
+    "required": "is required",
+    "lastName": "Last Name",
+    "invalid": "Invalid",
+    "email":"Email",
+    "password":"Password",
+    "confirmPassword":"Confirm password",
+    "passwordsMustMatch":"Passwords must match!",
+    "gender":"Gender",
+    "selectYourGender":"Select your gender",
+    "select":"Select",
+    "accept":"Accept",
+    "privacyPolicy":"privacy policy",
+    "andTerms":"and terms.",
+    "signup":"Sign up",
+    "signin":"Sign in",
+    "ifYouAlreadyHaveAnAccount":"if you already have an account.",
+    "youMustAcceptThePrivacyPolicy&Terms":"You must accept the Privacy policy & Terms."
+  },
+  "createInventory":{
+    "creatingAVirtualInventory":"Creating a virtual inventory",
+    "Warehousename":"Warehouse name",
+    "invalidName":"Invalid name!",
+    "invalidAdress":"Invalid adress",
+    "invalidPhone":"Invalid Phone",
+    "managerName":"Manager's name",
+    "managerPhone":"Manager's Phone",
+    "warehouseeAdress":"Warehouse Adress",
+    "managerEmail":"Manager Email"
+  },
+  "errors":{
+    "403":"Bad credentials.",
+    "404":"Not found.",
+    "409":"Email adress is already taken.",
+    "500":"Service unavailable"
+
+  }
+}
