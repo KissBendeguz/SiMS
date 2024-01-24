@@ -7,6 +7,10 @@ services:
     environment:
       POSTGRES_DB: sims
       POSTGRES_USER: root
+<<<<<<< HEAD
       POSTGRES_PASSWORD: passwd240209
+=======
+      POSTGRES_PASSWORD: ascendesuperius
+>>>>>>> af133429bfba6f25a1f0f2b71cb7e7813070ce67
     ports:
       - "5432:5432"

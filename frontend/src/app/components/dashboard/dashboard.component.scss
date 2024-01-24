@@ -10,7 +10,7 @@
   display: flex;
   justify-content: space-between;
   height: 100%;
-  overflow: hidden;
+  
 
   @include lt-lg{
     flex-direction: column;
@@ -280,7 +280,6 @@
       @include lt-lg{
         width: 90%;
       }
-      max-width: 15vw;
 
 
       button{
