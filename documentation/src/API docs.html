@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation</title>
+    <style>
+        * {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+.post {
+  color: #FFC107;
+}
+
+.get, .model {
+  color: #4CAF50;
+}
+
+.put, .int {
+  color: #3498db;
+}
+
+.patch {
+  color: #9C27B0;
+}
+
+.error, .delete {
+  color: #F44336;
+}
+
+.property {
+  color: #8bd0ff;
+}
+
+.string, .null {
+  color: #e28e6c;
+}
+
+.document {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 1rem;
+}
+
+h1 {
+  padding: 1rem;
+}
+
+h2 {
+  font-weight: normal;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+section {
+  margin: 1rem;
+  width: 50%;
+}
+
+@media screen and (max-width: 1400px) {
+  section {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  section {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  section {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  section {
+    width: 100%;
+  }
+}
+
+.endpoint {
+  margin: 1rem;
+  padding: .5rem;
+  position: relative;
+  -webkit-box-shadow: 1px 1px 3px #333;
+          box-shadow: 1px 1px 3px #333;
+}
+
+.endpoint > * {
+  margin: 1rem 0;
+}
+
+.endpoint::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  bottom: 0;
+  left: -4px;
+  width: 4px;
+  background-color: #333;
+}
+
+.endpoint:nth-child(odd)::before {
+  background-color: #666;
+}
+
+.details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 1rem;
+  padding: 4px;
+  border-bottom: 1px solid #88888860;
+}
+
+.row:first-child {
+  border-top: 1px solid #88888860;
+}
+
+.col:first-child {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  position: relative;
+  text-align: right;
+}
+
+.col:nth-child(2) {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+  text-align: left;
+}
+
+.col:first-child::before {
+  position: absolute;
+  content: "";
+  width: 3px;
+  background-color: #333;
+  right: -10px;
+  top: 0;
+  bottom: 0;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.json pre {
+  color: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 1rem;
+  background-color: #333;
+}
+
+.json pre .property::before {
+  content: '"';
+}
+
+.json pre .property::after {
+  content: '" ';
+}
+
+.json pre .int::before {
+  content: ' ';
+}
+
+.json pre .string::before {
+  content: ' "';
+}
+
+.json pre .string::after {
+  content: '"';
+}
+
+.json pre .null::before {
+  content: ' ';
+}
+
+.json pre .null::after {
+  content: '';
+}
+
+.json pre .model::before {
+  content: '@';
+}
+
+.mapping::before {
+  content: "api/v1";
+}
+
+.errors ul, .params ul {
+  padding: .5rem 0;
+  list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: .5rem;
+}
+
+.errors .error, .errors .param, .params .error, .params .param {
+  background-color: #333;
+  line-height: 1.2rem;
+  border-radius: 4px;
+  font-size: 85%;
+  font-weight: bold;
+  padding: 0.2em 0.4em;
+  margin-right: 6px;
+}
+
+.errors .error, .params .error {
+  color: #EB5757;
+}
+
+.errors .param, .params .param {
+  color: #3498db;
+}
+/*# sourceMappingURL=styles.css.map */
+    </style>
+</head>
+
+<body>
+    <div class="document">
+        <h1>API documentation</h1>
+        <section>
+            <h2>User controller</h2>
+            <div class="endpoint">
+                <h3>Register</h3>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Registers a user</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/user/register</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col post bold">POST</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Not required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+    <span class="property">email</span>:<span class="string">teszt@elek.hu</span>,
+    <span class="property">password</span>:<span class="string">Teszt12345</span>,
+    <span class="property">firstname</span>:<span class="string">John</span>,
+    <span class="property">lastname</span>:<span class="string">Doe</span>,
+    <span class="property">gender</span>:<span class="string">MALE</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>{</span>
+    <span class="property">token</span>:<span class="string">jwt-token-here</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">400 Bad Request</span>The email or password is not valid.</li>
+                        <li><span class="error">403 Forbidden</span>Default response. Happens on any other error.</li>
+                        <li><span class="error">409 Conflict</span>The email address is already belongs to another user.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Login</h3>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Authenticates a user</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/user/login</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col post bold">POST</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Not required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+    <span class="property">email</span>:<span class="string">teszt@elek.hu</span>,
+    <span class="property">password</span>:<span class="string">Teszt12345</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>{</span>
+    <span class="property">token</span>:<span class="string">jwt-token-here</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Happens on any other error.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Get authenticated user</h3>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Returns the authenticated user</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/user/login</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col get bold">GET</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>{</span>
+    <span class="property">id</span>:<span class="int">1</span>,
+    <span class="property">firstname</span>:<span class="string"></span>,
+    <span class="property">lastname</span>:<span class="string"></span>,
+    <span class="property">gender</span>:<span class="string"></span>,
+    <span class="property">email</span>:<span class="string"></span>,
+    <span class="property">placeOfBirth</span>:<span class="null">null</span>,
+    <span class="property">dateOfBirth</span>:<span class="null">null</span>,
+    <span class="property">homeAddress</span>:<span class="null">null</span>,
+    <span class="property">citizenship</span>:<span class="null">null</span>,
+    <span class="property">identityCardNumber</span>:<span class="null">null</span>,
+    <span class="property">socialSecurityNumber</span>:<span class="null">null</span>,
+    <span class="property">phoneNumber</span>:<span class="null">null</span>,
+    <span class="property">fullName</span>:<span class="string">John Doe</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Happens on any other error.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>Business Controller</h2>
+            <div class="endpoint">
+                <h3>Create business</h3>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Creates a business</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/businesses</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col post bold">POST</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+    <span class="property">name</span>:<span class="string">John Doe EV</span>,
+    <span class="property">headQuarters</span>:<span class="string">8300 Tapolca x utca, 42</span>,
+    <span class="property">businessRegistrationDate</span>:<span class="string">2020-01-02</span>,
+    <span class="property">taxNumber</span>:<span class="string">1231232131-1-2</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 201</h3>
+<pre><code><span>{</span>
+    <span class="property">id</span>:<span class="int">1</span>,
+    <span class="property">name</span>:<span class="string">John Doe EV</span>,
+    <span class="property">headQuarters</span>:<span class="string">8300 Tapolca x utca, 42</span>,
+    <span class="property">businessRegistrationDate</span>:<span class="string">2020-01-02</span>,
+    <span class="property">taxNumber</span>:<span class="string">1231232131-1-2</span>,
+    <span class="property">owner</span>: {
+        <span class="property">id</span>:<span class="int">1</span>,
+        <span class="property">firstname</span>:<span class="string"></span>,
+        <span class="property">lastname</span>:<span class="string"></span>,
+        <span class="property">gender</span>:<span class="string"></span>,
+        <span class="property">email</span>:<span class="string"></span>,
+        <span class="property">placeOfBirth</span>:<span class="null">null</span>,
+        <span class="property">dateOfBirth</span>:<span class="null">null</span>,
+        <span class="property">homeAddress</span>:<span class="null">null</span>,
+        <span class="property">citizenship</span>:<span class="null">null</span>,
+        <span class="property">identityCardNumber</span>:<span class="null">null</span>,
+        <span class="property">socialSecurityNumber</span>:<span class="null">null</span>,
+        <span class="property">phoneNumber</span>:<span class="null">null</span>,
+        <span class="property">fullName</span>:<span class="string">John Doe</span>,
+    },
+    <span class="property">associates</span>: []
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Happens on any other error.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Get business</h3>
+                <div class="params">
+                    <h3>Parameters</h3>
+                    <p>This endpoint uses the following parameters:</p>
+                    <ul>
+                        <li><span class="param">id</span>(required) Specifies which business is supposed to be fetched.</li>
+                    </ul>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Returns a business by a given id parameter.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/businesses/{id}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col get bold">GET</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>{</span>
+    <span class="property">id</span>:<span class="int">1</span>,
+    <span class="property">name</span>:<span class="string">John Doe EV</span>,
+    <span class="property">headQuarters</span>:<span class="string">8300 Tapolca x utca, 42</span>,
+    <span class="property">businessRegistrationDate</span>:<span class="string">2020-01-02</span>,
+    <span class="property">taxNumber</span>:<span class="string">1231232131-1-2</span>,
+    <span class="property">owner</span>: {
+        <span class="property">id</span>:<span class="int">1</span>,
+        <span class="property">firstname</span>:<span class="string"></span>,
+        <span class="property">lastname</span>:<span class="string"></span>,
+        <span class="property">gender</span>:<span class="string"></span>,
+        <span class="property">email</span>:<span class="string"></span>,
+        <span class="property">placeOfBirth</span>:<span class="null">null</span>,
+        <span class="property">dateOfBirth</span>:<span class="null">null</span>,
+        <span class="property">homeAddress</span>:<span class="null">null</span>,
+        <span class="property">citizenship</span>:<span class="null">null</span>,
+        <span class="property">identityCardNumber</span>:<span class="null">null</span>,
+        <span class="property">socialSecurityNumber</span>:<span class="null">null</span>,
+        <span class="property">phoneNumber</span>:<span class="null">null</span>,
+        <span class="property">fullName</span>:<span class="string">John Doe</span>,
+    },
+    <span class="property">associates</span>: []
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Happens on any other error.</li>
+                        <li><span class="error">404 Not found</span>No business is found with the given id parameter.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Get owned businesses</h3>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Returns an array of the businesses owned by the user.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/businesses/owned</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col get bold">GET</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>[</span>
+    <span>{</span>
+        <span class="property">id</span>:<span class="int">1</span>,
+        <span class="property">name</span>:<span class="string">John Doe EV</span>,
+        <span class="property">headQuarters</span>:<span class="string">8300 Tapolca x utca, 42</span>,
+        <span class="property">businessRegistrationDate</span>:<span class="string">2020-01-02</span>,
+        <span class="property">taxNumber</span>:<span class="string">1231232131-1-2</span>,
+        <span class="property">owner</span>: {
+            <span class="property">id</span>:<span class="int">1</span>,
+            <span class="property">firstname</span>:<span class="string"></span>,
+            <span class="property">lastname</span>:<span class="string"></span>,
+            <span class="property">gender</span>:<span class="string"></span>,
+            <span class="property">email</span>:<span class="string"></span>,
+            <span class="property">placeOfBirth</span>:<span class="null">null</span>,
+            <span class="property">dateOfBirth</span>:<span class="null">null</span>,
+            <span class="property">homeAddress</span>:<span class="null">null</span>,
+            <span class="property">citizenship</span>:<span class="null">null</span>,
+            <span class="property">identityCardNumber</span>:<span class="null">null</span>,
+            <span class="property">socialSecurityNumber</span>:<span class="null">null</span>,
+            <span class="property">phoneNumber</span>:<span class="null">null</span>,
+            <span class="property">fullName</span>:<span class="string">John Doe</span>,
+        },
+        <span class="property">associates</span>: []
+    <span>},</span>
+<span>]</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Happens on any other error.</li>
+                        <li><span class="error">404 Not found</span>No business is being owned by the user.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Delete business</h3>
+                <div class="params">
+                    <h3>Parameters</h3>
+                    <p>This endpoint uses the following parameters:</p>
+                    <ul>
+                        <li><span class="param">id</span>(required) Specifies which business is supposed to be deleted.</li>
+                    </ul>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Deletes a business by a given id parameter.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/businesses/{id}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col delete bold">DELETE</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Only the owner has permission to delete a business.</li>
+                        <li><span class="error">404 Not found</span>No business is found with the given id parameter.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Modify a business</h3>
+                <div class="params">
+                    <h3>Parameters</h3>
+                    <p>This endpoint uses the following parameters:</p>
+                    <ul>
+                        <li><span class="param">id</span>(required) Specifies which business is supposed to be modified.</li>
+                    </ul>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Modifies a business by a given id parameter then returns it.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/businesses/{id}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col patch bold">PATCH</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+    <span class="property">name</span>:<span class="string">John Doe Vállalkozása</span>,
+    <span class="property">headQuarters</span>:<span class="string">8284 Nemesgulács x utca, 12</span>,
+    <span class="property">businessRegistrationDate</span>:<span class="string">2021-01-02</span>,
+    <span class="property">taxNumber</span>:<span class="string">1231232131-1-2</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>{</span>
+    <span class="property">id</span>:<span class="int">1</span>,
+    <span class="property">name</span>:<span class="string">John Doe Vállalkozása</span>,
+    <span class="property">headQuarters</span>:<span class="string">8284 Nemesgulács x utca, 12</span>,
+    <span class="property">businessRegistrationDate</span>:<span class="string">2021-01-02</span>,
+    <span class="property">taxNumber</span>:<span class="string">1231232131-1-2</span>,
+    <span class="property">owner</span>: {
+        <span class="property">id</span>:<span class="int">1</span>,
+        <span class="property">firstname</span>:<span class="string"></span>,
+        <span class="property">lastname</span>:<span class="string"></span>,
+        <span class="property">gender</span>:<span class="string"></span>,
+        <span class="property">email</span>:<span class="string"></span>,
+        <span class="property">placeOfBirth</span>:<span class="null">null</span>,
+        <span class="property">dateOfBirth</span>:<span class="null">null</span>,
+        <span class="property">homeAddress</span>:<span class="null">null</span>,
+        <span class="property">citizenship</span>:<span class="null">null</span>,
+        <span class="property">identityCardNumber</span>:<span class="null">null</span>,
+        <span class="property">socialSecurityNumber</span>:<span class="null">null</span>,
+        <span class="property">phoneNumber</span>:<span class="null">null</span>,
+        <span class="property">fullName</span>:<span class="string">John Doe</span>,
+    },
+    <span class="property">associates</span>: []
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Happens on any other error.</li>
+                        <li><span class="error">404 Not found</span>No business is found with the given id parameter.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Add employee</h3>
+                <div class="params">
+                    <h3>Parameters</h3>
+                    <p>This endpoint uses the following parameters:</p>
+                    <ul>
+                        <li><span class="param">id</span>(required) Specifies the business to which the employee is supposed to be added.</li>
+                    </ul>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Adds an employee to a business.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/businesses/{id}/addEmployee</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col put bold">PUT</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+    <span class="property">email</span>:<span class="string">employee@email.hu</span>,
+    <span class="property">placeOfBirth</span>:<span class="string">8300 Tapolca</span>,
+    <span class="property">dateOfBirth</span>:<span class="string">1998-12-14</span>,
+    <span class="property">homeAddress</span>:<span class="string">8284 Nemesgulács x utca, 45</span>,
+    <span class="property">citizenship</span>:<span class="string">Magyar</span>,
+    <span class="property">identityCardNumber</span>:<span class="string">234621XX</span>,
+    <span class="property">socialSecurityNumber</span>:<span class="string">111-222-333</span>,
+    <span class="property">phoneNumber</span>:<span class="string">(36) 20 736 1483</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Only the owner of the business can add a new employee.</li>
+                        <li><span class="error">404 Not found</span>No business or user is found with the given id or email parameter/field.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Remove employee</h3>
+                <div class="params">
+                    <h3>Parameters</h3>
+                    <p>This endpoint uses the following parameters:</p>
+                    <ul>
+                        <li><span class="param">businessId</span>(required) Specifies which business the employee is supposed to be removed from.</li>
+                        <li><span class="param">employeeId</span>(required) Specifies which employee is supposed to be removed.</li>
+                    </ul>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Removes an employee from a business.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/businesses/{businessId}/removeEmployee/{employeeId}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col delete bold">DELETE</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Only the owner of the business can remove an employee.</li>
+                        <li><span class="error">404 Not found</span>No business or user is found with the given id parameters.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Get business inventories</h3>
+                <div class="params">
+                    <h3>Parameters</h3>
+                    <p>This endpoint uses the following parameters:</p>
+                    <ul>
+                        <li><span class="param">id</span>(required) Specifies which business the inventories is supposed to be fetched from.</li>
+                    </ul>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Returns an array of inventories.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/businesses/{id}/inventories</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col delete bold">DELETE</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>[</span>
+    <span>{</span>
+        <span class="property">id</span>:<span class="int">1</span>,
+        <span class="property">name</span>:<span class="string">John Doe EV</span>,
+        <span class="property">headQuarters</span>:<span class="string">8300 Tapolca x utca, 42</span>,
+        <span class="property">businessRegistrationDate</span>:<span class="string">2020-01-02</span>,
+        <span class="property">taxNumber</span>:<span class="string">1231232131-1-2</span>,
+        <span class="property">owner</span>: {
+            <span class="property">id</span>:<span class="int">1</span>,
+            <span class="property">firstname</span>:<span class="string"></span>,
+            <span class="property">lastname</span>:<span class="string"></span>,
+            <span class="property">gender</span>:<span class="string"></span>,
+            <span class="property">email</span>:<span class="string"></span>,
+            <span class="property">placeOfBirth</span>:<span class="null">null</span>,
+            <span class="property">dateOfBirth</span>:<span class="null">null</span>,
+            <span class="property">homeAddress</span>:<span class="null">null</span>,
+            <span class="property">citizenship</span>:<span class="null">null</span>,
+            <span class="property">identityCardNumber</span>:<span class="null">null</span>,
+            <span class="property">socialSecurityNumber</span>:<span class="null">null</span>,
+            <span class="property">phoneNumber</span>:<span class="null">null</span>,
+            <span class="property">fullName</span>:<span class="string">John Doe</span>,
+        },
+        <span class="property">associates</span>: []
+    <span>},</span>
+<span>]</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Only the owner of the business can remove an employee.</li>
+                        <li><span class="error">404 Not found</span>No business or inventory is found with the given id parameter.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>Inventory controller</h2>
+            <div class="endpoint">
+                <h3>Create inventory</h3>
+                <div class="params">
+                    <h3>Parameters</h3>
+                    <p>This endpoint uses the following parameters:</p>
+                    <ul>
+                        <li><span class="param">id</span>(required) Specifies which business the inventory is supposed to be added to.</li>
+                    </ul>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Creates an inventory.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/inventory/{id}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col post bold">POST</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+    <span class="property">name</span>:<span class="string">Teszt raktár</span>,
+    <span class="property">address</span>:<span class="string">Tapolca x utca, 11</span>,
+    <span class="property">managerName</span>:<span class="string">Jeff</span>,
+    <span class="property">managerPhone</span>:<span class="string">(36) 20 381 5382</span>,
+    <span class="property">managerEmail</span>:<span class="string">jeff@email.hu</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 201</h3>
+<pre><code><span>{</span>
+    <span class="property">id</span>:<span class="int">1</span>,
+    <span class="property">name</span>:<span class="string">Teszt raktár</span>,
+    <span class="property">address</span>:<span class="string">Tapolca x utca, 11</span>,
+    <span class="property">managerName</span>:<span class="string">Jeff</span>,
+    <span class="property">managerPhone</span>:<span class="string">(36) 20 381 5382</span>,
+    <span class="property">managerEmail</span>:<span class="string">jeff@email.hu</span>,
+    <span class="property">products</span>: <span>[]</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Only the owner of the business can create an inventory.</li>
+                        <li><span class="error">404 Not found</span>No business is found with the given id parameter.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Get inventory</h3>
+                <div class="params">
+                    <h3>Parameters</h3>
+                    <p>This endpoint uses the following parameters:</p>
+                    <ul>Defines
+                        <li><span class="param">id</span>(required) Specifies which inventory is supposed to be fetched.</li>
+                    </ul>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Returns an inventory.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/inventory/{id}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col get bold">GET</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 201</h3>
+<pre><code><span>{</span>
+    <span class="property">id</span>:<span class="int">1</span>,
+    <span class="property">name</span>:<span class="string">Teszt raktár</span>,
+    <span class="property">address</span>:<span class="string">Tapolca x utca, 11</span>,
+    <span class="property">managerName</span>:<span class="string">Jeff</span>,
+    <span class="property">managerPhone</span>:<span class="string">(36) 20 381 5382</span>,
+    <span class="property">managerEmail</span>:<span class="string">jeff@email.hu</span>,
+    <span class="property">products</span>: <span>[]</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Happens on any other error.</li>
+                        <li><span class="error">404 Not found</span>No inventory is found with the given id parameter.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Delete inventory</h3>
+                <div class="params">
+                    <h3>Parameters</h3>
+                    <p>This endpoint uses the following parameters:</p>
+                    <ul>
+                        <li><span class="param">id</span>(required) Specifies which inventory is supposed to be deleted.</li>
+                    </ul>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Deletes an inventory.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/inventory/{id}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col delete bold">DELETE</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Happens on any other error.</li>
+                        <li><span class="error">404 Not found</span>No inventory is found with the given id parameter.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Modify inventory</h3>
+                <div class="params">
+                    <h3>Parameters</h3>
+                    <p>This endpoint uses the following parameters:</p>
+                    <ul>
+                        <li><span class="param">id</span>(required) Specifies which inventory is supposed to be modified.</li>
+                    </ul>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Modifies an inventory.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/inventory/{id}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col patch bold">PATCH</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+    <span class="property">name</span>:<span class="string">Új raktár</span>,
+    <span class="property">address</span>:<span class="string">Tapolca x utca, 11</span>,
+    <span class="property">managerName</span>:<span class="string">Jeff</span>,
+    <span class="property">managerPhone</span>:<span class="string">(36) 20 381 5382</span>,
+    <span class="property">managerEmail</span>:<span class="string">jeff@email.hu</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>{</span>
+    <span class="property">id</span>:<span class="int">1</span>,
+    <span class="property">name</span>:<span class="string">Új raktár</span>,
+    <span class="property">address</span>:<span class="string">Tapolca x utca, 11</span>,
+    <span class="property">managerName</span>:<span class="string">Jeff</span>,
+    <span class="property">managerPhone</span>:<span class="string">(36) 20 381 5382</span>,
+    <span class="property">managerEmail</span>:<span class="string">jeff@email.hu</span>,
+    <span class="property">products</span>: <span>[]</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Happens on any other error.</li>
+                        <li><span class="error">404 Not found</span>No inventory is found with the given id parameter.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Get products</h3>
+                <div class="params">
+                    <h3>Parameters</h3>
+                    <p>This endpoint uses the following parameters:</p>
+                    <ul>
+                        <li><span class="param">id</span>(required) Specifies from which inventory to get the products.</li>
+                    </ul>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Returns an array of products in an inventory.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/inventory/{id}/products</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col get bold">GET</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>{</span>
+    <span class="property">products</span>: <span>[]</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Happens on any other error.</li>
+                        <li><span class="error">404 Not found</span>No inventory is found with the given id parameter.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>Product controller</h2>
+            <div class="endpoint">
+                <h3>Create product</h3>
+                <div class="params">
+                    <h3>Parameters</h3>
+                    <p>This endpoint uses the following parameters:</p>
+                    <ul>
+                        <li><span class="param">id</span>(required) Specifies which inventory the product supposed to be added to.</li>
+                    </ul>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Creates a product.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/product/{id}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col post bold">POST</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+    <span class="property">name</span>:<span class="string">ASD Cipő</span>,
+    <span class="property">quantity</span>:<span class="string">10</span>,
+    <span class="property">category</span>:<span class="string">Cipő</span>,
+    <span class="property">itemNumber</span>:<span class="string">ASD_123_W</span>,
+    <span class="property">unit</span>:<span class="string">Darab</span>,
+    <span class="property">dynProperties</span>: <span>[</span>
+        <span class="property">Méret</span>:<span class="string">42</span>,
+        <span class="property">Szín</span>:<span class="string">Fehér</span>,
+    <span>]</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 201</h3>
+<pre><code><span>{</span>
+    <span class="property">id</span>:<span class="int">1</span>,
+    <span class="property">name</span>:<span class="string">ASD Cipő</span>,
+    <span class="property">quantity</span>:<span class="string">10</span>,
+    <span class="property">unit</span>:<span class="string">Darab</span>,
+    <span class="property">itemNumber</span>:<span class="string">ASD_123_W</span>,
+    <span class="property">category</span>:<span class="string">Cipő</span>,
+    <span class="property">addedToInventory</span>:<span class="string">2024-01-12</span>
+    <span class="property">dynProperties</span>: <span>[</span>
+        <span class="property">Méret</span>:<span class="string">42</span>,
+        <span class="property">Szín</span>:<span class="string">Fehér</span>,
+    <span>]</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Happens on any other error.</li>
+                        <li><span class="error">404 Not found</span>No inventory is found with the given id parameter.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Delete product</h3>
+                <div class="params">
+                    <h3>Parameters</h3>
+                    <p>This endpoint uses the following parameters:</p>
+                    <ul>
+                        <li><span class="param">inventoryId</span>(required) Specifies which inventory the product supposed to be removed from.</li>
+                        <li><span class="param">productId</span>(required) Specifies which product is supposed to be removed.</li>
+                    </ul>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Deletes a product.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/product/{inventoryId}/{productId}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col delete bold">DELETE</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>{</span>
+
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Happens on any other error.</li>
+                        <li><span class="error">404 Not found</span>No inventory or product is found with the given id parameters.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="endpoint">
+                <h3>Modify product</h3>
+                <div class="params">
+                    <h3>Parameters</h3>
+                    <p>This endpoint uses the following parameters:</p>
+                    <ul>
+                        <li><span class="param">id</span>(required) Specifies which product is supposed to be modified.</li>
+                    </ul>
+                </div>
+                <div class="details">
+                    <div class="row">
+                        <div class="col bold">Description</div>
+                        <div class="col">Modifies a product.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Endpoint</div>
+                        <div class="col mapping">/product/{id}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">HTTP Method</div>
+                        <div class="col patch bold">PATCH</div>
+                    </div>
+                    <div class="row">
+                        <div class="col bold">Bearer token</div>
+                        <div class="col">Required</div>
+                    </div>
+                </div>
+                <div class="json">
+                    <h3>Example request body</h3>
+<pre><code><span>{</span>
+    <span class="property">name</span>:<span class="string">ASD Cipő</span>,
+    <span class="property">quantity</span>:<span class="string">20</span>,
+    <span class="property">unit</span>:<span class="string">Darab</span>,
+    <span class="property">itemNumber</span>:<span class="string">ASD_123_W</span>,
+    <span class="property">category</span>:<span class="string">Cipő</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="json">
+                    <h3>Expected response 200</h3>
+<pre><code><span>{</span>
+    <span class="property">id</span>:<span class="int">1</span>,
+    <span class="property">name</span>:<span class="string">ASD Cipő</span>,
+    <span class="property">quantity</span>:<span class="string">20</span>,
+    <span class="property">unit</span>:<span class="string">Darab</span>,
+    <span class="property">itemNumber</span>:<span class="string">ASD_123_W</span>,
+    <span class="property">category</span>:<span class="string">Cipő</span>,
+    <span class="property">addedToInventory</span>:<span class="string">2024-01-12</span>
+    <span class="property">dynProperties</span>: <span>[</span>
+        <span class="property">Méret</span>:<span class="string">42</span>,
+        <span class="property">Szín</span>:<span class="string">Fehér</span>,
+    <span>]</span>,
+<span>}</span></code></pre>
+                </div>
+                <div class="errors">
+                    <h3>Errors</h3>
+                    <p>This endpoint uses the following error codes:</p>
+                    <ul>
+                        <li><span class="error">403 Forbidden</span>Default response. Happens on any other error.</li>
+                        <li><span class="error">404 Not found</span>No product is found with the given id parameters.</li>
+                        <li><span class="error">500 Internal Server Error</span>An unexpected error occurred on the server.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface InventoryRepository extends JpaRepository<Inventory,Integer> {
-    Optional<Inventory> findById(int id);
+    Optional<Inventory> findById(Integer id);
     Optional<Inventory> findByBusinessId(int id);
 
     @Query("SELECT i FROM Inventory i WHERE i.business.id = :businessId")

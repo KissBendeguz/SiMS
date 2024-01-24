@@ -7,8 +7,7 @@ import hu.spiralsoft.sims.repositories.BusinessRepository;
 import hu.spiralsoft.sims.repositories.InventoryRepository;
 import hu.spiralsoft.sims.repositories.UserRepository;
 import hu.spiralsoft.sims.security.JwtService;
-import hu.spiralsoft.sims.security.http.addEmployeeRequest;
-import jakarta.persistence.criteria.CriteriaBuilder;
+import hu.spiralsoft.sims.security.http.AddEmployeeRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,12 +34,15 @@ public class BusinessController {
     private InventoryRepository inventoryRepository;
     @Autowired
     private JwtService jwtService;
-
     @PostMapping("")
-    public ResponseEntity<Business> createBusiness(@AuthenticationPrincipal User authenticatedUser, @RequestBody Business body){
-        Optional<User> savedUser = userRepository.findById(authenticatedUser.getId());
-        if (savedUser.isEmpty()){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    public ResponseEntity<Business> createBusiness(@AuthenticationPrincipal User authenticatedUser, @RequestBody Business body) {
+        if (
+                body.getName() == null ||
+                body.getBusinessRegistrationDate() == null ||
+                body.getTaxNumber() == null ||
+                body.getHeadQuarters() == null
+        ){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         Business business = Business.builder()
                 .name(body.getName())
@@ -48,18 +50,22 @@ public class BusinessController {
                 .businessRegistrationDate(body.getBusinessRegistrationDate())
                 .taxNumber(body.getTaxNumber())
                 .headQuarters(body.getHeadQuarters())
-                .owner(savedUser.get())
                 .associates(new HashSet<>())
                 .build();
+
+        Optional<User> savedUserOptional = userRepository.findById(authenticatedUser.getId());
+        if (savedUserOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        User savedUser = savedUserOptional.get();
+        business.setOwner(savedUser);
         businessRepository.save(business);
-        savedUser.get().getAssociatedBusinesses().add(business);
-        userRepository.save(savedUser.get());
-        /*business.getAssociates().add(savedUser.get());
-        businessRepository.save(business);*/
+
+        savedUser.getAssociatedBusinesses().add(business);
+        userRepository.save(savedUser);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(business);
     }
-
     @GetMapping("/owned")
     public ResponseEntity<Set<Business>> getOwnedBusinesses(@AuthenticationPrincipal User authenticatedUser){
         Optional<Set<Business>> businesses = businessRepository.findByOwner(authenticatedUser);
@@ -70,15 +76,14 @@ public class BusinessController {
             return ResponseEntity.notFound().build();
         }
     }
-
     @GetMapping("")
     public ResponseEntity<Set<Business>> getAssociatedBusinesses(@AuthenticationPrincipal User authenticatedUser){
-        if(authenticatedUser.getAssociatedBusinesses()!=null){
+        userRepository.save(authenticatedUser);
+        if(!authenticatedUser.getAssociatedBusinesses().isEmpty()){
             return ResponseEntity.ok(authenticatedUser.getAssociatedBusinesses());
         }
         return ResponseEntity.notFound().build();
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<Business> getBusiness(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id){
         Optional<Business> optionalBusiness = businessRepository.findById(id);
@@ -92,7 +97,6 @@ public class BusinessController {
         return ResponseEntity.ok(business);
 
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBusiness(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id) {
         Optional<Business> optionalBusiness = businessRepository.findById(id);
@@ -131,7 +135,6 @@ public class BusinessController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
     @PatchMapping("/{id}")
     public ResponseEntity<Business> updateBusiness(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id, @RequestBody Business body){
         Optional<Business> optionalBusiness = businessRepository.findById(id);
@@ -139,17 +142,19 @@ public class BusinessController {
             return ResponseEntity.notFound().build();
         }
         Business business = optionalBusiness.get();
-        if (business.getOwner().equals(authenticatedUser)){
-
-            business.setName(body.getName());
-
-            businessRepository.save(business);
-            return ResponseEntity.ok(business);
+        if (!business.getOwner().equals(authenticatedUser)){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-        return ResponseEntity.notFound().build();
+        business.setName(body.getName());
+        business.setHeadQuarters(body.getHeadQuarters());
+        business.setBusinessRegistrationDate(body.getBusinessRegistrationDate());
+        business.setTaxNumber(body.getTaxNumber());
+
+        businessRepository.save(business);
+        return ResponseEntity.ok(business);
     }
     @PutMapping("/{id}/addEmployee")
-    public ResponseEntity<?> addEmployee(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id, @RequestBody addEmployeeRequest body){
+    public ResponseEntity<?> addEmployee(@AuthenticationPrincipal User authenticatedUser, @PathVariable Integer id, @RequestBody AddEmployeeRequest body){
         Optional<Business> optionalBusiness = businessRepository.findById(id);
         if(optionalBusiness.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -201,7 +206,6 @@ public class BusinessController {
         businessRepository.save(business);
         return ResponseEntity.ok().build();
     }
-
     @GetMapping("/{id}/inventories")
     public ResponseEntity<Set<Inventory>> getBusinessInventories(@AuthenticationPrincipal User authenticatedUser,@PathVariable Integer id){
         Optional<Set<Inventory>> oInventories = inventoryRepository.findAllByBusinessId(id);

@@ -7,6 +7,8 @@ import hu.spiralsoft.sims.entities.User;
 import hu.spiralsoft.sims.repositories.InventoryRepository;
 import hu.spiralsoft.sims.repositories.ProductRepository;
 import hu.spiralsoft.sims.repositories.UserRepository;
+import hu.spiralsoft.sims.security.JwtService;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,12 @@ import java.util.Optional;
 @RequestMapping("/${application.api.ver}/product")
 @RequiredArgsConstructor
 public class ProductController {
-    private final UserRepository userRepository;
-    private final InventoryRepository inventoryRepository;
-    private final ProductRepository productRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private InventoryRepository inventoryRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @PostMapping("/{inventoryId}")
     public ResponseEntity<Product> createProduct(
@@ -39,6 +44,12 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
+        Optional<User> savedUserOptional = userRepository.findById(authenticatedUser.getId());
+        if (savedUserOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        User savedUser = savedUserOptional.get();
+
         Inventory inventory = inventoryOptional.get();
 
         Product product = Product.builder()
@@ -48,7 +59,7 @@ public class ProductController {
                 .itemNumber(requestBody.getItemNumber())
                 .unit(requestBody.getUnit())
                 .addedToInventory(new Date())
-                .addedBy(authenticatedUser)
+                .addedBy(savedUser)
                 .inventory(inventory)
                 .dynProperties(requestBody.getDynProperties())
                 .build();

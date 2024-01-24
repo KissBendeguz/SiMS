@@ -80,10 +80,12 @@ public class InventoryController {
         Optional<Inventory> inventoryOptional = inventoryRepository.findById(id);
 
         if (inventoryOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-
         Inventory inventory = inventoryOptional.get();
+        if(!inventory.getBusiness().getAssociates().contains(authenticatedUser)){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
         return ResponseEntity.ok(inventory);
     }
 
@@ -114,13 +116,14 @@ public class InventoryController {
     public ResponseEntity<Set<Product>> getAllProducts(@AuthenticationPrincipal User authenticatedUser, @PathVariable int id) {
         Optional<Inventory> oInventory = inventoryRepository.findById(id);
 
-        if (oInventory.isPresent()) {
-            Inventory inventory = oInventory.get();
-            if (inventory.getBusiness().getOwner().equals(authenticatedUser)) {
-                return ResponseEntity.ok(inventory.getProducts());
-            }
+        if (oInventory.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        Inventory inventory = oInventory.get();
+        if (!inventory.getBusiness().getAssociates().contains(authenticatedUser)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(inventory.getProducts());
     }
 }

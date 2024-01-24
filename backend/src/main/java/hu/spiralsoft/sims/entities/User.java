@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -42,7 +43,7 @@ public class User extends BaseEntity implements UserDetails {
             name = "business_user_map",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "business_id"))
-    private Set<Business> associatedBusinesses;
+    private Set<Business> associatedBusinesses = new HashSet<>();
 
 
     public String getFullName(){
