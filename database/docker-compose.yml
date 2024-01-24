@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: sims_container
+    environment:
+      POSTGRES_DB: sims
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: ascendesuperius
+    ports:
+      - "5432:5432"
